@@ -4,32 +4,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Taller I</title>
-<style type="text/css">
-fieldset {
-	border: 1px solid #dedede;
-}
+  <meta charset="UTF-8">
+  <title>Taller I</title>
+  <%@include file="head.jsp"%> 
+  <style type="text/css">
+  fieldset {
+  	border: 1px solid #dedede;
+  }
 
-legend {
-	font-size: 20px;
-	text-transform: uppercase;
-}
+  legend {
+  	font-size: 20px;
+  	text-transform: uppercase;
+  }
 
-.error {
-	color: red;
-}
+  .error {
+  	color: red;
+  }
 
-.resltTable {
-	width: 50%;
-	border-collapse: collapse;
-	border-spacing: 0px;
-}
+  .resltTable {
+  	width: 50%;
+  	border-collapse: collapse;
+  	border-spacing: 0px;
+  }
 
-.resltTable td, .resltTable th {
-	border: 1px solid #565454;
-}
-</style>
+  .resltTable td, .resltTable th {
+  	border: 1px solid #565454;
+  }
+  </style>
 </head>
 <body>
   <fieldset>
