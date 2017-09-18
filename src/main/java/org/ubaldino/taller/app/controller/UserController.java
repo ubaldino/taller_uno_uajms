@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.ubaldino.taller.app.model.User;
-import org.ubaldino.taller.app.service.UserService;
+import org.ubaldino.taller.app.service.UserServiceInterface;
 
 /**
  * @author Ubaldino Zurita
@@ -21,30 +21,27 @@ import org.ubaldino.taller.app.service.UserService;
 @Controller
 public class UserController {
 
-   @Autowired
-   private UserService userService;
+    @Autowired
+    private UserServiceInterface userService;
 
-   @GetMapping("/")
-   public String userForm(Locale locale, Model model) {
-
+    @GetMapping("/users")
+    public String userForm(Locale locale, Model model) {
       model.addAttribute("user", new User());
       model.addAttribute("users", userService.list());
-
       return "userForm";
-   }
+    }
 
-   @PostMapping("/saveUser")
-   public String saveUser(@ModelAttribute("user") @Valid User user,
-         BindingResult result, Model model) {
-
-      if (result.hasErrors()) {
-         
-         model.addAttribute("users", userService.list());
-         return "userForm";
-      }
-
-      userService.save(user);
-
-      return "redirect:/";
-   }
+    @PostMapping("/saveUser")
+    public String saveUser(
+        @ModelAttribute("user") @Valid User user,
+        BindingResult result,
+        Model model
+    ) {
+        if (result.hasErrors()) {
+            model.addAttribute("users", userService.list());
+            return "userForm";
+        }
+        userService.save(user);
+        return "redirect:/users";
+    }
 }

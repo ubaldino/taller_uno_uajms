@@ -1,3 +1,8 @@
+<%-- 
+    Document   : index
+    Created on : 16-sep-2017, 22:38:31
+    Author     : ubaldino
+--%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -38,15 +43,15 @@
     <form:form action="saveUser" method="post" modelAttribute="user">
       <table>
         <tr>
-          <th>Name</th>
+          <th>Login</th>
           <td>
-            <form:input path="name" /> 
-            <form:errors path="name" cssClass="error" />
+            <form:input path="login" /> 
+            <form:errors path="login" cssClass="error" />
           </td>
-          <th>Email</th>
+          <th>Password</th>
           <td>
-            <form:input path="email" /> 
-            <form:errors path="email" cssClass="error" />
+            <form:input path="password" /> 
+            <form:errors path="password" cssClass="error" />
           </td>
           <td><button type="submit">Submit</button></td>
         </tr>
@@ -60,13 +65,13 @@
     <legend>Users List</legend>
     <table class="resltTable">
       <tr>
-        <th>Name</th>
-        <th>Email</th>
+        <th>Login</th>
+        <th>Estado</th>
       </tr>
       <c:forEach items="${users}" var="user">
         <tr>
-          <td>${user.name}</td>
-          <td>${user.email}</td>
+          <td>${user.login}</td>
+          <td>${user.estado}</td>
         </tr>
       </c:forEach>
 

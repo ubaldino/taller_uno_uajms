@@ -1,53 +1,59 @@
 package org.ubaldino.taller.app.model;
 
+import java.io.Serializable;
+import java.sql.SQLException;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.ColumnDefault;
 
-import org.hibernate.validator.constraints.Email;
 
 @Entity
-@Table(name = "USER_TBL")
-public class User {
+@Table(name="USUARIOS")
+public class User implements Serializable {
 
-   @Id
-   @GeneratedValue
-   @Column(name = "UID")
-   private Long id;
+    
+    @Id
+    @Column(name="LOGIN")
+    @Size(max=10,min=3,message="{user.login.invalid}")
+    private String login;
 
-   @Column(name = "NAME")
-   @Size(max = 20, min = 3, message = "{user.name.invalid}")
-   private String name;
+    @NotNull
+    @Column(name="PASSWORD" )
+    @Size(min=3,message="{user.password.invalid}")
+    private String password;
 
-   @Column(name = "EMAIL", unique = true)
-   @Email(message = "{user.email.invalid}")
-   private String email;
+    
+    @NotNull
+    @Column(name="ESTADO",insertable=false,updatable=true)
+    @ColumnDefault("1")
+    private int estado;
+    
+    public String getLogin() {
+        return login;
+    }
 
-   public Long getId() {
-      return id;
-   }
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-   public void setId(Long id) {
-      this.id = id;
-   }
+    public String getPassword() {
+        return password;
+    }
 
-   public String getName() {
-      return name;
-   }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public int getEstado() {
+        return estado;
+    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public void setEmail(String email) {
-      this.email = email;
-   }
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
 
 }

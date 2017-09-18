@@ -19,8 +19,9 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "org.ubaldino.taller.app.controller",
-      "org.ubaldino.taller.app.validator" })
+@ComponentScan(basePackages = { 
+   "org.ubaldino.taller.app.controller","org.ubaldino.taller.app.validator" 
+})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
    @Bean
