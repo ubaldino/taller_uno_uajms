@@ -1,6 +1,7 @@
 package org.ubaldino.taller.app.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +16,12 @@ import javax.validation.constraints.NotNull;
 @Table(name="ROLME")
 public class RolMenu implements Serializable {
     
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5971708711302242650L;
+
+	@Id
     @NotNull
     @Column(name="CODR")
     private Long codr;

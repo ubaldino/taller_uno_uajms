@@ -17,6 +17,10 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new Class[] { WebConfig.class };
     }
    
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/" };
+    }
     /**
      * {@inheritDoc}
      *
@@ -36,8 +40,5 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
      *
      * @see org.springframework.web.servlet.support.AbstractDispatcherServletInitializer#getServletMappings()
      */
-    @Override
-    protected String[] getServletMappings() {
-        return new String[] { "/" };
-    }
+    
 }

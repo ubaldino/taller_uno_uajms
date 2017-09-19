@@ -1,6 +1,5 @@
 package org.ubaldino.taller.app.service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,9 @@ public class UserService implements UserServiceInterface {
 
     @Autowired
     private UserDaoInterface userDao;
-
-    public UserDaoInterface getUserDao(){
-        return this.userDao;
-    }
+    
+    //@Autowired
+    //private PasswordEncoder passwordEncoder;
 
     public void setUserDao(UserDaoInterface userDao){
         this.userDao = userDao;
@@ -31,7 +29,8 @@ public class UserService implements UserServiceInterface {
     @Transactional
     @Override
     public void save(User user) {
-       userDao.save(user);
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.save(user);
     }
 
     @Transactional(readOnly=true)
@@ -40,10 +39,17 @@ public class UserService implements UserServiceInterface {
        return userDao.list();
     }
     
+    @Override
+    public User getUser(String login) {
+        return userDao.findById(login);
+    }
+    
+    /*
     @Transactional
     @Override
     public boolean isValidUser(String login, String password) throws SQLException {
         return userDao.isValidUser(login, password);
     }
+    */
     
 }

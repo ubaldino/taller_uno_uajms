@@ -19,9 +19,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { 
-   "org.ubaldino.taller.app.controller","org.ubaldino.taller.app.validator" 
-})
+@ComponentScan(basePackages = {"org.ubaldino.taller.app"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
    @Bean
@@ -53,5 +51,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                .addResourceLocations("/")
                .setCachePeriod(0);
    }
-
 }

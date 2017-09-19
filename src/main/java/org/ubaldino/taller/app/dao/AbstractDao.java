@@ -15,10 +15,9 @@ public abstract class AbstractDao<E> implements EntityDao<E> {
 
     private final Class<E> entityClass;
 
-    public AbstractDao() {
-        this.entityClass =
-        (Class<E>) ((ParameterizedType)
-        this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    @SuppressWarnings("unchecked")
+	public AbstractDao() {
+        this.entityClass=(Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
     @Autowired

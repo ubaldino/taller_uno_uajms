@@ -1,11 +1,13 @@
 package org.ubaldino.taller.app.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.ColumnDefault;
 
 /**
@@ -16,7 +18,14 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name="MENUS")
 public class Menu implements Serializable {
     
-    @Id
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4422801687701206632L;
+
+	@Id
     @Column(name="CODM",nullable=false)
     private Long codm;
     

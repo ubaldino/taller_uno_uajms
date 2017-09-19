@@ -1,7 +1,7 @@
 package org.ubaldino.taller.app.model;
 
 import java.io.Serializable;
-import javafx.beans.DefaultProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.ColumnDefault;
 
 /**
@@ -19,7 +20,12 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name="procesos")
 public class Proceso implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2014399708718489056L;
+
+	@Id
     @NotNull
     @GeneratedValue
     @Column(name="CODP")

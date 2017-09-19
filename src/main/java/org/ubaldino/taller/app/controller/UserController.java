@@ -26,17 +26,13 @@ public class UserController {
 
     @GetMapping("/users")
     public String userForm(Locale locale, Model model) {
-      model.addAttribute("user", new User());
-      model.addAttribute("users", userService.list());
-      return "userForm";
+        model.addAttribute("user", new User());
+        model.addAttribute("users", userService.list());
+        return "userForm";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(
-        @ModelAttribute("user") @Valid User user,
-        BindingResult result,
-        Model model
-    ) {
+    public String saveUser(@ModelAttribute("user") @Valid User user,BindingResult result,Model model){
         if (result.hasErrors()) {
             model.addAttribute("users", userService.list());
             return "userForm";

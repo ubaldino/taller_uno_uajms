@@ -1,13 +1,20 @@
 package org.ubaldino.taller.app.model;
 
 import java.io.Serializable;
-import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.ColumnDefault;
 
 
@@ -15,8 +22,12 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name="USUARIOS")
 public class User implements Serializable {
 
-    
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 806778727295783363L;
+
+	@Id
     @Column(name="LOGIN")
     @Size(max=10,min=3,message="{user.login.invalid}")
     private String login;
@@ -31,6 +42,26 @@ public class User implements Serializable {
     @Column(name="ESTADO",insertable=false,updatable=true)
     @ColumnDefault("1")
     private int estado;
+    
+    
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="usurol",
+        joinColumns = {
+            @JoinColumn(name="login", nullable = false, updatable = false)
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name = "codr", nullable = false, updatable = false) 
+        }
+    )
+    private Set<Role> roles = new HashSet<Role>(0);
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
     
     public String getLogin() {
         return login;
