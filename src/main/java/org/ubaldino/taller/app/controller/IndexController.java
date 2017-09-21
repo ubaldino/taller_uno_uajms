@@ -1,12 +1,11 @@
 package org.ubaldino.taller.app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.ubaldino.taller.app.model.User;
-import org.ubaldino.taller.app.security.CustomUserDetails;
 /**
  *
  * @author ubaldino
@@ -29,6 +28,17 @@ public class IndexController {
     */
     @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
     public ModelAndView index() {
+        /*
+        Session session;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+        } catch (HibernateException e) {
+            session = sessionFactory.openSession();
+        }
+        */
+        
+        
         //User user=userDetails.getUser();
         ModelAndView mav = new ModelAndView();
         //mav.addObject("user", user.getLogin());

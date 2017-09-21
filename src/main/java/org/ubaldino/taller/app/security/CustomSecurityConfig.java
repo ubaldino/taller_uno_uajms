@@ -5,25 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.ubaldino.taller.app.service.CustomUserDetailsService;
 
         
 @Configuration
 @EnableWebSecurity
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    //
     @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;
+    @Autowired private UserDetailsService userDetailsService;
 
     /*
     @Autowired
@@ -42,6 +39,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
         .authorizeRequests().antMatchers("/*").permitAll();
         */
+        /*
         http.authorizeRequests().antMatchers("/", "/list")
         .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
         .antMatchers("/newuser/**", "/delete-user-*")
@@ -52,6 +50,17 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         .loginProcessingUrl("/login")
         .usernameParameter("login").passwordParameter("password").and()
         .rememberMe().rememberMeParameter("remember-me");
+        */
+        http.csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/public/**").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/login")
+            .usernameParameter("login").passwordParameter("password")
+            .permitAll();
     }
     /*
     @Bean
@@ -59,7 +68,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
     */
-
+   
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -67,6 +76,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         //authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+    
     /*
     @Bean
     public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
@@ -75,10 +85,11 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         return tokenBasedservice;
     }
     */
-
+    /*
     @Bean
     public AuthenticationTrustResolver getAuthenticationTrustResolver() {
         return new AuthenticationTrustResolverImpl();
     }
+    */
 
 }

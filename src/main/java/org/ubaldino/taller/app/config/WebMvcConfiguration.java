@@ -19,8 +19,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"org.ubaldino.taller.app"})
-public class WebConfig extends WebMvcConfigurerAdapter {
+@ComponentScan("org.ubaldino.taller.app")
+public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
 
    @Bean
    public InternalResourceViewResolver resolver() {
@@ -51,4 +51,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                .addResourceLocations("/")
                .setCachePeriod(0);
    }
+   /*
+   @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    }
+    */
 }
