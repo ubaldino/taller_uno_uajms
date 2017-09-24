@@ -1,7 +1,10 @@
 package org.ubaldino.taller.app.controller;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class IndexController {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
  
     /*
     @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
@@ -24,10 +29,23 @@ public class IndexController {
     
     /**
       * This method will list all existing users.
+     * @param request
+     * @param response
+     * @param auth
      * @return 
     */
     @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-    public ModelAndView index() {
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Authentication auth) {
+        LOGGER.debug("****************************************");
+        LOGGER.debug("::INDEX::"); 
+        LOGGER.debug("User: "+auth.getName());
+        LOGGER.debug("Auth: "+auth.isAuthenticated());
+        
+        auth.getAuthorities().forEach((t) -> {
+            LOGGER.debug(t.getAuthority() );
+        });
+        
+        LOGGER.debug("****************************************");
         /*
         Session session;
 
@@ -45,32 +63,4 @@ public class IndexController {
         mav.setViewName("index");
         return mav;
     }
-    /*
-    @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
-    public String index(Model model) {
-        List<User> users = userService.list();
-        model.addAttribute("users", users);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "userList";
-        
-        return "index";
-    }
-    */
-    
-    /**
-      * This method returns the principal[user-name] of logged-in user.
-    */
-    /*
-    private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-             userName = ((UserDetails)principal).getUsername();
-        } else {
-             userName = principal.toString();
-        }
-        return userName;
-    }
-    */
-   
 }

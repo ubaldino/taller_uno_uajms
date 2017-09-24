@@ -3,6 +3,7 @@ package org.ubaldino.taller.app.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +14,14 @@ import org.ubaldino.taller.app.dao.UserDaoInterface;
  * @author Ubaldino Zurita
  *
  */
-@Service
+@Service("userService")
 public class UserService implements UserServiceInterface {
 
     @Autowired
     private UserDaoInterface userDao;
     
-    //@Autowired
-    //private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void setUserDao(UserDaoInterface userDao){
         this.userDao = userDao;
@@ -29,7 +30,7 @@ public class UserService implements UserServiceInterface {
     @Transactional
     @Override
     public void save(User user) {
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
@@ -42,14 +43,5 @@ public class UserService implements UserServiceInterface {
     @Override
     public User getUser(String login) {
         return userDao.findById(login);
-    }
-    
-    /*
-    @Transactional
-    @Override
-    public boolean isValidUser(String login, String password) throws SQLException {
-        return userDao.isValidUser(login, password);
-    }
-    */
-    
+    }    
 }
