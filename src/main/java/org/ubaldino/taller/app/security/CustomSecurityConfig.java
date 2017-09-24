@@ -24,6 +24,8 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customUserDetailsService")
     @Autowired private UserDetailsService userDetailsService;
 
+    @Autowired private CustomAuthenticationSuccessHandler successHandler ;
+    
     /*
     @Autowired
     PersistentTokenRepository tokenRepository;
@@ -59,17 +61,16 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/admin/**").hasAuthority("Admin")
         .antMatchers("/user/**").hasAuthority("USER")
         .anyRequest().authenticated()
-        
         .and()
             .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .usernameParameter("login").passwordParameter("password")
-                .permitAll()
+                    .loginProcessingUrl("/login")
+                    .usernameParameter("login").passwordParameter("password")
+                    .permitAll().successHandler(successHandler)
                 .and()
-            .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/login");
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login");
     }
     
     @Bean
