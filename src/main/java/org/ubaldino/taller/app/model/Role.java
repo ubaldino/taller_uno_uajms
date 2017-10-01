@@ -28,11 +28,11 @@ import org.hibernate.annotations.ColumnDefault;
 public class Role implements Serializable {
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = -1109080371998017560L;
+    * 
+    */
+    private static final long serialVersionUID = -1109080371998017560L;
 
-	@Id
+    @Id
     @Column(name="CODR")
     @GeneratedValue
     private Long codr;
