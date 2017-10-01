@@ -27,8 +27,9 @@ public class RoleDao implements RoleDaoInterface{
 
     @Override
     public List<Role> list() {
-        @SuppressWarnings("unchecked")
-		TypedQuery<Role> query = sessionFactory.getCurrentSession().createQuery("from User");
+        
+        @SuppressWarnings("JPQLValidation")
+        TypedQuery<Role> query = sessionFactory.getCurrentSession().createQuery("from Role");
         return query.getResultList();
     }
     

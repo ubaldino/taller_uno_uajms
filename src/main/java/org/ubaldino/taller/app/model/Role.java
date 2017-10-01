@@ -39,7 +39,7 @@ public class Role implements Serializable {
     
     @NotNull
     @Column(name="NOMBRE")
-    @Size(max=10,min=3,message="{user.login.invalid}")
+    @Size(max=24,min=3,message="{user.login.invalid}")
     private String nombre;
     
     @NotNull

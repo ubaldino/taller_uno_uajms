@@ -17,11 +17,11 @@ import javax.validation.constraints.NotNull;
 public class RolMenu implements Serializable {
     
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 5971708711302242650L;
+    * 
+    */
+    private static final long serialVersionUID = 5971708711302242650L;
 
-	@Id
+    @Id
     @NotNull
     @Column(name="CODR")
     private Long codr;

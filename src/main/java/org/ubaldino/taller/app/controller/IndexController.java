@@ -1,5 +1,7 @@
 package org.ubaldino.taller.app.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -16,50 +18,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
  
-    /*
-    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-    public ModelAndView getUserListing() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("index");
-        return mav;
-    }
-    */
-    
     /**
       * This method will list all existing users.
-     * @param request
-     * @param response
-     * @param auth
-     * @return 
+      * @param request
+      * @param response
+      * @param auth
+      * @return 
     */
-    @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
+    @RequestMapping(value={"/"},method=RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response,Authentication auth) {
-        LOGGER.debug("****************************************");
-        LOGGER.debug("::INDEX::"); 
-        LOGGER.debug("User: "+auth.getName());
-        LOGGER.debug("Auth: "+auth.isAuthenticated());
-        
-        auth.getAuthorities().forEach((t) -> {
-            LOGGER.debug(t.getAuthority() );
-        });
-        
-        LOGGER.debug("****************************************");
-        /*
-        Session session;
-
-        try {
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            session = sessionFactory.openSession();
-        }
-        */
-        
-        
-        //User user=userDetails.getUser();
         ModelAndView mav = new ModelAndView();
-        //mav.addObject("user", user.getLogin());
+        mav.addObject("auth",auth);
+        mav.addObject("date",(String)new SimpleDateFormat("dd/MMMM/yyyy").format(new Date()));
         mav.setViewName("index");
         return mav;
     }

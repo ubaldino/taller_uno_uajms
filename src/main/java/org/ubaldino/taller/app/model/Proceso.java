@@ -21,11 +21,11 @@ import org.hibernate.annotations.ColumnDefault;
 public class Proceso implements Serializable {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 2014399708718489056L;
+    * 
+    */
+    private static final long serialVersionUID = 2014399708718489056L;
 
-	@Id
+    @Id
     @NotNull
     @GeneratedValue
     @Column(name="CODP")

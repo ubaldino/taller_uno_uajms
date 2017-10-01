@@ -24,20 +24,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 
     // API
     @Override
-    public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
-        handle(request, response, authentication);
+    public void onAuthenticationSuccess(HttpServletRequest request,HttpServletResponse response,Authentication authentication) throws IOException {
+        handle(request,response,authentication);
         clearAuthenticationAttributes(request);
     }
 
     // IMPL
-    protected void handle(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
+    protected void handle(HttpServletRequest request,HttpServletResponse response,Authentication authentication) throws IOException {
         final String targetUrl = determineTargetUrl(authentication);
         if (response.isCommitted()) {
             LOGGER.debug("Response has already been committed. Unable to redirect to " + targetUrl);
@@ -46,8 +46,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-    protected String determineTargetUrl(final Authentication authentication) {
-        return "/overview";
+    protected String determineTargetUrl(Authentication authentication) {
+        return "/dashboard";
     }
 
     /**
@@ -55,7 +55,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
      * during the authentication process.
      * @param request
      */
-    protected final void clearAuthenticationAttributes(final HttpServletRequest request) {
+    protected final void clearAuthenticationAttributes(HttpServletRequest request) {
         final HttpSession session = request.getSession(false);
         if(session==null){
             return;
@@ -63,7 +63,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
-    public void setRedirectStrategy(final RedirectStrategy redirectStrategy) {
+    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
     }
 

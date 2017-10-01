@@ -14,9 +14,6 @@ import org.ubaldino.taller.app.model.User;
  *
  * @author ubaldino
  */
-
-
-
 public class CustomUserDetails implements UserDetails{
     
     private static final long serialVersionUID = 74446635341925780L;

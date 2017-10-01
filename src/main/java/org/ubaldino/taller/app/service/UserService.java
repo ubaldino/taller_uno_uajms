@@ -43,5 +43,9 @@ public class UserService implements UserServiceInterface {
     @Override
     public User getUser(String login) {
         return userDao.findById(login);
-    }    
+    }
+    
+    public void deleteUser(String login) {
+        userDao.delete(login);
+    }
 }
