@@ -5,6 +5,7 @@ import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,11 +32,11 @@ public class Profile implements Serializable {
     private String nombre;
 
     @Column(name="AP")
-    @Size(max=40,min=1)
+    @Size(max=40)
     private String ap;
 
     @Column(name="AM")
-    @Size(max=40,min=1)
+    @Size(max=40)
     private String am;
 
     @NotNull
@@ -57,11 +58,11 @@ public class Profile implements Serializable {
     private String genero;
 
     @Column(name="DIREC")
-    @Size(max=50,min=1)
+    @Size(max=50)
     private String direc;
 
     @Column(name="TELF")
-    @Size(max=20,min=1)
+    @Size(max=20)
     private String telf;
 
     @NotNull
@@ -70,20 +71,28 @@ public class Profile implements Serializable {
     private String tipo;
 
     @Column(name="FOTO")
-    @Size(max=30,min=1)
+    @Size(max=120,min=1)
     private String foto;
     
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="codp")
+    @OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    //@JoinColumn(name="codp",nullable=true)
     private User user;
+    
+    @OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name="codp",nullable=true)
+    private Data data;
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
 
 
     public Long getCodp() {
         return codp;
-    }
-
-    public void setCodp(Long codp) {
-        this.codp = codp;
     }
 
     public String getNombre() {

@@ -1,28 +1,34 @@
 package org.ubaldino.taller.app.service;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.ubaldino.taller.app.dao.ProfileDaoInterface;
+import org.ubaldino.taller.app.dao.ProfileDao;
 import org.ubaldino.taller.app.model.Profile;
 
 /**
  *
  * @author ubaldino
  */
-public class ProfileService implements ProfileServiceInterface{
+@Service
+public class ProfileService{
 
     @Autowired
-    private ProfileDaoInterface profileDao;
+    private ProfileDao profileDao;
      
     @Transactional
-    @Override
     public void save(Profile profile) {
         profileDao.save(profile);
     }
 
-    @Override
+    @Transactional
     public Profile getProfile(Long id) {
         return profileDao.findById(id);
     }    
+    @Transactional
+    public List<Profile> list() {
+       return profileDao.findAll();
+    }
     
 }

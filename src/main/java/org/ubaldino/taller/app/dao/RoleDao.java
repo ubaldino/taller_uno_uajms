@@ -9,12 +9,14 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.ubaldino.taller.app.model.Role;
 
 /**
  *
  * @author ubaldino
  */
+@Repository
 public class RoleDao implements RoleDaoInterface{
     
     @Autowired

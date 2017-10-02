@@ -42,8 +42,8 @@ public class User implements Serializable {
     @ColumnDefault("1")
     private int estado;
     
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="codp")
+    @OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+    //@JoinColumn(name="codp",nullable=true)
     private Profile profile;
 
     @ManyToMany(fetch=FetchType.LAZY)

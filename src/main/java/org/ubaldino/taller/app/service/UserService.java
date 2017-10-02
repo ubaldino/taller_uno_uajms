@@ -6,46 +6,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ubaldino.taller.app.dao.UserDao;
 
 import org.ubaldino.taller.app.model.User;
-import org.ubaldino.taller.app.dao.UserDaoInterface;
 
 /**
  * @author Ubaldino Zurita
  *
  */
-@Service("userService")
-public class UserService implements UserServiceInterface {
+@Service
+public class UserService {
 
     @Autowired
-    private UserDaoInterface userDao;
+    private UserDao userDao;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void setUserDao(UserDaoInterface userDao){
+    public void setUserDao(UserDao userDao){
         this.userDao = userDao;
     }
     
     @Transactional
-    @Override
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 
     @Transactional(readOnly=true)
-    @Override
     public List<User> list() {
-       return userDao.list();
+       return userDao.findAll();
     }
     
-    @Override
+    @Transactional
     public User getUser(String login) {
         return userDao.findById(login);
     }
     
+    @Transactional
     public void deleteUser(String login) {
-        userDao.delete(login);
+        userDao.deleteById(login);
     }
 }

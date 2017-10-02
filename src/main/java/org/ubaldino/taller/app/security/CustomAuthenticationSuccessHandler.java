@@ -25,7 +25,6 @@ import org.springframework.stereotype.Component;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 

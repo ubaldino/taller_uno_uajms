@@ -1,5 +1,6 @@
 package org.ubaldino.taller.app.service;
 
+import java.util.List;
 import org.ubaldino.taller.app.model.Profile;
 
 /**
@@ -7,6 +8,12 @@ import org.ubaldino.taller.app.model.Profile;
  * @author ubaldino
  */
 public interface ProfileServiceInterface {
-    public void save(Profile user);
+
+    /**
+     *
+     * @param profile
+     */
+    public void save(Profile profile);
     public Profile getProfile(Long id);
+    public List<Profile> list();
 }

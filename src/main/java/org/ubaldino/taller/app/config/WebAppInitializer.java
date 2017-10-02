@@ -1,12 +1,16 @@
 package org.ubaldino.taller.app.config;
 
+import javax.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  * @author Ubaldino Zurita
  */
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
+    
+   @Autowired private ServletContext context;
+    
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] { AppConfig.class };
@@ -21,6 +25,8 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected String[] getServletMappings() {
         return new String[] { "/" };
     }
+    
+ 
     /**
      * {@inheritDoc}
      *
@@ -35,10 +41,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new Filter[] { encodingFilter };
     }
     */
-    /**
-     * {@inheritDoc}
-     *
-     * @see org.springframework.web.servlet.support.AbstractDispatcherServletInitializer#getServletMappings()
-     */
-    
 }
