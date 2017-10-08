@@ -1,7 +1,11 @@
 package org.ubaldino.taller.app.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import de.neuland.jade4j.JadeConfiguration;
+import de.neuland.jade4j.spring.template.SpringTemplateLoader;
+import de.neuland.jade4j.spring.view.JadeViewResolver;
+import javax.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,23 +14,29 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+
+
+
+
 
 /**
  * @author Ubaldino Zurita
  */
-
 @Configuration
 @EnableWebMvc
-@ComponentScan("org.ubaldino.taller.app")
+@ComponentScan("org.ubaldino.taller.app.*")
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final int maxUploadSizeInMb = 25 * 1024 * 1024; // 5 MB
-
+    @Autowired private ServletContext servletContext;
+    
+    /*
     @Bean
     public InternalResourceViewResolver resolver() {
        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -35,13 +45,23 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
        resolver.setSuffix(".jsp");
        return resolver;
     }
+    */
+    
 
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+    
+   
+    
     @Bean
     public MessageSource messageSource() {
        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
        source.setBasename("messages");
        return source;
     }
+    
 
     @Override
     public Validator getValidator() {
@@ -65,4 +85,31 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         return cmr;
 
     }
+     
+    
+    @Bean
+    public SpringTemplateLoader templateLoader() {
+        SpringTemplateLoader templateLoader 
+          = new SpringTemplateLoader();
+        templateLoader.setBasePath("/WEB-INF/views/");
+        templateLoader.setSuffix(".jade");
+        return templateLoader;
+    }
+  
+    @Bean
+    public JadeConfiguration jadeConfiguration() {
+        JadeConfiguration configuration 
+          = new JadeConfiguration();
+        configuration.setCaching(false);
+        configuration.setTemplateLoader(templateLoader());
+        return configuration;
+    }
+    
+    @Bean
+    public JadeViewResolver viewResolver() {
+        JadeViewResolver viewResolver = new JadeViewResolver();
+        viewResolver.setConfiguration(jadeConfiguration());
+        return viewResolver;
+    }
+      
 }

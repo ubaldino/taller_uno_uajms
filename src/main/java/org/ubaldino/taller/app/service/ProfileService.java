@@ -1,5 +1,6 @@
 package org.ubaldino.taller.app.service;
 
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,25 @@ public class ProfileService{
      
     @Transactional
     public void save(Profile profile) {
+        profileDao.save(profile);
+    }
+    
+    @Transactional
+    public void delete(Serializable id) {
+        profileDao.deleteById(id);
+    }
+    
+    @Transactional
+    public void disable(Serializable id){
+        Profile profile=profileDao.findById(id);
+        profile.setEstado((short)0);
+        profileDao.save(profile);
+    }
+    
+    @Transactional
+    public void enable(Serializable id){
+        Profile profile=profileDao.findById(id);
+        profile.setEstado((short)1);
         profileDao.save(profile);
     }
 

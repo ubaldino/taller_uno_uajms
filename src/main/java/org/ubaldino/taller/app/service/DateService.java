@@ -8,29 +8,25 @@ package org.ubaldino.taller.app.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ubaldino
  */
+@Service
 public class DateService {
-    @SuppressWarnings("UnusedAssignment")
-    public String getLiteralDate(String sFecha){
-        SimpleDateFormat frmtDate = new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha = null;
+    public Date formatDate(String userInput) {
+        Date date;
         try{
-            fecha = frmtDate.parse(sFecha);
-        }catch (ParseException ex){
-            fecha = null;
+            date=new SimpleDateFormat("yyyy-MMMM-dd").parse(userInput);
+        }catch (ParseException e){
+            date=new Date();
         }
- 
-        if(fecha!=null){
-            try{
-                return SimpleDateFormat.getDateInstance(SimpleDateFormat.FULL).format(fecha);
-            }catch (Exception ex){
-                fecha = null;
-                return "";
-            }
-        } else return "";
+        return date;
     }
+    public String getCurrentDate(){
+        return (String)new SimpleDateFormat("dd/MMMM/yyyy").format(new Date());
+    }
+    
 }

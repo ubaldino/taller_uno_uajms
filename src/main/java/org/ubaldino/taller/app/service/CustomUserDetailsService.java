@@ -38,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService{
         LOGGER.debug("-----------------");
         
         try {
-            User user = userDao.findById(login);
+            User user = userDao.findByLogin(login);
             if (user == null) {
                 LOGGER.debug("user not found with the provided username");
                 throw new UsernameNotFoundException("Invalid username or password");

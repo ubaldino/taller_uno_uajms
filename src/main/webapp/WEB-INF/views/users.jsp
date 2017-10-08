@@ -7,52 +7,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en" data-textdirection="ltr" class="loading">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
-    <title>Usuarios</title>
-    <link rel="apple-touch-icon" sizes="60x60" href="/public/app-assets/images/ico/apple-icon-60.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/public/app-assets/images/ico/apple-icon-76.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/public/app-assets/images/ico/apple-icon-120.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/public/app-assets/images/ico/apple-icon-152.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/public/app-assets/images/ico/favicon.ico">
-    <link rel="shortcut icon" type="image/png" href="/public/app-assets/images/ico/favicon-32.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/css/bootstrap.css">
-    <!-- font icons-->
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/fonts/icomoon.css">
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/fonts/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/vendors/css/extensions/pace.css">
-    <!-- END VENDOR CSS-->
-    <!-- BEGIN ROBUST CSS-->
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/css/app.css">
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/css/colors.css">
-    <!-- END ROBUST CSS-->
-    <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="/public/app-assets/css/core/menu/menu-types/vertical-overlay-menu.css">
-    <!-- END Page Level CSS-->
-    <!-- BEGIN Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="/public/assets/css/style.css">
-    <!-- END Custom CSS-->
-  </head>
+  <%@include file="head.jsp" %>
   <body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns  fixed-navbar">
 
-        <!-- navbar-fixed-top-->
     <%@include file="navbar.jsp" %>
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
-    <!-- main menu-->
-    <%@include file="main_menu.jsp" %>
-    <!-- / main menu-->
-
+    <%--@include file="main_menu.jsp" --%>
 
     <div class="app-content content container-fluid">
       <div class="content-wrapper">
@@ -114,33 +73,66 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <!-- <th>#</th> -->
-                                <th>Foto</th>
-                                <th>Apellidos y Nombres</th>
-                                <th>Estado</th>
-                                <th>M</th>
-                                <th>B</th>
-                                <th>H</th>
-                                <th>V</th>
-                                <th>K</th>
+                                <th style="width:5%" >Foto</th>
+                                <th style="width:35%"  >Apellidos y Nombres</th>
+                                <th style="width:10%">Estado</th>
+                                <th style="width:10%">M</th>
+                                <th style="width:10%">B</th>
+                                <th style="width:10%">H</th>
+                                <th style="width:10%">V</th>
+                                <th style="width:10%">K</th>
                             </tr>
                         </thead>
                         <tbody>
                           <c:forEach items="${profiles}" var="profile">
                             <tr>
                               <!-- <th scope="row">1</th> -->
-                              <td><img src="/public/uploads/${profile.foto}" alt="" style="max-width: 40%;"></td>
+
+                              <td>
+                                <img src="/public/uploads/${profile.foto}" alt="" style="max-width: 100%;">
+                              </td>
                               <td>${profile.ap} ${profile.am} ${profile.nombre}</td>
-                              <td>${profile.estado}</td>
+                              <td>
+                                <c:if test="${profile.estado==0}">
+                                  <img src="/public/icons/inactivo.png" alt=""/>
+                                </c:if>
+                                <c:if test="${profile.estado==1}">
+                                  <img src="/public/icons/activo.png" alt=""/>
+                                </c:if>
+                                
+                              </td>
                               <td>
                                 <button type="button" data-toggle="modal" data-target="#user_modify_${profile.codp}">
                                   <img src="/public/icons/modificar.png" alt="">
                                 </button>
                                 <%@include file="components/modal_user_modify.jsp" %>
                               <td>
-                                <button type="button" data-profile="${profile.codp}">
+
+                                <button type="button" data-profile="${profile.codp}" data-toggle="modal" data-target="#del_${profile.codp}">
                                   <img src="/public/icons/eliminar.png" alt="">
                                 </button>
+
+                                <div class="modal fade text-xs-left" id="del_${profile.codp}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <label class="modal-title text-text-bold-600" id="myModalLabel33">Dar de baja Usuario</label>
+                                      </div>
+                                      <form action="/users/${profile.codp}/delete" method="post">
+                                        <div class="modal-footer text-center">
+                                          <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="Cancelar">
+                                          <input type="submit" class="btn btn-outline-primary btn-lg" value="Dar Baja">
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+
+  
+
                               </td>
                               <td>
                                 <button type="button" data-profile="${profile.codp}">
@@ -154,7 +146,12 @@
                               </td>
                               <td>
                                 <button type="button" data-profile="${profile.codp}">
-                                  <img src="/public/icons/with_login.png" alt="">
+                                    <c:if test="${profile.user==null}">
+                                      <img src="/public/icons/no_login.png" alt=""/>
+                                    </c:if>
+                                    <c:if test="${profile.user!=null}">
+                                      <img src="/public/icons/with_login.png" alt=""/>
+                                    </c:if>
                                 </button>
                               </td>
                             </tr>
@@ -164,10 +161,11 @@
                 </div>
             </div>
         </div>
+        <br>    
+        <br>    
+        <br>    
     </div>
-<!-- Bordered striped end -->
           </section>
-          <!-- // Basic form layout section end -->
         </div>
       </div>
     </div>

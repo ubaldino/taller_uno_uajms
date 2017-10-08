@@ -26,8 +26,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 806778727295783363L;
 
-    @Id
-    @Column(name="LOGIN")
+    @Column(name="LOGIN",unique=true)
     @Size(max=10,min=3,message="{user.login.invalid}")
     private String login;
 
@@ -42,8 +41,9 @@ public class User implements Serializable {
     @ColumnDefault("1")
     private int estado;
     
-    @OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    //@JoinColumn(name="codp",nullable=true)
+    @Id
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name="codp")
     private Profile profile;
 
     @ManyToMany(fetch=FetchType.LAZY)

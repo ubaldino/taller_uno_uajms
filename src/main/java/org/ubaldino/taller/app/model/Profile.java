@@ -2,6 +2,7 @@ package org.ubaldino.taller.app.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.ColumnDefault;
 
 /**
  *
@@ -41,6 +43,7 @@ public class Profile implements Serializable {
 
     @NotNull
     @Column(name="ESTADO")
+    @ColumnDefault("1")
     private short estado;
 
     @NotNull
@@ -74,12 +77,12 @@ public class Profile implements Serializable {
     @Size(max=120,min=1)
     private String foto;
     
-    @OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    //@JoinColumn(name="codp",nullable=true)
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name="codp")
     private User user;
     
-    @OneToOne(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name="codp",nullable=true)
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name="codp")
     private Data data;
 
     public Data getData() {
@@ -127,8 +130,8 @@ public class Profile implements Serializable {
         this.estado = estado;
     }
 
-    public Date getFnac() {
-        return fnac;
+    public String getFnac() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(fnac);
     }
 
     public void setFnac(Date fnac) {
@@ -190,5 +193,6 @@ public class Profile implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
 
 }

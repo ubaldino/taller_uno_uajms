@@ -1,0 +1,57 @@
+footer.footer.footer-static.navbar-fixed-bottom.footer-light.navbar-border
+  .row
+    .col-md-5
+      ul.nav.navbar-nav.float-xs-left
+        li.dropdown.dropdown-user.nav-item
+          if auth&&auth.isAuthenticated()
+            a.dropdown-toggle.nav-link.dropdown-user-link(href="#", data-toggle="dropdown")
+              span.avatar.avatar-online
+                img(src="/public/app-assets/images/portrait/small/avatar-s-1.png", alt="avatar")
+                i
+              span.user-name #{auth.getName()}
+            //
+              <div class="dropdown-menu dropdown-menu-left">
+              <a href="#" class="dropdown-item"><i class="icon-head"></i> Editar Perfil</a>
+              <div class="dropdown-divider"></div>
+              <a href="/logout" class="dropdown-item"><i class="icon-power3"></i>Salir</a>
+              </div>
+          else
+            span.user-name Anonimo
+    |     
+    .col-md-4
+      span.float-md-center
+        | Copyleft © 2017
+    |     
+    .col-md-3
+      .row
+        .col-md-6
+          span.float-md-center
+            | #{date}
+        |         
+        .col-md-6
+          span.float-md-right
+            if auth&&auth.isAuthenticated()
+              a.btn.btn-secondary.btn-block(href="/logout") Desconectar
+            else
+              a.btn.btn-secondary.btn-block(href="/login") Conectarse
+// BEGIN VENDOR JS
+script(src="/public/app-assets/js/core/libraries/jquery.min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/ui/tether.min.js", type="text/javascript")
+script(src="/public/app-assets/js/core/libraries/bootstrap.min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/ui/unison.min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/ui/blockUI.min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/ui/jquery.matchHeight-min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/ui/screenfull.min.js", type="text/javascript")
+script(src="/public/app-assets/vendors/js/extensions/pace.min.js", type="text/javascript")
+// BEGIN VENDOR JS
+// BEGIN PAGE VENDOR JS
+script(src="/public/app-assets/vendors/js/ui/prism.min.js", type="text/javascript")
+// END PAGE VENDOR JS
+// BEGIN ROBUST JS
+script(src="/public/app-assets/js/core/app-menu.js", type="text/javascript")
+script(src="/public/app-assets/js/core/app.js", type="text/javascript")
+script(src="/public/js/custom.js", type="text/javascript")
+// END ROBUST JS
+// BEGIN PAGE LEVEL JS
+// END PAGE LEVEL JS

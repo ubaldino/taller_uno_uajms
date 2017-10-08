@@ -1,0 +1,15 @@
+doctype html
+html.loading(lang="es", data-textdirection="ltr")
+  head
+    title taller 1
+    include ./head.jade
+    block scripts
+      script(src="/jquery.js")
+  body.vertical-layout.vertical-menu.1-column.blank-page.blank-page(data-open="click", data-menu="vertical-menu", data-col="1-column")
+    block navbar
+      include ./navbar.jade
+    .app-content.content.container-fluid
+      .content-wrapper
+        block content
+    block footer
+      include ./footer.jade

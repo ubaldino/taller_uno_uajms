@@ -5,9 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import javax.servlet.ServletContext;
@@ -28,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.ubaldino.taller.app.model.Data;
 import org.ubaldino.taller.app.model.Profile;
 import org.ubaldino.taller.app.service.DataService;
+import org.ubaldino.taller.app.service.DateService;
 import org.ubaldino.taller.app.service.ProfileService;
 import org.ubaldino.taller.app.service.UserService;
 
@@ -43,10 +41,12 @@ public class UserController {
     @Autowired private ProfileService profileService;
     @Autowired private DataService dataService;
     @Autowired private ServletContext context;
+    @Autowired private DateService dateService;
     
     @GetMapping("/dashboard")
     public String dashboard(Locale locale, Model model,Authentication auth) {
         model.addAttribute("auth",auth);
+        model.addAttribute("date",dateService.getCurrentDate());
         return "dashboard";
     }
     
@@ -56,55 +56,37 @@ public class UserController {
     @GetMapping("/users")
     public String index(Model model,Authentication auth) {
         model.addAttribute("auth", auth);
+       
+        //2017-10-19
+        
+        
         model.addAttribute("profiles", profileService.list());
+        model.addAttribute("date",dateService.getCurrentDate());
         return "users";
     }
-    
-    /*
-        GET	/users/create	create
-    */
-    /*
-    @GetMapping("/users/create")
-    public String create(Locale locale, Model model,Authentication auth) {
-        model.addAttribute("auth", auth);
-        model.addAttribute("user", new User());
-        model.addAttribute("users", userService.list());
-        return "userForm";
-    }
-    /*
-    /*
-        POST	/users	store
-    */
-    
     
     @PostMapping("/users")
     public String store(@RequestParam("foto") MultipartFile foto,WebRequest request, Model model) {
         
         String photo_name,photoLocation;
-        if (foto.isEmpty()) {
+        if (foto.isEmpty())
             photo_name="user_default.png";
-        }
-        else
+        else{
             photo_name=request.getParameter("nombre").replace(" ","")+"_"+foto.getOriginalFilename();
-        photoLocation="public"+File.separator+"uploads"+File.separator+photo_name;
-        
-
-        LOGGER.debug( "**************POST PHOTO************************************¿¿¿¿¿" );
-        try {
-            Files.write(Paths.get(context.getRealPath(photoLocation)),foto.getBytes());
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            photoLocation="public"+File.separator+"uploads"+File.separator+photo_name;
+            try {
+                Files.write(Paths.get(context.getRealPath(photoLocation)),foto.getBytes());
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        //"user_default.png"
-        LOGGER.debug( "*************************************************************›????" );
-        
         Profile profile=new Profile();
         profile.setNombre(request.getParameter("nombre"));
         profile.setAp(request.getParameter("ap"));
         profile.setAm(request.getParameter("am"));
         profile.setGenero(request.getParameter("genero"));
         profile.setFnac(new java.sql.Date(
-            this.formatDate(request.getParameter("fnac")).getTime()
+            dateService.formatDate(request.getParameter("fnac")).getTime()
         ));
         profile.setEcivil(request.getParameter("ecivil"));
         profile.setTipo(request.getParameter("tipo_personal"));
@@ -119,26 +101,46 @@ public class UserController {
             dataService.save(data);
         }
         
-        /*
-        if (result.hasErrors()) {
-            model.addAttribute("users", userService.list());
-            return "users";
-        }
-        */
-        //userService.save(user);
         return "redirect:/users";
-        //return "";
     }
-   
-    private Date formatDate(String userInput) {
-        Date date;
-        try{
-            date=new SimpleDateFormat("yyyy-MMMM-dd").parse(userInput);
-        }catch (ParseException e){
-            date=new Date();
-        }
-        return date;
+    
+    /*
+        DELETE	/users/{id}	destroy
+    */
+    @PostMapping("/users/{id}/delete")
+    public String destroy(@PathVariable("id") Long userId,Model model,Authentication auth) {
+        profileService.delete(userId);
+        LOGGER.debug(".................................");
+        LOGGER.debug("USER DEL "+userId);
+        LOGGER.debug(".................................");
+        return "redirect:/users";
     }
+    
+    /*
+        DELETE	/users/{id}	enable
+    */
+    @PostMapping("/users/{id}/enable")
+    public String enable(@PathVariable("id") Long userId,Model model,Authentication auth) {
+        profileService.enable(userId);
+        LOGGER.debug(".................................");
+        LOGGER.debug("USER DEL "+userId);
+        LOGGER.debug(".................................");
+        return "redirect:/users";
+    }
+    
+    /*
+        DELETE	/users/{id}	disable
+    */
+    @PostMapping("/users/{id}/disable")
+    public String disable(@PathVariable("id") Long userId,Model model,Authentication auth) {
+        profileService.disable(userId);
+        LOGGER.debug(".................................");
+        LOGGER.debug("USER DEL "+userId);
+        LOGGER.debug(".................................");
+        return "redirect:/users";
+    }
+    
+    
     
     /*
         GET	/users/{id}	show
@@ -179,15 +181,6 @@ public class UserController {
         return "userForm";
     }
     */
-    /*
-        DELETE	/users/{id}	destroy
-    */
-    @PostMapping("/users/{id}/delete")
-    public String destroy(@PathVariable("id") String userId,Model model,Authentication auth) {
-        LOGGER.debug(".................................");
-        LOGGER.debug("USER DEL "+userId);
-        LOGGER.debug(".................................");
-        return "redirect:/users";
-    }
+    
     
 }
