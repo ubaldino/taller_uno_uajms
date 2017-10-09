@@ -24,6 +24,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.ubaldino.taller.app.model.Data;
 import org.ubaldino.taller.app.model.Profile;
+import org.ubaldino.taller.app.model.User;
+import org.ubaldino.taller.app.security.AuthUser;
 import org.ubaldino.taller.app.service.DataService;
 import org.ubaldino.taller.app.service.DateService;
 import org.ubaldino.taller.app.service.ProfileService;
@@ -45,7 +47,14 @@ public class UserController {
     
     @GetMapping("/dashboard")
     public String dashboard(Locale locale, Model model,Authentication auth) {
+        AuthUser authUser = (AuthUser) auth.getPrincipal();
         model.addAttribute("auth",auth);
+       
+        
+        LOGGER.debug( "++++++++++++++++++++++++++++++++++++88888888++++++++++++++++++++++++++++++++++++" );
+        //LOGGER.debug( authUser.getProfile().toString() );
+        LOGGER.debug( "++++++++++++++++++++++++++++++++++++%%%%%%%%%++++++++++++++++++++++++++++++++++++" );
+        
         model.addAttribute("date",dateService.getCurrentDate());
         return "dashboard";
     }

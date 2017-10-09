@@ -39,8 +39,8 @@ public class UserService {
     }
     
     @Transactional
-    public User getUser(String login) {
-        return userDao.findById(login);
+    public User getUser(Long codp) {
+        return userDao.findById(codp);
     }
     
     @Transactional

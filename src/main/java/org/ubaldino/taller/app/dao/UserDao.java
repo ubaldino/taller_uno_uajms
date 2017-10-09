@@ -3,17 +3,21 @@ package org.ubaldino.taller.app.dao;
 import org.springframework.stereotype.Repository;
 import org.ubaldino.taller.app.model.User;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * @author Ubaldino Zurita
  */
 @Repository
 public class UserDao extends AbstractDao<User> {
     
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
     public User findByLogin(String login) {
         Query query = this.getSession().createQuery("FROM User WHERE login=:login");
         query.setParameter("login",login);
-        User user =(User) query.uniqueResult(); 
+        User user= (User) query.uniqueResult();
+        user.getProfile().toString();
         return user;
     }
     

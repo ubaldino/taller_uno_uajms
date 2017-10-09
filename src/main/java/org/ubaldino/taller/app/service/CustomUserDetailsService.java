@@ -18,10 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.ubaldino.taller.app.dao.UserDao;
 import org.ubaldino.taller.app.model.Role;
+import org.ubaldino.taller.app.security.AuthUser;
 
 @Transactional
 @Service
@@ -32,11 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Autowired private UserDao userDao;
     
     @Override
-    public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
-        LOGGER.debug("-----------------");
-        LOGGER.debug("::CustomUserDetailsService:: login="+login);
-        LOGGER.debug("-----------------");
-        
+    public AuthUser loadUserByUsername(final String login) throws UsernameNotFoundException {
         try {
             User user = userDao.findByLogin(login);
             if (user == null) {
@@ -45,16 +41,13 @@ public class CustomUserDetailsService implements UserDetailsService{
             }
             LOGGER.debug(" user from username " + user.toString());
             
-            return new org.springframework.security.core.userdetails.User(
-                login,user.getPassword(), true,
-                true, true, true, getAuthorities(user)
+            return new AuthUser(
+                login,user.getPassword(), getAuthorities(user),user.getProfile()
             );
         }
         catch (UsernameNotFoundException e){
             throw new UsernameNotFoundException("User not found");
         }
-
-        
     }
     
     private List<GrantedAuthority> getAuthorities(User user) {
