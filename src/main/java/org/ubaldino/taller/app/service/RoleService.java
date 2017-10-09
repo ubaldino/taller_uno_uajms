@@ -1,10 +1,12 @@
 package org.ubaldino.taller.app.service;
 
+import java.io.Serializable;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.ubaldino.taller.app.dao.RoleDaoInterface;
+import org.ubaldino.taller.app.dao.RoleDao;
+import org.ubaldino.taller.app.model.Profile;
 import org.ubaldino.taller.app.model.Role;
 
 /**
@@ -12,31 +14,42 @@ import org.ubaldino.taller.app.model.Role;
  * @author ubaldino
  */
 @Service
-public class RoleService implements RoleServiceInterface {
-
+public class RoleService{
     
-    @Autowired
-    private RoleDaoInterface roleDao;
-
-    public RoleDaoInterface getRoleDao(){
-        return this.roleDao;
-    }
-
-    public void setUserDao(RoleDaoInterface roleDao){
-        this.roleDao = roleDao;
-    }
-    
-     
+    @Autowired private RoleDao roleDao;
+ 
     @Transactional
-    @Override
     public void save(Role role) {
         roleDao.save(role);
     }
-
-    @Transactional(readOnly=true)
-    @Override
+ 
+    @Transactional
     public List<Role> list() {
-        return roleDao.list();   
+        return roleDao.findAll();
+    }
+    
+    @Transactional
+    public void delete(Serializable id) {
+        roleDao.deleteById(id);
+    }
+    
+    @Transactional
+    public void disable(Serializable id){
+        Role role=roleDao.findById(id);
+        role.setEstado((short)0);
+        roleDao.save(role);
+    }
+    
+    @Transactional
+    public void enable(Serializable id){
+        Role role=roleDao.findById(id);
+        role.setEstado((short)1);
+        roleDao.save(role);
+    }
+
+    @Transactional
+    public Role getRole(Long id) {
+        return roleDao.findById(id);
     }
     
 }

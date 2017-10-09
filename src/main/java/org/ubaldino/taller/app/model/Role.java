@@ -27,9 +27,6 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name="ROLES")
 public class Role implements Serializable {
     
-    /**
-    * 
-    */
     private static final long serialVersionUID = -1109080371998017560L;
 
     @Id
@@ -70,10 +67,6 @@ public class Role implements Serializable {
    
     public Long getCodr() {
         return codr;
-    }
-
-    public void setCodr(Long codr) {
-        this.codr = codr;
     }
 
     public String getNombre() {
