@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
 import org.hibernate.annotations.ColumnDefault;
 
 /**
@@ -17,16 +17,10 @@ import org.hibernate.annotations.ColumnDefault;
 @Entity
 @Table(name="MENUS")
 public class Menu implements Serializable {
-    
 
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4422801687701206632L;
-
-	@Id
-    @Column(name="CODM",nullable=false)
+    @Id
+    @Column(name="CODM")
+    @GeneratedValue
     private Long codm;
     
     @Column(name="NOMBRE",nullable=false)
@@ -35,7 +29,7 @@ public class Menu implements Serializable {
     
     @Column(name="ESTADO",insertable=false,updatable=true,nullable=false)
     @ColumnDefault("1")
-    private int estado;
+    private short estado;
 
     public Long getCodm() {
         return codm;
@@ -53,11 +47,11 @@ public class Menu implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getEstado() {
+    public short getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(short estado) {
         this.estado = estado;
     }
     
