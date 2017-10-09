@@ -42,7 +42,7 @@ public class Profile implements Serializable {
     private String am;
 
     @NotNull
-    @Column(name="ESTADO")
+    @Column(name="ESTADO",insertable=false,updatable=true)
     @ColumnDefault("1")
     private short estado;
 

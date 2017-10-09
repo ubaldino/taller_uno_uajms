@@ -1,0 +1,78 @@
+.modal.fade.text-xs-left(id="user_modify_#{profile.codp}", tabindex="-1", role="dialog", aria-labelledby="myModalLabel33", aria-hidden="true")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        button.close(type="button", data-dismiss="modal", aria-label="Close")
+          span(aria-hidden="true") ×
+        |         
+        label#myModalLabel33.modal-title.text-text-bold-600  
+      form.form(action="#", method="post", enctype="multipart/form-data")
+        .form-body
+          .row(align="center")
+            .col-md-12
+              .form-group
+                table
+                  tr
+                    td
+                      label.form-label(for="cedula") Cedula
+                    td
+                      input.form-control.border-primary(type="number", name="cedula", placeholder="Cedula", min="5")
+                  tr
+                    td
+                      label.form-label(for="nombre") Nombre
+                    td
+                      input.form-control.border-primary(type="text", name="nombre", value="#{profile.nombre}", placeholder="Nombre", required="")
+                  tr
+                    td
+                      label.form-label(for="ap") AP. Paterno
+                    td
+                      input.form-control.border-primary(type="text", name="ap", value="#{profile.ap}", placeholder="AP. Paterno")
+                  tr
+                    td
+                      label.form-label(for="am") AP. Materno
+                    td
+                      input.form-control.border-primary(type="text", name="am", value="#{profile.am}", placeholder="AP. Materno")
+                  tr
+                    td
+                      label.form-label(for="genero") Género
+                    td
+                      input(type="radio", name="genero", value="1", checked="")
+                      |  Masculino
+                      input(type="radio", name="genero", value="0")
+                      |  Femenino
+                  tr
+                    td
+                      label.form-label(for="fnac") F. Nacimiento
+                    td
+                      input.form-control.border-primary(type="date", name="fnac", value="#{profile.getFnac()}", placeholder="Fecha de Nacimiento", required="")
+                  tr
+                    td
+                      label.form-label(for="ecivil") E. Civil
+                    td
+                      input(type="radio", name="ecivil", value="S", checked="")
+                      |  Soltero
+                      input(type="radio", name="ecivil", value="C")
+                      |  Casado
+                      input(type="radio", name="ecivil", value="D")
+                      |  Divorciado
+                  tr
+                    td
+                      label.form-label(for="codp") Tipo Personal
+                    td
+                      select(name="tipo_personal", required="")
+                        option(value="P", checked="")  Público
+                        option(value="A")  Administrativo
+                  tr
+                    td
+                      label.form-label(for="foto") Foto
+                    td
+                      input#foto(type="file", name="foto", accept="image/*")
+          .row(align="center")
+            .col-md-6
+              //
+                <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-md">Guardar</button>
+                </div>
+            .col-md-6
+              .form-group
+                button.btn.btn-outline-secondary.btn-md(type="reset", data-dismiss="modal") Cancelar

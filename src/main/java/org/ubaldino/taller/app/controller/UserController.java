@@ -65,10 +65,7 @@ public class UserController {
     @GetMapping("/users")
     public String index(Model model,Authentication auth) {
         model.addAttribute("auth", auth);
-       
         //2017-10-19
-        
-        
         model.addAttribute("profiles", profileService.list());
         model.addAttribute("date",dateService.getCurrentDate());
         return "users";
@@ -89,6 +86,7 @@ public class UserController {
                 java.util.logging.Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
         Profile profile=new Profile();
         profile.setNombre(request.getParameter("nombre"));
         profile.setAp(request.getParameter("ap"));
@@ -119,9 +117,6 @@ public class UserController {
     @PostMapping("/users/{id}/delete")
     public String destroy(@PathVariable("id") Long userId,Model model,Authentication auth) {
         profileService.delete(userId);
-        LOGGER.debug(".................................");
-        LOGGER.debug("USER DEL "+userId);
-        LOGGER.debug(".................................");
         return "redirect:/users";
     }
     
@@ -131,25 +126,46 @@ public class UserController {
     @PostMapping("/users/{id}/enable")
     public String enable(@PathVariable("id") Long userId,Model model,Authentication auth) {
         profileService.enable(userId);
-        LOGGER.debug(".................................");
-        LOGGER.debug("USER DEL "+userId);
-        LOGGER.debug(".................................");
         return "redirect:/users";
     }
     
     /*
-        DELETE	/users/{id}	disable
+        DELETE	/users/{id} 	disable
     */
     @PostMapping("/users/{id}/disable")
     public String disable(@PathVariable("id") Long userId,Model model,Authentication auth) {
         profileService.disable(userId);
-        LOGGER.debug(".................................");
-        LOGGER.debug("USER DEL "+userId);
-        LOGGER.debug(".................................");
+        return "redirect:/users";
+    }
+    /*
+        /users/25/assign
+    */
+    @PostMapping("/users/{id}/assign")
+    public String loginAssign(@PathVariable("id") Long userId,Model model,WebRequest request) {
+        try {
+            User user=new User();
+            user.setLogin(request.getParameter("login"));
+            user.setPassword(request.getParameter("password"));
+            user.setProfile(profileService.getProfile(userId));
+            userService.save(user);
+        } catch (Exception e) {}
+        
         return "redirect:/users";
     }
     
-    
+    /*
+        /users/login/#{profile.codp}/modify
+    */
+    @PostMapping("/users/login/{id}/modify")
+    public String loginModify(@PathVariable("id") Long userId,Model model,WebRequest request) {
+        try {
+            User user=userService.getUser(userId);
+            user.setLogin(request.getParameter("login"));
+            user.setPassword(request.getParameter("password"));
+            userService.save(user);
+        } catch (Exception e) {}
+        return "redirect:/users";
+    }
     
     /*
         GET	/users/{id}	show

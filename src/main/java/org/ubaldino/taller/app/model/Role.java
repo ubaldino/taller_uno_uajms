@@ -45,7 +45,7 @@ public class Role implements Serializable {
     @NotNull
     @Column(name="ESTADO",insertable=false,updatable=true)
     @ColumnDefault("1")
-    private int estado;
+    private short estado;
     
     
     @ManyToMany(fetch=FetchType.LAZY)
@@ -84,11 +84,11 @@ public class Role implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getEstado() {
+    public short getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(short estado) {
         this.estado = estado;
     }
     
