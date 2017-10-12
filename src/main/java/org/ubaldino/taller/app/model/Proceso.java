@@ -20,13 +20,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name="procesos")
 public class Proceso implements Serializable {
 
-    /**
-    * 
-    */
-    private static final long serialVersionUID = 2014399708718489056L;
-
     @Id
-    @NotNull
     @GeneratedValue
     @Column(name="CODP")
     private Long codp;
@@ -38,7 +32,7 @@ public class Proceso implements Serializable {
     
     @NotNull
     @Column(name="ENLACE")
-    @Size(min=5,max=40)
+    @Size(min=5,max=80)
     private String enlace;
     
     @Column(name="AYUDA",insertable=false,updatable=true,nullable=true)
@@ -48,7 +42,7 @@ public class Proceso implements Serializable {
     @NotNull
     @Column(name="ESTADO",insertable = false,updatable=true)
     @ColumnDefault("1")
-    private int estado;
+    private short estado;
 
     public Long getCodp() {
         return codp;
@@ -82,11 +76,11 @@ public class Proceso implements Serializable {
         this.ayuda = ayuda;
     }
 
-    public int getEstado() {
+    public short getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(short estado) {
         this.estado = estado;
     }
     
