@@ -1,12 +1,6 @@
 package org.ubaldino.taller.app.service;
 
-import java.io.Serializable;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.ubaldino.taller.app.dao.ProcesoDao;
-import org.ubaldino.taller.app.model.Proceso;
 
 /**
  *
@@ -14,6 +8,7 @@ import org.ubaldino.taller.app.model.Proceso;
  */
 @Service
 public class ProcesoService {
+    /*
     @Autowired private ProcesoDao procesoDao;
  
     @Transactional
@@ -49,4 +44,5 @@ public class ProcesoService {
     public Proceso getProceso(Long id) {
         return procesoDao.findById(id);
     }
+    */
 }

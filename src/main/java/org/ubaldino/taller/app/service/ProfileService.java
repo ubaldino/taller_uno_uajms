@@ -1,12 +1,6 @@
 package org.ubaldino.taller.app.service;
 
-import java.io.Serializable;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.ubaldino.taller.app.dao.ProfileDao;
-import org.ubaldino.taller.app.model.Profile;
 
 /**
  *
@@ -14,7 +8,7 @@ import org.ubaldino.taller.app.model.Profile;
  */
 @Service
 public class ProfileService{
-
+    /*
     @Autowired
     private ProfileDao profileDao;
      
@@ -50,5 +44,5 @@ public class ProfileService{
     public List<Profile> list() {
        return profileDao.findAll();
     }
-    
+    */
 }

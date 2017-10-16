@@ -1,100 +1,43 @@
 package org.ubaldino.taller.app.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import java.util.List;
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.BelongsTo;
+import org.javalite.activejdbc.annotations.IdName;
+import org.javalite.activejdbc.annotations.Many2Many;
+import org.javalite.activejdbc.annotations.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.ColumnDefault;
-
-
-@Entity
-@Table(name="USUARIOS")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 806778727295783363L;
-
-    @Column(name="LOGIN",unique=true)
-    @Size(max=10,min=3,message="{user.login.invalid}")
-    private String login;
-
-    @NotNull
-    @Column(name="PASSWORD" )
-    @Size(min=3,message="{user.password.invalid}")
-    private String password;
-
+@Table("usuarios")
+@IdName("login")
+@BelongsTo(parent = Profile.class, foreignKeyName="codp")
+@Many2Many(other=Role.class, join="usurol", sourceFKName="login", targetFKName="codr")
+public class User extends Model{
     
-    @NotNull
-    @Column(name="ESTADO",insertable=false,updatable=true)
-    @ColumnDefault("1")
-    private int estado;
     
-    @Id
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    @JoinColumn(name="codp")
-    private Profile profile;
-
-    @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name="usurol",
-        joinColumns = {
-            @JoinColumn(name="login", nullable = false, updatable = false)
-        },
-        inverseJoinColumns = {
-            @JoinColumn(name = "codr", nullable = false, updatable = false) 
-        }
-    )
-    private Set<Role> roles = new HashSet<Role>(0);
-
-    public Set<Role> getRoles() {
-        return roles;
+    static {
+        validatePresenceOf("login").message("Login must be provided");
+        validatePresenceOf("password","codp");
     }
+    public User() {}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public User(String login,int estado,String password,int codp){
+        set("login",login,"estado",estado);
+        set("password",password,"codp",codp);
     }
     
-    public String getLogin() {
-        return login;
+    public String getlogin(){
+        return getString("login");
     }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public String getPassword(){
+        return getString("password");
     }
     
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
+    public Profile getProfile(){
+        return parent(Profile.class);
     }
     
-    public Profile getProfile() {
-        return profile;
+    public List<Role> getRoles(){
+        return getAll(Role.class); 
     }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
+    
 }

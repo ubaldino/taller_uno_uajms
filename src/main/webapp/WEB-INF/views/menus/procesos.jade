@@ -1,0 +1,83 @@
+extends ../base
+block content
+  br
+  br
+  br
+  br
+  .content-header.row
+    .content-header-left.col-md-6.col-xs-12.mb-1
+      h2.content-header-title Gestión de Menus
+    .content-header-right.breadcrumbs-right.breadcrumbs-top.col-md-6.col-xs-12
+      .breadcrumb-wrapper.col-xs-12
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href="/") Inicio
+          li.breadcrumb-item
+            a(href="/menus") Menus
+  .content-body
+    //- Basic form layout section start
+    section#basic-form-layouts
+      include ./components/modal_menu_create.jade
+      //- Bordered striped start
+      .col-md-12
+        .row
+          .col-md-4(align="center")
+            input.form-control(type="text", name="filter", placeholder="Filtro")
+          .col-md-3(align="center")
+          .col-md-4(align="center")
+            input(type="radio", name="gender", value="male", style="margin-left: 5%")
+            |  activos
+            input(type="radio", name="gender", value="female", style="margin-left: 5%")
+            |  Bajas
+            input(type="radio", name="gender", value="other", checked="", style="margin-left: 5%")
+            |   Todos
+          .col-md-1(align="center")
+            button(type="button", data-toggle="modal", data-target="#menu_add")
+              img(src="/public/icons/agregar.png", alt="")
+      .row.col-md-12
+        .col-md-6
+          .card
+            .card-header
+              h4.card-title Menus Registrados
+              a.heading-elements-toggle
+                i.icon-ellipsis.font-medium-3
+            .card-body.collapse.in
+              .table-responsive
+                table.table.table-bordered.table-striped#menus
+                  thead
+                    tr
+                      th(style="width:10%") #
+                      th(style="width:60%") Lista de menus
+                  tbody
+                    each menu in menus
+                      tr
+                        td
+                          input(type="radio",name="menu",value="#{menu.codm}")
+                        td #{menu.nombre}
+        .col-md-6
+          .card
+            .card-header
+              h4.card-title Menus Registrados
+              a.heading-elements-toggle
+                i.icon-ellipsis.font-medium-3
+            .card-body.collapse.in
+              .table-responsive
+                table.table.table-bordered.table-striped#procesos
+                  thead
+                    tr
+                      th(style="width:10%") #
+                      th(style="width:60%") Lista de procesos
+                  tbody
+                    each proceso in procesos
+                      tr
+                        td
+                          input(type="checkbox",name="menu",value="#{proceso.codp}")
+                        td #{proceso.nombre}
+          br
+          br
+          br
+
+
+
+
+

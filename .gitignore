@@ -9,3 +9,6 @@ docs
 *.jsp
 *.vm
 src/main/webapp/public/uploads/*
+old_hibernate
+jooq-config.xml
+chuleta.md

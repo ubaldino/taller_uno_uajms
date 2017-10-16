@@ -1,12 +1,6 @@
 package org.ubaldino.taller.app.service;
 
-import java.io.Serializable;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.ubaldino.taller.app.dao.MenuDao;
-import org.ubaldino.taller.app.model.Menu;
 
 /**
  *
@@ -14,7 +8,7 @@ import org.ubaldino.taller.app.model.Menu;
  */
 @Service
 public class MenuService{
-    
+    /*
     @Autowired private MenuDao menuDao;
  
     @Transactional
@@ -50,5 +44,6 @@ public class MenuService{
     public Menu getMenu(Long id) {
         return menuDao.findById(id);
     }
+    */
     
 }

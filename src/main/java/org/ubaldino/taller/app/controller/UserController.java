@@ -1,13 +1,9 @@
 package org.ubaldino.taller.app.controller;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Locale;
-import java.util.logging.Level;
 import javax.servlet.ServletContext;
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,18 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import org.ubaldino.taller.app.model.Data;
-import org.ubaldino.taller.app.model.Profile;
-import org.ubaldino.taller.app.model.User;
 import org.ubaldino.taller.app.security.AuthUser;
-import org.ubaldino.taller.app.service.DataService;
 import org.ubaldino.taller.app.service.DateService;
 import org.ubaldino.taller.app.service.ProfileService;
 import org.ubaldino.taller.app.service.UserService;
@@ -41,18 +28,18 @@ public class UserController {
     
     @Autowired private UserService userService;
     @Autowired private ProfileService profileService;
-    @Autowired private DataService dataService;
     @Autowired private ServletContext context;
     @Autowired private DateService dateService;
     
     @GetMapping("/dashboard")
     public String dashboard(Locale locale, Model model,Authentication auth) {
+        if(!Base.hasConnection()) Base.open();
         AuthUser authUser = (AuthUser) auth.getPrincipal();
         model.addAttribute("auth",auth);
        
         
         LOGGER.debug( "++++++++++++++++++++++++++++++++++++88888888++++++++++++++++++++++++++++++++++++" );
-        //LOGGER.debug( authUser.getProfile().toString() );
+        LOGGER.debug( authUser.getProfile().getFoto() );
         LOGGER.debug( "++++++++++++++++++++++++++++++++++++%%%%%%%%%++++++++++++++++++++++++++++++++++++" );
         
         model.addAttribute("date",dateService.getCurrentDate());
@@ -62,18 +49,21 @@ public class UserController {
     /*
         GET   /users  index
     */
+    /*
     @GetMapping("/users")
     public String index(Model model,Authentication auth) {
+        if(!Base.hasConnection()) Base.open();
         model.addAttribute("auth", auth);
         //2017-10-19
         model.addAttribute("profiles", profileService.list());
         model.addAttribute("date",dateService.getCurrentDate());
         return "users";
     }
-    
+    */
+    /*
     @PostMapping("/users")
     public String store(@RequestParam("foto") MultipartFile foto,WebRequest request, Model model) {
-        
+        if(!Base.hasConnection()) Base.open();
         String photo_name,photoLocation;
         if (foto.isEmpty())
             photo_name="user_default.png";
@@ -110,38 +100,44 @@ public class UserController {
         
         return "redirect:/users";
     }
+    */
     
     /*
         DELETE	/users/{id}	destroy
-    */
+    
     @PostMapping("/users/{id}/delete")
     public String destroy(@PathVariable("id") Long userId,Model model,Authentication auth) {
+        if(!Base.hasConnection()) Base.open();
         profileService.delete(userId);
         return "redirect:/users";
     }
-    
+    */
     /*
         DELETE	/users/{id}	enable
-    */
+    
     @PostMapping("/users/{id}/enable")
     public String enable(@PathVariable("id") Long userId,Model model,Authentication auth) {
+        if(!Base.hasConnection()) Base.open();
         profileService.enable(userId);
         return "redirect:/users";
     }
-    
+    */
     /*
         DELETE	/users/{id} 	disable
-    */
+    
     @PostMapping("/users/{id}/disable")
     public String disable(@PathVariable("id") Long userId,Model model,Authentication auth) {
+        if(!Base.hasConnection()) Base.open();
         profileService.disable(userId);
         return "redirect:/users";
     }
+    */
     /*
         /users/25/assign
-    */
+    
     @PostMapping("/users/{id}/assign")
     public String loginAssign(@PathVariable("id") Long userId,Model model,WebRequest request) {
+        if(!Base.hasConnection()) Base.open();
         try {
             User user=new User();
             user.setLogin(request.getParameter("login"));
@@ -152,12 +148,13 @@ public class UserController {
         
         return "redirect:/users";
     }
-    
+    */
     /*
         /users/login/#{profile.codp}/modify
-    */
+    
     @PostMapping("/users/login/{id}/modify")
     public String loginModify(@PathVariable("id") Long userId,Model model,WebRequest request) {
+        if(!Base.hasConnection()) Base.open();
         try {
             User user=userService.getUser(userId);
             user.setLogin(request.getParameter("login"));
@@ -166,7 +163,7 @@ public class UserController {
         } catch (Exception e) {}
         return "redirect:/users";
     }
-    
+    */
     /*
         GET	/users/{id}	show
     

@@ -4,22 +4,16 @@ package org.ubaldino.taller.app.config;
 import de.neuland.jade4j.JadeConfiguration;
 import de.neuland.jade4j.spring.template.SpringTemplateLoader;
 import de.neuland.jade4j.spring.view.JadeViewResolver;
-import javax.servlet.ServletContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 
 
@@ -34,26 +28,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     //private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final int maxUploadSizeInMb = 25 * 1024 * 1024; // 5 MB
-    @Autowired private ServletContext servletContext;
     
-    /*
-    @Bean
-    public InternalResourceViewResolver resolver() {
-       InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-       resolver.setViewClass(JstlView.class);
-       resolver.setPrefix("/WEB-INF/views/");
-       resolver.setSuffix(".jsp");
-       return resolver;
-    }
-    */
-    
-
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        
         configurer.enable();
     }
-    
-   
     
     @Bean
     public MessageSource messageSource() {
@@ -62,13 +42,14 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
        return source;
     }
     
-
+    /*
     @Override
     public Validator getValidator() {
        LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
        validator.setValidationMessageSource(messageSource());
        return validator;
     }
+    */
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
@@ -110,6 +91,5 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
         JadeViewResolver viewResolver = new JadeViewResolver();
         viewResolver.setConfiguration(jadeConfiguration());
         return viewResolver;
-    }
-      
+    }     
 }

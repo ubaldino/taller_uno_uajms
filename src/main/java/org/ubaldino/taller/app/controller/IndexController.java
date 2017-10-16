@@ -1,5 +1,6 @@
 package org.ubaldino.taller.app.controller;
 
+import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class IndexController {
     */
     @RequestMapping(value={"/"},method=RequestMethod.GET)
     public String index(Model model,Authentication auth) {
+        if(!Base.hasConnection()) Base.open();
+        
+        LOGGER.debug( auth.toString() );
         model.addAttribute("auth",auth);
         model.addAttribute("date",dateService.getCurrentDate());
         return "index";

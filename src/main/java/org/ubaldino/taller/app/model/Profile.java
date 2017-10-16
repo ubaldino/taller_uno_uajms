@@ -1,198 +1,84 @@
 package org.ubaldino.taller.app.model;
 
-import java.io.Serializable;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.hibernate.annotations.ColumnDefault;
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.IdGenerator;
+import org.javalite.activejdbc.annotations.IdName;
+import org.javalite.activejdbc.annotations.Table;
+
 
 /**
  *
  * @author ubaldino
  */
-@Entity
-@Table(name="PERSONAL")
-public class Profile implements Serializable {
-
-    @Id
-    @GeneratedValue
-    private Long codp;
-
-    @NotNull
-    @Column(name="NOMBRE")
-    @Size(max=40,min=1)
-    private String nombre;
-
-    @Column(name="AP")
-    @Size(max=40)
-    private String ap;
-
-    @Column(name="AM")
-    @Size(max=40)
-    private String am;
-
-    @NotNull
-    @Column(name="ESTADO",insertable=false,updatable=true)
-    @ColumnDefault("1")
-    private short estado;
-
-    @NotNull
-    @Column(name="FNAC")
-    private Date fnac;
-
-    @NotNull
-    @Column(name="ECIVIL")
-    @Size(max=1,min=1)
-    private String ecivil;
-
-    @NotNull
-    @Column(name="GENERO")
-    @Size(max=1,min=1)
-    private String genero;
-
-    @Column(name="DIREC")
-    @Size(max=50)
-    private String direc;
-
-    @Column(name="TELF")
-    @Size(max=20)
-    private String telf;
-
-    @NotNull
-    @Column(name="TIPO")
-    @Size(max=1,min=1)
-    private String tipo;
-
-    @Column(name="FOTO")
-    @Size(max=120,min=1)
-    private String foto;
-    
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    @JoinColumn(name="codp")
-    private User user;
-    
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    @JoinColumn(name="codp")
-    private Data data;
-
-    public Data getData() {
-        return data;
+@Table("personal")
+//@IdGenerator("personal_codp_seq.nextVal")
+@IdName("codp")
+public class Profile extends Model {
+     static {
+        validatePresenceOf("nombre").message("must be provided");
+        validatePresenceOf("ap").message("must be provided");
+        validatePresenceOf("am").message("must be provided");
+        validatePresenceOf("estado").message("must be provided");
+        validatePresenceOf("fnac").message("must be provided");
+        validatePresenceOf("ecivil").message("must be provided");
+        validatePresenceOf("genero").message("must be provided");
+        validatePresenceOf("direc").message("must be provided");
+        validatePresenceOf("telf").message("must be provided");
+        validatePresenceOf("tipo").message("must be provided");
+        validatePresenceOf("foto").message("must be provided");
     }
+    public Profile() {}
 
-    public void setData(Data data) {
-        this.data = data;
-    }
-
-
-    public Long getCodp() {
-        return codp;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getAp() {
-        return ap;
-    }
-
-    public void setAp(String ap) {
-        this.ap = ap;
-    }
-
-    public String getAm() {
-        return am;
-    }
-
-    public void setAm(String am) {
-        this.am = am;
-    }
-
-    public short getEstado() {
-        return estado;
-    }
-
-    public void setEstado(short estado) {
-        this.estado = estado;
-    }
-
-    public String getFnac() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(fnac);
-    }
-
-    public void setFnac(Date fnac) {
-        this.fnac = fnac;
-    }
-
-    public String getEcivil() {
-        return ecivil;
-    }
-
-    public void setEcivil(String ecivil) {
-        this.ecivil = ecivil;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getDirec() {
-        return direc;
-    }
-
-    public void setDirec(String direc) {
-        this.direc = direc;
-    }
-
-    public String getTelf() {
-        return telf;
-    }
-
-    public void setTelf(String telf) {
-        this.telf = telf;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public Profile(
+            String nombre,String ap,String am,int estado,String fnac
+          , String ecivil,String genero,String direc,String telf
+          , String tipo,String foto 
+    ){
+        set("nombre",nombre);
+        set("ap",ap);
+        set("am",am);
+        set("estado",estado);
+        set("fnac",fnac);
+        set("ecivil",ecivil);
+        set("genero",genero);
+        set("direc",direc);
+        set("telf",telf);
+        set("tipo",tipo);
+        set("foto",foto);
     }
     
-    public User getUser() {
-        return user;
+
+    public String getNombre(){
+        return getString("nombre");
     }
-
-    public void setUser(User user) {
-        this.user = user;
+    public String getAp(){
+        return getString("ap");
     }
-
-
+    public String getAm(){
+        return getString("am");
+    }
+    public int getEstado(){
+        return getInteger("estado");
+    }
+    public String getFnac(){
+        return getString("fnac");
+    }
+    public String getEcivil(){
+        return getString("ecivil");
+    }
+    public String getGenero(){
+        return getString("genero");
+    }
+    public String getDireccion(){
+        return getString("direc");
+    }
+    public String getTelefono(){
+        return getString("telf");
+    }
+    public String getTipo(){
+        return getString("tipo");
+    }
+    public String getFoto(){
+        return getString("foto");
+    }
 }

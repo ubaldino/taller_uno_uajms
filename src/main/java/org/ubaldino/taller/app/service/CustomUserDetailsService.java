@@ -18,23 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import org.springframework.transaction.annotation.Transactional;
-import org.ubaldino.taller.app.dao.UserDao;
-import org.ubaldino.taller.app.model.Role;
 import org.ubaldino.taller.app.security.AuthUser;
 
-@Transactional
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomUserDetailsService.class);
     
-    @Autowired private UserDao userDao;
+    @Autowired UserService userService;
     
     @Override
     public AuthUser loadUserByUsername(final String login) throws UsernameNotFoundException {
         try {
-            User user = userDao.findByLogin(login);
+            User user = userService.getUser(login);
             if (user == null) {
                 LOGGER.debug("user not found with the provided username");
                 throw new UsernameNotFoundException("Invalid username or password");
@@ -42,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             LOGGER.debug(" user from username " + user.toString());
             
             return new AuthUser(
-                login,user.getPassword(), getAuthorities(user),user.getProfile()
+                login,user.getPassword(),getAuthorities(user),user.getProfile()
             );
         }
         catch (UsernameNotFoundException e){
@@ -52,7 +48,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     
     private List<GrantedAuthority> getAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        user.getRoles().forEach((Role role) -> {
+        user.getRoles().forEach((role) -> {
             authorities.add(new SimpleGrantedAuthority(role.getNombre()));
         });
         return authorities;

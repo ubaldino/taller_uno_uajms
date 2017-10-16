@@ -6,7 +6,10 @@ footer.footer.footer-static.navbar-fixed-bottom.footer-light.navbar-border
           if auth&&auth.isAuthenticated()
             a.dropdown-toggle.nav-link.dropdown-user-link(href="#", data-toggle="dropdown")
               span.avatar.avatar-online
-                img(src="/public/uploads/#{auth.getPrincipal().getProfile().getFoto()}", alt="avatar")
+                if auth.getPrincipal().getProfile().getFoto()
+                    img(src="/public/uploads/#{auth.getPrincipal().getProfile().getFoto()}", alt="avatar")
+                else
+                    img(src="/public/uploads/user_default.png", alt="avatar")
                 i
               span.user-name #{auth.getName()}
             //

@@ -1,103 +1,92 @@
 <project
-    xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
->
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ubaldino.taller.app</groupId>
   <artifactId>taller-uno</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <properties>
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <springframework.version>4.3.7.RELEASE</springframework.version>
     <springsecurity.version>4.2.3.RELEASE</springsecurity.version>
     <hibernate.version>5.2.10.Final</hibernate.version>
+    <jackson.version>1.9.13</jackson.version>
+    <org.springframework.version>4.3.4.RELEASE</org.springframework.version>
+    <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
   </properties>
 
   <dependencies>
     <!-- Spring MVC Dependency -->
-    
     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-core</artifactId>
-        <version>${springframework.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${springframework.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${springframework.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${springframework.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-webmvc</artifactId>
-        <version>${springframework.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${springframework.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-tx</artifactId>
-        <version>${springframework.version}</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${springframework.version}</version>
     </dependency>
-    <!-- Spring ORM -->
+
+    <!-- SPRING DATABASE-->
     <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-orm</artifactId>
-        <version>${springframework.version}</version>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.1.4</version>
+    </dependency>
+
+    <!-- Spring ORM   -->
+    <dependency>
+      <groupId>org.javalite</groupId>
+      <artifactId>activejdbc</artifactId>
+      <version>1.4.13.j7</version>
+      <exclusions>
+        <exclusion>
+          <groupId>opensymphony</groupId>
+          <artifactId>oscache</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.javalite</groupId>
+      <artifactId>javalite-common</artifactId>
+      <version>1.4.13.j7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.javalite</groupId>
+      <artifactId>activeweb</artifactId>
+      <version>1.15.j7</version>
     </dependency>
 
     <!-- Spring Security -->
     <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-web</artifactId>
-        <version>${springsecurity.version}</version>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${springsecurity.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-config</artifactId>
-        <version>${springsecurity.version}</version>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${springsecurity.version}</version>
     </dependency>
     <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-taglibs</artifactId>
-        <version>${springsecurity.version}</version>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>${springsecurity.version}</version>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-    <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>42.1.4</version>
-    </dependency>
-
-    <!-- Hibernate ORM -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>${hibernate.version}</version>
-    </dependency>
-
-    <!-- Hibernate-C3P0 Integration -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-c3p0</artifactId>
-      <version>${hibernate.version}</version>
-    </dependency>
-
-    <!-- c3p0 -->
-    <dependency>
-      <groupId>com.mchange</groupId>
-      <artifactId>c3p0</artifactId>
-      <version>0.9.5.2</version>
-    </dependency>
-
-    <!-- Hibernate Validator -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>5.4.1.Final</version>
-    </dependency>
-   
-   
+    
     <!-- Servlet Dependency -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -106,19 +95,13 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- JSP Dependency -->
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>javax.servlet.jsp-api</artifactId>
-      <version>2.3.1</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
@@ -128,39 +111,109 @@
     
     <!-- SLF4J/Logback -->
     <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>1.1.7</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.7</version>
     </dependency>
+    
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <version>1.3.1</version>
-  </dependency>
+    </dependency>
+    
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
       <version>4.0.1.RELEASE</version>
       <type>jar</type>
     </dependency>
-  <dependency>
-    <groupId>de.neuland-bfi</groupId>
-    <artifactId>spring-jade4j</artifactId>
-    <version>1.2.5</version>
-</dependency>
- 
+
+    <dependency>
+      <groupId>de.neuland-bfi</groupId>
+      <artifactId>spring-jade4j</artifactId>
+      <version>1.2.5</version>
+    </dependency>
+    <!-- json -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-hibernate4</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+    
+    <!-- PLUGINS DEPENDENCIES -->
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>properties-maven-plugin</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>sql-maven-plugin</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.7.0</version>
+    </dependency>
   </dependencies>
+  
   <repositories>
     <repository>
-        <id>spring-milestones</id>
-        <name>Spring Milestones</name>
-        <url>https://repo.spring.io/libs-milestone</url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/libs-milestone</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
     </repository>
-</repositories>
-
+    <repository> 
+      <id>repository.spring.release</id> 
+      <name>Spring GA Repository</name> 
+      <url>http://repo.spring.io/release</url> 
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository> 
+      <id>repository.spring.milestone</id> 
+      <name>Spring Milestone Repository</name> 
+      <url>http://repo.spring.io/milestone</url> 
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>snapshots1</id>
+      <name>JavaLite Snapshots1</name>
+      <url>http://repo.javalite.io/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>snapshots2</id>
+      <name>JavaLite Snapshots2</name>
+      <url>http://repo.javalite.io/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+  
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
@@ -168,10 +221,70 @@
         <directory>src/main/resources</directory>
       </resource>
     </resources>
+
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>src/main/resources/config.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.javalite</groupId>
+        <artifactId>activejdbc-instrumentation</artifactId>
+        <version>1.4.13.j7</version>
+        <executions>
+          <execution>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.javalite</groupId>
+        <artifactId>db-migrator-maven-plugin</artifactId>
+        <version>1.4.13.j7</version>
+        <configuration>
+            <configFile>src/main/resources/database.properties</configFile>
+            <environments>development</environments>
+        </configuration>
+        <executions>
+            <execution>
+                <id>dev_migrations</id>
+                <phase>validate</phase>
+                <goals>
+                    <goal>migrate</goal>
+                </goals>
+            </execution>
+        </executions>
+        <dependencies>
+            <dependency>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <version>42.1.4</version>
+            </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>3.7.0</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -184,9 +297,14 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
+          <contextReloadable>true</contextReloadable>
           <path>/</path>
+          <port>8080</port>
+          <charset>UTF-8</charset>
+          <server>tomcat7</server>
         </configuration>
       </plugin>
     </plugins>
   </build>
 </project>
+<!-- mvn dependency:resolve -->
