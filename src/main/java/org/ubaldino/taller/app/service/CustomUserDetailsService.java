@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Override
     public AuthUser loadUserByUsername(final String login) throws UsernameNotFoundException {
         try {
-            User user = userService.getUser(login);
+            User user = userService.get(login);
             if (user == null) {
                 LOGGER.debug("user not found with the provided username");
                 throw new UsernameNotFoundException("Invalid username or password");

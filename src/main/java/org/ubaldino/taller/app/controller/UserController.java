@@ -13,7 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.ubaldino.taller.app.security.AuthUser;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.ubaldino.taller.app.service.DateService;
 import org.ubaldino.taller.app.service.ProfileService;
 import org.ubaldino.taller.app.service.UserService;
@@ -24,7 +25,7 @@ import org.ubaldino.taller.app.service.UserService;
 @Controller
 public class UserController {
     
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     
     @Autowired private UserService userService;
     @Autowired private ProfileService profileService;
@@ -34,32 +35,25 @@ public class UserController {
     @GetMapping("/dashboard")
     public String dashboard(Locale locale, Model model,Authentication auth) {
         if(!Base.hasConnection()) Base.open();
-        AuthUser authUser = (AuthUser) auth.getPrincipal();
+        //AuthUser authUser = (AuthUser) auth.getPrincipal();
         model.addAttribute("auth",auth);
-       
-        
-        LOGGER.debug( "++++++++++++++++++++++++++++++++++++88888888++++++++++++++++++++++++++++++++++++" );
-        LOGGER.debug( authUser.getProfile().getFoto() );
-        LOGGER.debug( "++++++++++++++++++++++++++++++++++++%%%%%%%%%++++++++++++++++++++++++++++++++++++" );
-        
         model.addAttribute("date",dateService.getCurrentDate());
-        return "dashboard";
+        return "users/dashboard";
     }
     
     /*
         GET   /users  index
     */
-    /*
     @GetMapping("/users")
     public String index(Model model,Authentication auth) {
         if(!Base.hasConnection()) Base.open();
-        model.addAttribute("auth", auth);
         //2017-10-19
-        model.addAttribute("profiles", profileService.list());
+        model.addAttribute("auth", auth)    ;
+        model.addAttribute("profiles", profileService.getAll());
         model.addAttribute("date",dateService.getCurrentDate());
-        return "users";
+        return "users/index";
     }
-    */
+    
     /*
     @PostMapping("/users")
     public String store(@RequestParam("foto") MultipartFile foto,WebRequest request, Model model) {
@@ -114,24 +108,24 @@ public class UserController {
     */
     /*
         DELETE	/users/{id}	enable
-    
+    */
     @PostMapping("/users/{id}/enable")
     public String enable(@PathVariable("id") Long userId,Model model,Authentication auth) {
         if(!Base.hasConnection()) Base.open();
         profileService.enable(userId);
         return "redirect:/users";
     }
-    */
+    
     /*
         DELETE	/users/{id} 	disable
-    
+    */
     @PostMapping("/users/{id}/disable")
-    public String disable(@PathVariable("id") Long userId,Model model,Authentication auth) {
+    public String disable(@PathVariable("id") int userId,Model model,Authentication auth) {
         if(!Base.hasConnection()) Base.open();
         profileService.disable(userId);
         return "redirect:/users";
     }
-    */
+    
     /*
         /users/25/assign
     

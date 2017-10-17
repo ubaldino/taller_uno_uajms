@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author ubaldino
  */
 @Controller
-public class LoginController {
+public class LoginController  {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
     @RequestMapping(value="/login",method=RequestMethod.GET)
     public String displayLogin(Model model){
-        if (!Base.hasConnection()) Base.open();
+        if(!Base.hasConnection()) Base.open();
+        
         /*
         LOGGER.debug("***************");
         LOGGER.debug("**** GET LOGIN *******");

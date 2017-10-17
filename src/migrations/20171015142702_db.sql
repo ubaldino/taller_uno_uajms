@@ -70,7 +70,7 @@ CREATE TABLE personal (
     ap character varying(40),
     am character varying(40),
     estado integer NOT NULL,
-    fnac timestamp(6) without time zone NOT NULL,
+    fnac date NOT NULL,
     ecivil character varying(1) NOT NULL,
     genero character varying(1) NOT NULL,
     direc character varying(50),
@@ -247,56 +247,56 @@ insert into rolme values(5, 4);
 
 
 CREATE TABLE usuarios (
+    codp bigint NOT NULL,
     login character varying(10) NOT NULL,
     estado integer NOT NULL DEFAULT 1,
-    password character varying(200) NOT NULL,
-    codp bigint NOT NULL
+    password character varying(200) NOT NULL
 );
 COMMENT ON COLUMN usuarios.login IS 'Login o nombre del usuario';
 COMMENT ON COLUMN usuarios.estado IS 'Estado 1=activo, 0=nulo';
 COMMENT ON COLUMN usuarios.password IS 'Clave o password';
 COMMENT ON COLUMN usuarios.codp IS 'REF::PERSONAL';
 
-insert into usuarios values( 'maria', 1, 'asdf',  1);
-insert into usuarios values( 'renan', 1, 'asdf',  2);
-insert into usuarios values( 'jose', 1, 'asdf',  3);
-insert into usuarios values( 'martha', 1, 'asdf',  4);
-insert into usuarios values( 'ana', 1, 'asdf',  5);
-insert into usuarios values( 'pedro', 1, 'asdf',  6);
-insert into usuarios values( 'magdalena', 1, 'asdf',  7);
-insert into usuarios values( 'jhonny', 1, 'asdf',  8);
-insert into usuarios values( 'remberto', 1, 'asdf',  9);
-insert into usuarios values( 'rpedro', 1, 'asdf', 10);
-insert into usuarios values( 'luis', 1, 'asdf', 11);
-insert into usuarios values( 'juana', 1, 'asdf', 12);
-insert into usuarios values( 'mirtha', 1, 'asdf', 13);
-insert into usuarios values( 'marisel', 1, 'asdf', 14);
-insert into usuarios values( 'antonio', 1, 'asdf', 15);
+insert into usuarios values(  1, 'maria', 1, 'asdf');
+insert into usuarios values(  2, 'renan', 1, 'asdf');
+insert into usuarios values(  3, 'jose', 1, 'asdf');
+insert into usuarios values(  4, 'martha', 1, 'asdf');
+insert into usuarios values(  5, 'ana', 1, 'asdf');
+insert into usuarios values(  6, 'pedro', 1, 'asdf');
+insert into usuarios values(  7, 'magdalena', 1, 'asdf');
+insert into usuarios values(  8, 'jhonny', 1, 'asdf');
+insert into usuarios values(  9, 'remberto', 1, 'asdf');
+insert into usuarios values( 10, 'rpedro', 1, 'asdf');
+insert into usuarios values( 11, 'luis', 1, 'asdf');
+insert into usuarios values( 12, 'juana', 1, 'asdf');
+insert into usuarios values( 13, 'mirtha', 1, 'asdf');
+insert into usuarios values( 14, 'marisel', 1, 'asdf');
+insert into usuarios values( 15, 'antonio', 1, 'asdf');
 
 
 
 CREATE TABLE usurol (
-    codr bigint NOT NULL,
-    login character varying(10) NOT NULL
+    codp bigint NOT NULL,
+    codr bigint NOT NULL
 );
+COMMENT ON COLUMN usurol.codp IS 'REF.:USUARIOS';
 COMMENT ON COLUMN usurol.codr IS 'REF.:ROLES';
-COMMENT ON COLUMN usurol.login IS 'REF.:USUARIOS';
 
-insert into usurol values(1, 'maria');
-insert into usurol values(2, 'renan');
-insert into usurol values(3, 'jose');
-insert into usurol values(5, 'martha');
-insert into usurol values(4, 'ana');
-insert into usurol values(4, 'pedro');
-insert into usurol values(4, 'magdalena');
-insert into usurol values(4, 'jhonny');
-insert into usurol values(4, 'remberto');
-insert into usurol values(4, 'rpedro');
-insert into usurol values(4, 'luis');
-insert into usurol values(4, 'juana');
-insert into usurol values(4, 'mirtha');
-insert into usurol values(2, 'marisel');
-insert into usurol values(5, 'antonio');
+insert into usurol values( 1, 1 );
+insert into usurol values( 2, 2 );
+insert into usurol values( 3, 3 );
+insert into usurol values( 4, 5 );
+insert into usurol values( 5, 4 );
+insert into usurol values( 6, 4 );
+insert into usurol values( 7, 4 );
+insert into usurol values( 8, 4 );
+insert into usurol values( 9, 4 );
+insert into usurol values( 10, 4 );
+insert into usurol values( 11, 4 );
+insert into usurol values( 12, 4 );
+insert into usurol values( 13, 4 );
+insert into usurol values( 14, 2 );
+insert into usurol values( 15, 5 );
 
 
 
@@ -308,10 +308,10 @@ ALTER TABLE ONLY personal ADD CONSTRAINT personal_pkey PRIMARY KEY (codp);
 ALTER TABLE ONLY procesos ADD CONSTRAINT procesos_pkey PRIMARY KEY (codp);
 ALTER TABLE ONLY roles ADD CONSTRAINT roles_pkey PRIMARY KEY (codr);
 ALTER TABLE ONLY rolme ADD CONSTRAINT rolme_pkey PRIMARY KEY (codr, codm);
-ALTER TABLE ONLY usuarios ADD CONSTRAINT unique_codp_usuarios UNIQUE (codp);
+ALTER TABLE ONLY usuarios ADD CONSTRAINT unique_login_usuarios UNIQUE (login);
 ALTER TABLE ONLY datos ADD CONSTRAINT unique_datos_codp UNIQUE (codp);
-ALTER TABLE ONLY usuarios ADD CONSTRAINT usuarios_pkey PRIMARY KEY (login);
-ALTER TABLE ONLY usurol ADD CONSTRAINT usurol_pkey PRIMARY KEY (codr, login);
+ALTER TABLE ONLY usuarios ADD CONSTRAINT usuarios_pkey PRIMARY KEY (codp);
+ALTER TABLE ONLY usurol ADD CONSTRAINT usurol_pkey PRIMARY KEY (codp,codr);
 ALTER TABLE ONLY datos ADD CONSTRAINT fk_datos_personal_1 FOREIGN KEY (codp) REFERENCES personal(codp) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ONLY mepro ADD CONSTRAINT fk_mepro_menus_1 FOREIGN KEY (codm) REFERENCES menus(codm);
 ALTER TABLE ONLY mepro ADD CONSTRAINT fk_mepro_procesos_1 FOREIGN KEY (codp) REFERENCES procesos(codp);
@@ -319,4 +319,4 @@ ALTER TABLE ONLY rolme ADD CONSTRAINT fk_rolme_menus_1 FOREIGN KEY (codm) REFERE
 ALTER TABLE ONLY rolme ADD CONSTRAINT fk_rolme_roles_1 FOREIGN KEY (codr) REFERENCES roles(codr);
 ALTER TABLE ONLY usuarios ADD CONSTRAINT fk_usuarios_personal_1 FOREIGN KEY (codp) REFERENCES personal(codp) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_roles_1 FOREIGN KEY (codr) REFERENCES roles(codr);
-ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_usuarios_1 FOREIGN KEY (login) REFERENCES usuarios(login);
+ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_usuarios_1 FOREIGN KEY (codp) REFERENCES usuarios(codp);

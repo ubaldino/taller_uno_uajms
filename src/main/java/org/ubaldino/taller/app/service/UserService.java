@@ -2,7 +2,9 @@ package org.ubaldino.taller.app.service;
 
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
 import org.javalite.activejdbc.Base;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import org.ubaldino.taller.app.model.Profile;
@@ -16,29 +18,24 @@ import org.ubaldino.taller.app.model.User;
  */
 @Service
 public class UserService {
-
-   
+    
+   @Autowired DataSource dataSource;
     //@Autowired
     //private PasswordEncoder passwordEncoder;
 
-   
-    
-    public User getUser(String login){
-        
-        User user = new User();
+    public User get(String login){
+        if(!Base.hasConnection()) Base.open();
+        User user=new User();
         try {
-            user = User.findFirst("login=?",login);
+            user = user.findFirst("login=?",login);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             user=null;
-        } finally {
-            //Base.close();
         }
         return user;
     }
     
     public List<Map<String,Object>> getAll() {
-        //Base.open(dataSource);
+        if(!Base.hasConnection()) Base.open();
         List<Map<String,Object>> users = null;
         try{
             Base.openTransaction();
@@ -47,18 +44,10 @@ public class UserService {
                     .toMaps();
             Base.commitTransaction();
         }catch( Exception e){
-            System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿");
-            System.out.println(e.getMessage());
-            System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿");
             Base.rollbackTransaction();
         }
-        finally{
-            //Base.close();
-        }
-        
+         
         return users;
     }
-    
-    
     
 }

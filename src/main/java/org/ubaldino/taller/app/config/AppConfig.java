@@ -36,8 +36,9 @@ public class AppConfig {
         dataSource.setUrl(env.getProperty("postgresql.url"));
         dataSource.setUsername(env.getProperty("postgresql.user"));
         dataSource.setPassword(env.getProperty("postgresql.password"));
+        if(!Base.hasConnection()) Base.open();
         return dataSource;
     }
-    
+     
      
 }

@@ -1,6 +1,7 @@
 package org.ubaldino.taller.app.model;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.BelongsTo;
 import org.javalite.activejdbc.annotations.IdGenerator;
 import org.javalite.activejdbc.annotations.IdName;
 import org.javalite.activejdbc.annotations.Table;
@@ -11,7 +12,8 @@ import org.javalite.activejdbc.annotations.Table;
  * @author ubaldino
  */
 @Table("personal")
-//@IdGenerator("personal_codp_seq.nextVal")
+@IdGenerator("personal_codp_seq.nextVal")
+@BelongsTo(parent=User.class,foreignKeyName="codp")
 @IdName("codp")
 public class Profile extends Model {
      static {
@@ -25,7 +27,8 @@ public class Profile extends Model {
         validatePresenceOf("direc").message("must be provided");
         validatePresenceOf("telf").message("must be provided");
         validatePresenceOf("tipo").message("must be provided");
-        validatePresenceOf("foto").message("must be provided");
+        //validatePresenceOf("foto").message("must be provided");
+        //dateFormat("MM/dd/yyyy", "fnac");
     }
     public Profile() {}
 
@@ -60,7 +63,12 @@ public class Profile extends Model {
     public int getEstado(){
         return getInteger("estado");
     }
-    public String getFnac(){
+    public void setEstado(int estado){
+        set("estado",estado);
+    }
+    
+    public String getFnacimiento(){
+        //setDate("dob", "1926-06-01")
         return getString("fnac");
     }
     public String getEcivil(){
