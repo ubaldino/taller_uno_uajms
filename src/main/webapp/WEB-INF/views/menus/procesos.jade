@@ -42,23 +42,9 @@ block content
               a.heading-elements-toggle
                 i.icon-ellipsis.font-medium-3
             .card-body.collapse.in
-              .table-responsive
-                table.table.table-bordered.table-striped#menus
-                  thead
-                    tr
-                      th(style="width:10%") #
-                      th(style="width:60%") Lista de menus
-                  tbody
-                    each menu in menus
-                      tr
-                        td
-                          input(type="radio",name="menu",value="#{menu.codm}")
-                        td #{menu.nombre}
-                .col-md-6
-                  nav(aria-label="Page navigation")
-                    ul.pagination.procesos
-                      script(type='text/javascript').
-                        render_menu_list()
+              .table-responsive#menues
+                script(type='text/javascript').
+                  render_menu_list()
 
 
         .col-md-6
@@ -68,21 +54,12 @@ block content
               a.heading-elements-toggle
                 i.icon-ellipsis.font-medium-3
             .card-body.collapse.in
-              .table-responsive
-                table.table.table-bordered.table-striped#procesos
-                  thead
-                    tr
-                      th(style="width:10%") #
-                      th(style="width:60%") Lista de procesos
-                  tbody
-                    each proceso in procesos
-                      tr
-                        td
-                          input(type="checkbox",name="menu",value="#{proceso.codp}")
-                        td #{proceso.nombre}
-          br
-          br
-          br
+              .table-responsive#procesos
+                script(type='text/javascript').
+                  render_procesos_list()
+      br
+      br
+      br
 
 
 

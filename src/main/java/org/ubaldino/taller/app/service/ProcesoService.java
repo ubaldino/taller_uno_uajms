@@ -37,6 +37,15 @@ public class ProcesoService implements ServiceInterface<Proceso>{
             return null;
         }
     }
+    
+    public List<Map<String, Object>> getAllSingle() {
+        if(!Base.hasConnection()) Base.open();
+        try{
+            return Proceso.findAll().toMaps();
+        }catch( Exception e){
+            return null;
+        }
+    }
 
     @Override
     public Long save(WebRequest request, Long id) {

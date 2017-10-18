@@ -63,5 +63,10 @@ public class ProcesoController {
         return procesoService.getAll();
     }
     
+    @RequestMapping(value="/procesos/api/single",method=RequestMethod.GET)
+    public @ResponseBody List<Map<String,Object>> apiProcesosSingle() {
+        return procesoService.getAllSingle();
+    }
+    
     
 }

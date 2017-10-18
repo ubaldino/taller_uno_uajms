@@ -9,7 +9,28 @@ let getJSON=(url,callback)=>{
     xhr.send();
 }
 
+let sendPost=(data,url,callback)=>{
+	xhr = new XMLHttpRequest();
+	xhr.open('POST',url,true);
+	xhr.onload=()=>{ 
+	    let status=xhr.status;
+        (xhr.readyState==4&&status==200)?callback(null,xhr.response):callback(status);
+	}
+	xhr.send(data);
+}
 
+
+
+//sendPost({"email":"tomb@raider.com","name":"LaraCroft"})
+/*
+window.fetch('/menus/api/proceso/assign', {
+	method: 'POST',
+	body: JSON.stringify({p:'hola'}),
+})
+.then((data)=>{
+	console.log(data)
+});
+*/
 // $(".btn_assign").bind("click",()=>{
 // 	if(confirm('Esta seguro de asignar usuario?')){
 //         document.getElementById("form_assign_"+this.id).submit();

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
-import org.ubaldino.taller.app.model.Menu;
+import org.ubaldino.taller.app.service.MenuProcesoService;
 import org.ubaldino.taller.app.service.MenuService;
 import org.ubaldino.taller.app.service.ProcesoService;
 import org.ubaldino.taller.app.service.ProfileService;
@@ -34,6 +34,7 @@ public class MenuController {
     @Autowired private ProcesoService procesoService;
     @Autowired private UserService userService;
     @Autowired private ProfileService profileService;
+    @Autowired private MenuProcesoService menuProcesoService;
     
     @GetMapping("/menus")
     public String index(Model model,Authentication auth) {
@@ -74,10 +75,34 @@ public class MenuController {
         return "menus/procesos";
     }
     
-    @RequestMapping(value="/menus/api", method = RequestMethod.GET)
+    @RequestMapping(value="/menus/api",method=RequestMethod.GET)
     public @ResponseBody List<Map<String,Object>> apiProcesos() {
         return menuService.getAll();
     }
+    
+    @RequestMapping(value="/menus/api/proceso/assign",method=RequestMethod.POST)
+    public @ResponseBody List<Map<String,Object>> apiMenuProcesoAssign(WebRequest request) {
+        menuProcesoService.create(
+            request.getParameter("codm")
+          , request.getParameter("codp")
+        );
+        return menuService.getAll();
+    }
+    
+    @RequestMapping(value="/menus/api/proceso/delete",method=RequestMethod.POST)
+    public @ResponseBody List<Map<String,Object>> apiMenuProcesoDelete(WebRequest request) {
+        menuProcesoService.delete(
+            request.getParameter("codm")
+          , request.getParameter("codp")
+        );
+        return menuService.getAll();
+    }
+    /*
+    @RequestMapping(value="/menus/api/single", method = RequestMethod.GET)
+    public @ResponseBody List<Map<String,Object>> apiProcesosSingle() {
+        return menuService.getAllSingle();
+    }
+    */
     /*
     @RequestMapping(value="/tusers", method = RequestMethod.GET)
     public String getShopInJSON2() {
