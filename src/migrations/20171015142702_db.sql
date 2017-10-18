@@ -73,10 +73,10 @@ CREATE TABLE personal (
     fnac date NOT NULL,
     ecivil character varying(1) NOT NULL,
     genero character varying(1) NOT NULL,
-    direc character varying(50),
+    direc character varying(100),
     telf character varying(20),
     tipo character varying(1) NOT NULL,
-    foto character varying(30)
+    foto character varying(128)
 );
 ALTER SEQUENCE personal_codp_seq OWNED BY personal.codp;
 COMMENT ON COLUMN personal.nombre IS 'Nombre del a Persona';

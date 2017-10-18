@@ -54,10 +54,17 @@ block content
                         td
                           input(type="radio",name="menu",value="#{menu.codm}")
                         td #{menu.nombre}
+                .col-md-6
+                  nav(aria-label="Page navigation")
+                    ul.pagination.procesos
+                      script(type='text/javascript').
+                        render_menu_list()
+
+
         .col-md-6
           .card
             .card-header
-              h4.card-title Menus Registrados
+              h4.card-title Procesos Registrados
               a.heading-elements-toggle
                 i.icon-ellipsis.font-medium-3
             .card-body.collapse.in

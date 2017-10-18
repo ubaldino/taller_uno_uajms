@@ -58,7 +58,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         */
         http.csrf().disable()
         .authorizeRequests()
-        .antMatchers("/").permitAll()
+        //.antMatchers("/").permitAll();
         .antMatchers("/public/**").permitAll()
         .antMatchers("/admin/**").hasAuthority("Admin")
         .antMatchers("/user/**").hasAuthority("USER")
@@ -73,6 +73,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/");
+            
     }
     
     @Bean

@@ -1,6 +1,5 @@
 package org.ubaldino.taller.app.controller;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.ubaldino.taller.app.service.MenuService;
 import org.ubaldino.taller.app.service.ProfileService;
+import org.ubaldino.taller.app.service.RoleService;
 import org.ubaldino.taller.app.service.UserService;
 
 /**
@@ -20,6 +21,8 @@ public class TestController {
     
     @Autowired private UserService userService;
     @Autowired private ProfileService profileService;
+    @Autowired private RoleService roleService;
+    @Autowired private MenuService menuService;
     
     @GetMapping("/test")
     public @ResponseBody  List<Map<String,Object>> userForm() throws SQLException {
@@ -39,7 +42,7 @@ public class TestController {
         Base.executeBatch(ps);
         ps.close();
         */
-        return profileService.getAll();
+        return menuService.getAll();
     }
 }
 
