@@ -7,7 +7,6 @@ package org.ubaldino.taller.app.service;
 
 import java.io.Serializable;
 import org.javalite.activejdbc.Base;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ubaldino.taller.app.model.MenuProceso;
 
@@ -41,7 +40,7 @@ public class MenuProcesoService {
     public boolean delete(Serializable codm,Serializable codp){
         if(!Base.hasConnection()) Base.open();
         boolean state=false;
-        try{
+        try{    
             Base.openTransaction();
             MenuProceso menuProceso=new MenuProceso();
             menuProceso.setCodM(codm);
