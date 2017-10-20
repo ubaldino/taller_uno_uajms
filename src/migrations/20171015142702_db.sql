@@ -1,96 +1,47 @@
- 
-CREATE TABLE datos (
-    codp bigint NOT NULL,
-    cedula character varying(10) NOT NULL
+-- drop table personal;
+-- drop table usuarios;
+-- drop table datos;
+-- drop table menus;
+-- drop table procesos;
+-- drop table mepro;
+-- drop table roles;
+-- drop table rolme;
+-- drop table usurol;
+-- drop table items;
+-- drop table materias;
+-- drop table itemat;
+-- drop table paralelos;
+-- drop table modalidad;
+-- drop table dmodalidad;
+
+create sequence personal_codp_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table personal (
+    codp bigint primary key default nextval('personal_codp_seq'::regclass),
+    nombre varchar(40) not null,
+    ap varchar(40),
+    am varchar(40),
+    estado int not null,
+    fnac date not null,
+    ecivil varchar(1) not null,
+    genero varchar(1) not null,
+    direc varchar(100),
+    telf varchar(20),
+    tipo varchar(1) not null,
+    foto varchar(128)
 );
-COMMENT ON COLUMN datos.codp IS 'REF.:ROLES';
-COMMENT ON COLUMN datos.cedula IS '  
-REF.:USUARIOS
-REF.:USUARIOS';
-
-CREATE SEQUENCE menus_codm_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE menus (
-    codm bigint NOT NULL DEFAULT nextval('menus_codm_seq'::regclass),
-    nombre character varying(40) NOT NULL,
-    estado integer NOT NULL DEFAULT 1
-);
-ALTER SEQUENCE menus_codm_seq OWNED BY menus.codm;
-COMMENT ON COLUMN menus.codm IS 'Código Menu';
-COMMENT ON COLUMN menus.nombre IS 'Nombre del menú';
-COMMENT ON COLUMN menus.estado IS 'Estado 1=activo, 0=nulo';
-
-insert into menus(nombre) values( 'gestion de usuario' );
-insert into menus(nombre) values( 'gestion de estudiantes' );
-insert into menus(nombre) values( 'gestion de materias' );
-insert into menus(nombre) values( 'gestión de paralelos' );
-insert into menus(nombre) values( 'gestión de menus' );
-insert into menus(nombre) values( 'gestión de roles' );
-insert into menus(nombre) values( 'gestión de items' );
-insert into menus(nombre) values( 'gestión de modalidades' );
-insert into menus(nombre) values( 'gestión de profesores' );
-
-
-
-CREATE TABLE mepro (
-    codm bigint NOT NULL,
-    codp bigint NOT NULL
-);
-COMMENT ON COLUMN mepro.codm IS 'REF.:MENUS';
-COMMENT ON COLUMN mepro.codp IS 'REF.:PROCESOS';
-insert into mepro values(1, 1);
-insert into mepro values(1, 2);
-insert into mepro values(1, 3);
-insert into mepro values(2, 4);
-insert into mepro values(2, 5);
-insert into mepro values(2, 6);
-insert into mepro values(3, 7);
-insert into mepro values(3, 8);
-insert into mepro values(3, 9);
-insert into mepro values(4, 10);
-insert into mepro values(4, 11);
-insert into mepro values(4, 12);
-insert into mepro values(5, 13);
-insert into mepro values(5, 14);
-insert into mepro values(5, 15);
-insert into mepro values(6, 16);
-insert into mepro values(6, 17);
-insert into mepro values(6, 18);
-insert into mepro values(7, 19);
-insert into mepro values(7, 20);
-insert into mepro values(7, 21);
-insert into mepro values(8, 22);
-insert into mepro values(8, 23);
-insert into mepro values(8, 24);
-
-
-CREATE SEQUENCE personal_codp_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE personal (
-    codp bigint NOT NULL DEFAULT nextval('personal_codp_seq'::regclass),
-    nombre character varying(40) NOT NULL,
-    ap character varying(40),
-    am character varying(40),
-    estado integer NOT NULL,
-    fnac date NOT NULL,
-    ecivil character varying(1) NOT NULL,
-    genero character varying(1) NOT NULL,
-    direc character varying(100),
-    telf character varying(20),
-    tipo character varying(1) NOT NULL,
-    foto character varying(128)
-);
-ALTER SEQUENCE personal_codp_seq OWNED BY personal.codp;
-COMMENT ON COLUMN personal.nombre IS 'Nombre del a Persona';
-COMMENT ON COLUMN personal.ap IS 'Apellido Paterno';
-COMMENT ON COLUMN personal.am IS 'Apellido Materno';
-COMMENT ON COLUMN personal.estado IS 'Estado 1=activo, 0=nulo';
-COMMENT ON COLUMN personal.fnac IS 'Fecha de nacimiento';
-COMMENT ON COLUMN personal.ecivil IS 'Estado civil';
-COMMENT ON COLUMN personal.genero IS 'Género Masculino o Femenino';
-COMMENT ON COLUMN personal.direc IS 'Dirección';
-COMMENT ON COLUMN personal.telf IS 'Teléfono';
-COMMENT ON COLUMN personal.codp IS 'codigo persona';
-COMMENT ON COLUMN personal.tipo IS 'E=Estudiante, P=profesor';
-COMMENT ON COLUMN personal.foto IS 'foto personal';
+alter sequence personal_codp_seq OWNED BY personal.codp;
+comment on column personal.nombre IS 'Nombre del a Persona';
+comment on column personal.ap IS 'Apellido Paterno';
+comment on column personal.am IS 'Apellido Materno';
+comment on column personal.estado IS 'Estado 1=activo, 0=nulo';
+comment on column personal.fnac IS 'Fecha de nacimiento';
+comment on column personal.ecivil IS 'Estado civil';
+comment on column personal.genero IS 'Género Masculino o Femenino';
+comment on column personal.direc IS 'Dirección';
+comment on column personal.telf IS 'Teléfono';
+comment on column personal.codp IS 'codigo persona';
+comment on column personal.tipo IS 'E=Estudiante, P=profesor';
+comment on column personal.foto IS 'foto personal';
 
 
 insert into personal(nombre,ap,am,estado,fnac,ecivil,genero,direc,telf,tipo,foto) values( 'María', 'Paniagua', 'Mendez', 1, '1978/10/25', 'C', 'F', 'Calle Santa Cruz, Nro 234', '74828831', 'U',NULL);
@@ -150,20 +101,81 @@ insert into personal(nombre,ap,am,estado,fnac,ecivil,genero,direc,telf,tipo,foto
 
 
 
-CREATE SEQUENCE procesos_codp_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE procesos (
-    codp bigint NOT NULL DEFAULT nextval('procesos_codp_seq'::regclass),
-    nombre character varying(40) NOT NULL,
-    enlace character varying(40) NOT NULL,
-    ayuda character varying(50),
-    estado integer NOT NULL DEFAULT 1
+create table usuarios (
+    codp bigint references personal(codp) on update cascade on delete cascade,
+    login varchar(10) not null ,
+    estado int not null default 1,
+    password varchar(200) not null,
+    primary key(codp),
+    unique(login)
 );
-ALTER SEQUENCE procesos_codp_seq OWNED BY procesos.codp;
-COMMENT ON COLUMN procesos.codp IS 'Código de Proceso';
-COMMENT ON COLUMN procesos.nombre IS 'Nombre del proceso';
-COMMENT ON COLUMN procesos.enlace IS 'Enlace o Link';
-COMMENT ON COLUMN procesos.ayuda IS 'Texto ayuda de la opción';
-COMMENT ON COLUMN procesos.estado IS 'Estado 1=activo, 0=nulo';
+comment on column usuarios.login IS 'Login o nombre del usuario';
+comment on column usuarios.estado IS 'Estado 1=activo, 0=nulo';
+comment on column usuarios.password IS 'Clave o password';
+comment on column usuarios.codp IS 'REF::PERSONAL';
+
+insert into usuarios values(  1, 'maria', 1, 'asdf');
+insert into usuarios values(  2, 'renan', 1, 'asdf');
+insert into usuarios values(  3, 'jose', 1, 'asdf');
+insert into usuarios values(  4, 'martha', 1, 'asdf');
+insert into usuarios values(  5, 'ana', 1, 'asdf');
+insert into usuarios values(  6, 'pedro', 1, 'asdf');
+insert into usuarios values(  7, 'magdalena', 1, 'asdf');
+insert into usuarios values(  8, 'jhonny', 1, 'asdf');
+insert into usuarios values(  9, 'remberto', 1, 'asdf');
+insert into usuarios values( 10, 'rpedro', 1, 'asdf');
+insert into usuarios values( 11, 'luis', 1, 'asdf');
+insert into usuarios values( 12, 'juana', 1, 'asdf');
+insert into usuarios values( 13, 'mirtha', 1, 'asdf');
+insert into usuarios values( 14, 'marisel', 1, 'asdf');
+insert into usuarios values( 15, 'antonio', 1, 'asdf');
+
+
+create table datos (
+    codp bigint references personal(codp) on update cascade on delete cascade,
+    cedula varchar(10),
+    primary key(codp,cedula)
+);
+comment on column datos.codp IS 'REF.:ROLES';
+comment on column datos.cedula IS '  
+REF.:USUARIOS
+REF.:USUARIOS';
+
+create sequence menus_codm_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table menus (
+    codm bigint primary key default nextval('menus_codm_seq'::regclass),
+    nombre varchar(40) not null,
+    estado int not null default 1
+);
+alter sequence menus_codm_seq OWNED BY menus.codm;
+comment on column menus.codm IS 'Código Menu';
+comment on column menus.nombre IS 'Nombre del menú';
+comment on column menus.estado IS 'Estado 1=activo, 0=nulo';
+
+insert into menus(nombre) values( 'gestion de usuario' );
+insert into menus(nombre) values( 'gestion de estudiantes' );
+insert into menus(nombre) values( 'gestion de materias' );
+insert into menus(nombre) values( 'gestión de paralelos' );
+insert into menus(nombre) values( 'gestión de menus' );
+insert into menus(nombre) values( 'gestión de roles' );
+insert into menus(nombre) values( 'gestión de items' );
+insert into menus(nombre) values( 'gestión de modalidades' );
+insert into menus(nombre) values( 'gestión de profesores' );
+
+create sequence procesos_codp_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table procesos (
+    codp bigint primary key default nextval('procesos_codp_seq'::regclass),
+    nombre varchar(40) not null,
+    enlace varchar(40) not null,
+    ayuda varchar(50),
+    estado int not null default 1
+);
+alter sequence procesos_codp_seq OWNED BY procesos.codp;
+comment on column procesos.codp IS 'Código de Proceso';
+comment on column procesos.nombre IS 'Nombre del proceso';
+comment on column procesos.enlace IS 'Enlace o Link';
+comment on column procesos.ayuda IS 'Texto ayuda de la opción';
+comment on column procesos.estado IS 'Estado 1=activo, 0=nulo';
 
 insert into procesos(nombre,enlace,ayuda) values( 'agregar usuario', '', 'añadir datos de un usuario' );
 insert into procesos(nombre,enlace,ayuda) values( 'modificar usuario', '', 'modificar datos de un usuario' );
@@ -190,19 +202,51 @@ insert into procesos(nombre,enlace,ayuda) values( 'agregar modalidad', '', 'aña
 insert into procesos(nombre,enlace,ayuda) values( 'modificar modalidad', '', 'modificar datos de un modalidad' );
 insert into procesos(nombre,enlace,ayuda) values( 'borrar modalidad', '', 'eliminar datos de un modalidad' );
 
-
-
-
-CREATE SEQUENCE roles_codr_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE roles (
-    codr bigint NOT NULL DEFAULT nextval('roles_codr_seq'::regclass),
-    nombre character varying(40) NOT NULL,
-    estado integer NOT NULL DEFAULT 1
+create table mepro (
+    codm bigint references menus(codm),
+    codp bigint references procesos(codp),
+    primary key(codm,codp)  
 );
-COMMENT ON COLUMN roles.codr IS 'Código Rol';
-COMMENT ON COLUMN roles.nombre IS 'Nombre del rol';
-COMMENT ON COLUMN roles.estado IS 'Estado 1=activo, 0=nulo';
-ALTER SEQUENCE roles_codr_seq OWNED BY roles.codr;
+comment on column mepro.codm IS 'REF.:MENUS';
+comment on column mepro.codp IS 'REF.:PROCESOS';
+insert into mepro values(1, 1);
+insert into mepro values(1, 2);
+insert into mepro values(1, 3);
+insert into mepro values(2, 4);
+insert into mepro values(2, 5);
+insert into mepro values(2, 6);
+insert into mepro values(3, 7);
+insert into mepro values(3, 8);
+insert into mepro values(3, 9);
+insert into mepro values(4, 10);
+insert into mepro values(4, 11);
+insert into mepro values(4, 12);
+insert into mepro values(5, 13);
+insert into mepro values(5, 14);
+insert into mepro values(5, 15);
+insert into mepro values(6, 16);
+insert into mepro values(6, 17);
+insert into mepro values(6, 18);
+insert into mepro values(7, 19);
+insert into mepro values(7, 20);
+insert into mepro values(7, 21);
+insert into mepro values(8, 22);
+insert into mepro values(8, 23);
+insert into mepro values(8, 24);
+
+
+
+
+create sequence roles_codr_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table roles (
+    codr bigint primary key default nextval('roles_codr_seq'::regclass),
+    nombre varchar(40) not null,
+    estado int not null default 1
+);
+comment on column roles.codr IS 'Código Rol';
+comment on column roles.nombre IS 'Nombre del rol';
+comment on column roles.estado IS 'Estado 1=activo, 0=nulo';
+alter sequence roles_codr_seq OWNED BY roles.codr;
 
 insert into roles(nombre) values( 'Administrador' );
 insert into roles(nombre) values( 'Director' );
@@ -210,16 +254,13 @@ insert into roles(nombre) values( 'Secretario' );
 insert into roles(nombre) values( 'Profesor' );
 insert into roles(nombre) values( 'Auxiliar' );
 
-
-
-
-
-CREATE TABLE rolme (
-    codr bigint NOT NULL,
-    codm bigint NOT NULL
+create table rolme (
+    codr bigint references roles(codr),
+    codm bigint references menus(codm),
+    primary key(codr,codm)
 );
-COMMENT ON COLUMN rolme.codr IS 'REF.:ROLES';
-COMMENT ON COLUMN rolme.codm IS 'REF.:MENUS';
+comment on column rolme.codr IS 'REF.:ROLES';
+comment on column rolme.codm IS 'REF.:MENUS';
 insert into rolme values(1, 1);
 insert into rolme values(1, 2);
 insert into rolme values(1, 3);
@@ -246,41 +287,13 @@ insert into rolme values(5, 3);
 insert into rolme values(5, 4);
 
 
-CREATE TABLE usuarios (
-    codp bigint NOT NULL,
-    login character varying(10) NOT NULL,
-    estado integer NOT NULL DEFAULT 1,
-    password character varying(200) NOT NULL
+create table usurol (
+    codp bigint references usuarios(codp),
+    codr bigint references roles(codr),
+    primary key(codp,codr) 
 );
-COMMENT ON COLUMN usuarios.login IS 'Login o nombre del usuario';
-COMMENT ON COLUMN usuarios.estado IS 'Estado 1=activo, 0=nulo';
-COMMENT ON COLUMN usuarios.password IS 'Clave o password';
-COMMENT ON COLUMN usuarios.codp IS 'REF::PERSONAL';
-
-insert into usuarios values(  1, 'maria', 1, 'asdf');
-insert into usuarios values(  2, 'renan', 1, 'asdf');
-insert into usuarios values(  3, 'jose', 1, 'asdf');
-insert into usuarios values(  4, 'martha', 1, 'asdf');
-insert into usuarios values(  5, 'ana', 1, 'asdf');
-insert into usuarios values(  6, 'pedro', 1, 'asdf');
-insert into usuarios values(  7, 'magdalena', 1, 'asdf');
-insert into usuarios values(  8, 'jhonny', 1, 'asdf');
-insert into usuarios values(  9, 'remberto', 1, 'asdf');
-insert into usuarios values( 10, 'rpedro', 1, 'asdf');
-insert into usuarios values( 11, 'luis', 1, 'asdf');
-insert into usuarios values( 12, 'juana', 1, 'asdf');
-insert into usuarios values( 13, 'mirtha', 1, 'asdf');
-insert into usuarios values( 14, 'marisel', 1, 'asdf');
-insert into usuarios values( 15, 'antonio', 1, 'asdf');
-
-
-
-CREATE TABLE usurol (
-    codp bigint NOT NULL,
-    codr bigint NOT NULL
-);
-COMMENT ON COLUMN usurol.codp IS 'REF.:USUARIOS';
-COMMENT ON COLUMN usurol.codr IS 'REF.:ROLES';
+comment on column usurol.codp IS 'REF.:USUARIOS';
+comment on column usurol.codr IS 'REF.:ROLES';
 
 insert into usurol values( 1, 1 );
 insert into usurol values( 2, 2 );
@@ -301,17 +314,16 @@ insert into usurol values( 15, 5 );
 
 
 -- 3 de noviembre
-
-CREATE SEQUENCE items_codi_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE items (
-    codi bigint NOT NULL DEFAULT nextval('items_codi_seq'::regclass),
-    nombre character varying(40) NOT NULL,
-    estado integer NOT NULL DEFAULT 1 
+create sequence items_codi_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table items (
+    codi bigint primary key default nextval('items_codi_seq'::regclass),
+    nombre varchar(40) not null,
+    estado int not null default 1 
 );
-COMMENT ON COLUMN items.codi IS 'Código del Item';
-COMMENT ON COLUMN items.nombre IS 'Nombre del Item';
-COMMENT ON COLUMN items.estado IS 'Estado 1=activo, 0=nulo';
-ALTER SEQUENCE items_codi_seq OWNED BY items.codi;
+comment on column items.codi IS 'Código del Item';
+comment on column items.nombre IS 'Nombre del Item';
+comment on column items.estado IS 'Estado 1=activo, 0=nulo';
+alter sequence items_codi_seq OWNED BY items.codi;
 
 insert into items values(1, 'Ser', 1 );
 insert into items values(2, 'Saber', 1 );
@@ -322,17 +334,17 @@ insert into items values(6, 'Saber', 1 );
 insert into items values(7, 'Hacer', 1 );
 insert into items values(8, 'Decidir', 1 );
 
-CREATE SEQUENCE materias_codm_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE materias (
-    codm bigint NOT NULL DEFAULT nextval('materias_codm_seq'::regclass),
-    codigo character varying(15) NOT NULL,
-    nombre character varying(30) NOT NULL,
-    estado integer DEFAULT 1 NOT NULL
+create sequence materias_codm_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table materias (
+    codm bigint primary key default nextval('materias_codm_seq'::regclass),
+    codigo varchar(15) not null,
+    nombre varchar(30) not null,
+    estado int default 1 not null
 );
-COMMENT ON COLUMN materias.nombre IS 'Nombre de la materia';
-COMMENT ON COLUMN materias.estado IS 'Estado 1=activo, 0=nulo';
-COMMENT ON COLUMN materias.codigo IS 'Código de la materia';
-ALTER SEQUENCE materias_codm_seq OWNED BY materias.codm;
+comment on column materias.nombre IS 'Nombre de la materia';
+comment on column materias.estado IS 'Estado 1=activo, 0=nulo';
+comment on column materias.codigo IS 'Código de la materia';
+alter sequence materias_codm_seq OWNED BY materias.codm;
  
 insert into materias values(1, 'M1' ,'Ciencias Naturales 1ro', 1 );
 insert into materias values(2, 'M2' ,'Ciencias Naturales 2do', 1 );
@@ -386,20 +398,19 @@ insert into materias values(49, 'M49' ,'Ciencias Sociales 4to', 2 );
 insert into materias values(50, 'M50' ,'Ciencias Sociales 5to', 2 );
 insert into materias values(51, 'M51' ,'Ciencias Sociales 6to', 2 );
 
-
-
-CREATE TABLE itemat (
-    codm bigint NOT NULL,
-    codi bigint NOT NULL,
-    estado integer DEFAULT 1 NOT NULL,
-    gestion bigint NOT NULL,
-    ponderacion integer NOT NULL
+create table itemat (
+    codm bigint references materias(codm),
+    codi bigint references items(codi),
+    estado int not null default 1,
+    gestion bigint ,
+    ponderacion int not null,
+    primary key(codm,codi,gestion) 
 );
-COMMENT ON COLUMN itemat.codi IS 'REF.:ITEMS';
-COMMENT ON COLUMN itemat.estado IS 'Estado 1=activo, 0=nulo';
-COMMENT ON COLUMN itemat.gestion IS 'Gestión definido';
-COMMENT ON COLUMN itemat.codm IS 'REF.:MATERIAS';
-COMMENT ON COLUMN itemat.ponderacion IS 'Ponderación Item (100%)';
+comment on column itemat.codi IS 'REF.:ITEMS';
+comment on column itemat.estado IS 'Estado 1=activo, 0=nulo';
+comment on column itemat.gestion IS 'Gestión definido';
+comment on column itemat.codm IS 'REF.:MATERIAS';
+comment on column itemat.ponderacion IS 'Ponderación Item (100%)';
 
 insert into itemat values(6, 1, 1, 2017, 51);
 insert into itemat values(6, 2, 1, 2017, 51);
@@ -454,16 +465,16 @@ insert into itemat values(25, 6, 1, 2017, 51);
 insert into itemat values(25, 7, 1, 2017, 51);
 insert into itemat values(25, 8, 1, 2017, 51);
 
-CREATE SEQUENCE paralelos_codp_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-CREATE TABLE paralelos (
-    codp bigint NOT NULL DEFAULT nextval('paralelos_codp_seq'::regclass),
-    nombre character varying(30) NOT NULL,
-    estado integer NOT NULL
+create sequence paralelos_codp_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table paralelos (
+    codp bigint primary key default nextval('paralelos_codp_seq'::regclass),
+    nombre varchar(30) not null,
+    estado int not null
 );
-COMMENT ON COLUMN paralelos.codp IS 'Código paralelo';
-COMMENT ON COLUMN paralelos.nombre IS 'Nombre del paralelo';
-COMMENT ON COLUMN paralelos.estado IS 'Estado 1=activo, 0=nulo';
-ALTER SEQUENCE paralelos_codp_seq OWNED BY roles.codr;
+comment on column paralelos.codp IS 'Código paralelo';
+comment on column paralelos.nombre IS 'Nombre del paralelo';
+comment on column paralelos.estado IS 'Estado 1=activo, 0=nulo';
+alter sequence paralelos_codp_seq OWNED BY paralelos.codp;
 
 insert into paralelos values(1, 'Paralelo 1', 1);
 insert into paralelos values(2, 'Paralelo 2', 1);
@@ -471,30 +482,36 @@ insert into paralelos values(3, 'Paralelo 3', 1);
 insert into paralelos values(4, 'Paralelo 4', 1);
 insert into paralelos values(5, 'Paralelo 5', 0);
 
+create sequence modalidad_codm_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table modalidad(
+    codm bigint primary key default nextval('modalidad_codm_seq'::regclass),
+    nombre varchar(40),
+    estado int not null default 1
+);
+alter sequence modalidad_codm_seq OWNED BY modalidad.codm;
 
-ALTER TABLE ONLY datos ADD CONSTRAINT datos_pkey PRIMARY KEY (codp, cedula);
-ALTER TABLE ONLY menus ADD CONSTRAINT menus_pkey PRIMARY KEY (codm);
-ALTER TABLE ONLY mepro ADD CONSTRAINT mepro_pkey PRIMARY KEY (codm, codp);
-ALTER TABLE ONLY personal ADD CONSTRAINT personal_pkey PRIMARY KEY (codp);
-ALTER TABLE ONLY procesos ADD CONSTRAINT procesos_pkey PRIMARY KEY (codp);
-ALTER TABLE ONLY roles ADD CONSTRAINT roles_pkey PRIMARY KEY (codr);
-ALTER TABLE ONLY rolme ADD CONSTRAINT rolme_pkey PRIMARY KEY (codr, codm);
-ALTER TABLE ONLY usuarios ADD CONSTRAINT unique_login_usuarios UNIQUE (login);
-ALTER TABLE ONLY datos ADD CONSTRAINT unique_datos_codp UNIQUE (codp);
-ALTER TABLE ONLY usuarios ADD CONSTRAINT usuarios_pkey PRIMARY KEY (codp);
-ALTER TABLE ONLY usurol ADD CONSTRAINT usurol_pkey PRIMARY KEY (codp,codr);
-ALTER TABLE ONLY datos ADD CONSTRAINT fk_datos_personal_1 FOREIGN KEY (codp) REFERENCES personal(codp) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE ONLY mepro ADD CONSTRAINT fk_mepro_menus_1 FOREIGN KEY (codm) REFERENCES menus(codm);
-ALTER TABLE ONLY mepro ADD CONSTRAINT fk_mepro_procesos_1 FOREIGN KEY (codp) REFERENCES procesos(codp);
-ALTER TABLE ONLY rolme ADD CONSTRAINT fk_rolme_menus_1 FOREIGN KEY (codm) REFERENCES menus(codm);
-ALTER TABLE ONLY rolme ADD CONSTRAINT fk_rolme_roles_1 FOREIGN KEY (codr) REFERENCES roles(codr);
-ALTER TABLE ONLY usuarios ADD CONSTRAINT fk_usuarios_personal_1 FOREIGN KEY (codp) REFERENCES personal(codp) ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_roles_1 FOREIGN KEY (codr) REFERENCES roles(codr);
-ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_usuarios_1 FOREIGN KEY (codp) REFERENCES usuarios(codp);
--- 
-ALTER TABLE ONLY itemat ADD CONSTRAINT itemat_pkey PRIMARY KEY (codm, codi, gestion);
-ALTER TABLE ONLY items ADD CONSTRAINT items_pkey PRIMARY KEY (codi);
-ALTER TABLE ONLY materias ADD CONSTRAINT materias_pkey PRIMARY KEY (codm);
-ALTER TABLE ONLY paralelos ADD CONSTRAINT paralelos_pkey PRIMARY KEY (codp);
-ALTER TABLE ONLY itemat ADD CONSTRAINT fk_itemat_items_1 FOREIGN KEY (codi) REFERENCES items(codi);
-ALTER TABLE ONLY itemat ADD CONSTRAINT fk_itemat_materias_1 FOREIGN KEY (codm) REFERENCES materias(codm);
+create table dmodalidad(
+    coddm bigint primary key,
+    nombre varchar(40) not null,
+    estado int not null,
+    codm bigint not null references modalidad(codm)
+);
+
+create table mapa(
+    codmat bigint references materias(codm),
+    codp bigint not null references paralelos(codp),
+    estado int not null,
+    gestion bigint not null,
+    primary key(codp,codmat,gestion)
+);
+
+create sequence general_codg_seq start with 1 increment by 1 no minvalue no maxvalue cache 1;
+create table general(
+    codg bigint primary key default nextval('general_codg_seq'::regclass),
+    gestion int not null,
+    codp bigint not null references usuarios(codp)
+);
+
+
+
+
