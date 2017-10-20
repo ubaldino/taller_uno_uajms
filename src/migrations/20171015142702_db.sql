@@ -300,6 +300,177 @@ insert into usurol values( 15, 5 );
 
 
 
+-- 3 de noviembre
+
+CREATE SEQUENCE items_codi_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+CREATE TABLE items (
+    codi bigint NOT NULL DEFAULT nextval('items_codi_seq'::regclass),
+    nombre character varying(40) NOT NULL,
+    estado integer NOT NULL DEFAULT 1 
+);
+COMMENT ON COLUMN items.codi IS 'Código del Item';
+COMMENT ON COLUMN items.nombre IS 'Nombre del Item';
+COMMENT ON COLUMN items.estado IS 'Estado 1=activo, 0=nulo';
+ALTER SEQUENCE items_codi_seq OWNED BY items.codi;
+
+insert into items values(1, 'Ser', 1 );
+insert into items values(2, 'Saber', 1 );
+insert into items values(3, 'Hacer', 1 );
+insert into items values(4, 'Decidir', 1 );
+insert into items values(5, 'Ser', 1 );
+insert into items values(6, 'Saber', 1 );
+insert into items values(7, 'Hacer', 1 );
+insert into items values(8, 'Decidir', 1 );
+
+CREATE SEQUENCE materias_codm_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+CREATE TABLE materias (
+    codm bigint NOT NULL DEFAULT nextval('materias_codm_seq'::regclass),
+    codigo character varying(15) NOT NULL,
+    nombre character varying(30) NOT NULL,
+    estado integer DEFAULT 1 NOT NULL
+);
+COMMENT ON COLUMN materias.nombre IS 'Nombre de la materia';
+COMMENT ON COLUMN materias.estado IS 'Estado 1=activo, 0=nulo';
+COMMENT ON COLUMN materias.codigo IS 'Código de la materia';
+ALTER SEQUENCE materias_codm_seq OWNED BY materias.codm;
+ 
+insert into materias values(1, 'M1' ,'Ciencias Naturales 1ro', 1 );
+insert into materias values(2, 'M2' ,'Ciencias Naturales 2do', 1 );
+insert into materias values(3, 'M3' ,'Ciencias Naturales 3ro', 1 );
+insert into materias values(4, 'M4' ,'Ciencias Naturales 4to', 1 );
+insert into materias values(5, 'M5' ,'Ciencias Naturales 5to', 1 );
+insert into materias values(6, 'M6' ,'Ciencias Naturales 6to', 1 );
+insert into materias values(7, 'M7' ,'Biología 1ro', 2 );
+insert into materias values(8, 'M8' ,'Biología 2do', 2 );
+insert into materias values(9, 'M9' ,'Biología 3ro', 2 );
+insert into materias values(10, 'M10' ,'Biología 4to', 2 );
+insert into materias values(11, 'M11' ,'Biología 5to', 2 );
+insert into materias values(12, 'M12' ,'Biología 6to', 2 );
+insert into materias values(13, 'M13' ,'Geografía 1ro', 2 );
+insert into materias values(14, 'M14' ,'Geografía 2do', 2 );
+insert into materias values(15, 'M15' ,'Geografía 3ro', 2 );
+insert into materias values(16, 'M16' ,'Geografía 4to', 2 );
+insert into materias values(17, 'M17' ,'Geografía 5to', 2 );
+insert into materias values(18, 'M18' ,'Geografía 6to', 2 );
+insert into materias values(19, 'M19' ,'Física 3ro', 2 );
+insert into materias values(20, 'M20' ,'Física 4to', 2 );
+insert into materias values(21, 'M21' ,'Física 5to', 2 );
+insert into materias values(22, 'M22' ,'Física 6to', 2 );
+insert into materias values(23, 'M23' ,'Química 3ro', 2 );
+insert into materias values(24, 'M24' ,'Química 4to', 2 );
+insert into materias values(25, 'M25' ,'Química 5to', 2 );
+insert into materias values(26, 'M26' ,'Química 6to', 2 );
+insert into materias values(27, 'M27' ,'Química 6to', 2 );
+insert into materias values(28, 'M28' ,'Matemática 1ro', 1 );
+insert into materias values(29, 'M29' ,'Matemática 2do', 1 );
+insert into materias values(30, 'M30' ,'Matemática 3ro', 1 );
+insert into materias values(31, 'M31' ,'Matemática 4to', 1 );
+insert into materias values(32, 'M32' ,'Matemática 5to', 1 );
+insert into materias values(33, 'M33' ,'Matemática 6to', 1 );
+insert into materias values(34, 'M34' ,'Matemática 1ro', 2 );
+insert into materias values(35, 'M35' ,'Matemática 2do', 2 );
+insert into materias values(36, 'M36' ,'Matemática 3ro', 2 );
+insert into materias values(37, 'M37' ,'Matemática 4to', 2 );
+insert into materias values(38, 'M38' ,'Matemática 5to', 2 );
+insert into materias values(39, 'M39' ,'Matemática 6to', 2 );
+insert into materias values(40, 'M40' ,'Ciencias Sociales 1ro', 1 );
+insert into materias values(41, 'M41' ,'Ciencias Sociales 2do', 1 );
+insert into materias values(42, 'M42' ,'Ciencias Sociales 3ro', 1 );
+insert into materias values(43, 'M43' ,'Ciencias Sociales 4to', 1 );
+insert into materias values(44, 'M44' ,'Ciencias Sociales 5to', 1 );
+insert into materias values(45, 'M45' ,'Ciencias Sociales 6to', 1 );
+insert into materias values(46, 'M46' ,'Ciencias Sociales 1ro', 2 );
+insert into materias values(47, 'M47' ,'Ciencias Sociales 2do', 2 );
+insert into materias values(48, 'M48' ,'Ciencias Sociales 3ro', 2 );
+insert into materias values(49, 'M49' ,'Ciencias Sociales 4to', 2 );
+insert into materias values(50, 'M50' ,'Ciencias Sociales 5to', 2 );
+insert into materias values(51, 'M51' ,'Ciencias Sociales 6to', 2 );
+
+
+
+CREATE TABLE itemat (
+    codm bigint NOT NULL,
+    codi bigint NOT NULL,
+    estado integer DEFAULT 1 NOT NULL,
+    gestion bigint NOT NULL,
+    ponderacion integer NOT NULL
+);
+COMMENT ON COLUMN itemat.codi IS 'REF.:ITEMS';
+COMMENT ON COLUMN itemat.estado IS 'Estado 1=activo, 0=nulo';
+COMMENT ON COLUMN itemat.gestion IS 'Gestión definido';
+COMMENT ON COLUMN itemat.codm IS 'REF.:MATERIAS';
+COMMENT ON COLUMN itemat.ponderacion IS 'Ponderación Item (100%)';
+
+insert into itemat values(6, 1, 1, 2017, 51);
+insert into itemat values(6, 2, 1, 2017, 51);
+insert into itemat values(6, 3, 1, 2017, 51);
+insert into itemat values(6, 4, 1, 2017, 51);
+insert into itemat values(33, 5, 1, 2017, 51);
+insert into itemat values(33, 6, 1, 2017, 51);
+insert into itemat values(33, 7, 1, 2017, 51);
+insert into itemat values(33, 8, 1, 2017, 51);
+insert into itemat values(34, 5, 1, 2017, 51);
+insert into itemat values(34, 6, 1, 2017, 51);
+insert into itemat values(34, 7, 1, 2017, 51);
+insert into itemat values(34, 8, 1, 2017, 51);
+insert into itemat values(38, 5, 1, 2017, 51);
+insert into itemat values(38, 6, 1, 2017, 51);
+insert into itemat values(38, 7, 1, 2017, 51);
+insert into itemat values(38, 8, 1, 2017, 51);
+insert into itemat values(45, 1, 1, 2017, 51);
+insert into itemat values(45, 2, 1, 2017, 51);
+insert into itemat values(45, 3, 1, 2017, 51);
+insert into itemat values(45, 4, 1, 2017, 51);
+insert into itemat values(46, 1, 1, 2017, 51);
+insert into itemat values(46, 2, 1, 2017, 51);
+insert into itemat values(46, 3, 1, 2017, 51);
+insert into itemat values(46, 4, 1, 2017, 51);
+insert into itemat values(50, 1, 1, 2017, 51);
+insert into itemat values(50, 2, 1, 2017, 51);
+insert into itemat values(50, 3, 1, 2017, 51);
+insert into itemat values(50, 4, 1, 2017, 51);
+insert into itemat values(7, 5, 1, 2017, 51);
+insert into itemat values(7, 6, 1, 2017, 51);
+insert into itemat values(7, 7, 1, 2017, 51);
+insert into itemat values(7, 8, 1, 2017, 51);
+insert into itemat values(11, 5, 1, 2017, 51);
+insert into itemat values(11, 6, 1, 2017, 51);
+insert into itemat values(11, 7, 1, 2017, 51);
+insert into itemat values(11, 8, 1, 2017, 51);
+insert into itemat values(13, 1, 1, 2017, 51);
+insert into itemat values(13, 2, 1, 2017, 51);
+insert into itemat values(13, 3, 1, 2017, 51);
+insert into itemat values(13, 4, 1, 2017, 51);
+insert into itemat values(17, 1, 1, 2017, 51);
+insert into itemat values(17, 2, 1, 2017, 51);
+insert into itemat values(17, 3, 1, 2017, 51);
+insert into itemat values(17, 4, 1, 2017, 51);
+insert into itemat values(21, 5, 1, 2017, 51);
+insert into itemat values(21, 6, 1, 2017, 51);
+insert into itemat values(21, 7, 1, 2017, 51);
+insert into itemat values(21, 8, 1, 2017, 51);
+insert into itemat values(25, 5, 1, 2017, 51);
+insert into itemat values(25, 6, 1, 2017, 51);
+insert into itemat values(25, 7, 1, 2017, 51);
+insert into itemat values(25, 8, 1, 2017, 51);
+
+CREATE SEQUENCE paralelos_codp_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+CREATE TABLE paralelos (
+    codp bigint NOT NULL DEFAULT nextval('paralelos_codp_seq'::regclass),
+    nombre character varying(30) NOT NULL,
+    estado integer NOT NULL
+);
+COMMENT ON COLUMN paralelos.codp IS 'Código paralelo';
+COMMENT ON COLUMN paralelos.nombre IS 'Nombre del paralelo';
+COMMENT ON COLUMN paralelos.estado IS 'Estado 1=activo, 0=nulo';
+ALTER SEQUENCE paralelos_codp_seq OWNED BY roles.codr;
+
+insert into paralelos values(1, 'Paralelo 1', 1);
+insert into paralelos values(2, 'Paralelo 2', 1);
+insert into paralelos values(3, 'Paralelo 3', 1);
+insert into paralelos values(4, 'Paralelo 4', 1);
+insert into paralelos values(5, 'Paralelo 5', 0);
+
 
 ALTER TABLE ONLY datos ADD CONSTRAINT datos_pkey PRIMARY KEY (codp, cedula);
 ALTER TABLE ONLY menus ADD CONSTRAINT menus_pkey PRIMARY KEY (codm);
@@ -320,3 +491,10 @@ ALTER TABLE ONLY rolme ADD CONSTRAINT fk_rolme_roles_1 FOREIGN KEY (codr) REFERE
 ALTER TABLE ONLY usuarios ADD CONSTRAINT fk_usuarios_personal_1 FOREIGN KEY (codp) REFERENCES personal(codp) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_roles_1 FOREIGN KEY (codr) REFERENCES roles(codr);
 ALTER TABLE ONLY usurol ADD CONSTRAINT fk_usurol_usuarios_1 FOREIGN KEY (codp) REFERENCES usuarios(codp);
+-- 
+ALTER TABLE ONLY itemat ADD CONSTRAINT itemat_pkey PRIMARY KEY (codm, codi, gestion);
+ALTER TABLE ONLY items ADD CONSTRAINT items_pkey PRIMARY KEY (codi);
+ALTER TABLE ONLY materias ADD CONSTRAINT materias_pkey PRIMARY KEY (codm);
+ALTER TABLE ONLY paralelos ADD CONSTRAINT paralelos_pkey PRIMARY KEY (codp);
+ALTER TABLE ONLY itemat ADD CONSTRAINT fk_itemat_items_1 FOREIGN KEY (codi) REFERENCES items(codi);
+ALTER TABLE ONLY itemat ADD CONSTRAINT fk_itemat_materias_1 FOREIGN KEY (codm) REFERENCES materias(codm);
