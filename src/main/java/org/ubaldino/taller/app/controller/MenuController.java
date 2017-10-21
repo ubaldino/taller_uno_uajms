@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
-import org.ubaldino.taller.app.service.MenuProcesoService;
+import org.ubaldino.taller.app.service.MenuProcessService;
 import org.ubaldino.taller.app.service.MenuService;
-import org.ubaldino.taller.app.service.ProcesoService;
+import org.ubaldino.taller.app.service.ProcessService;
 import org.ubaldino.taller.app.service.ProfileService;
 import org.ubaldino.taller.app.service.UserService;
 
@@ -31,10 +31,10 @@ public class MenuController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
     @Autowired private MenuService menuService;
-    @Autowired private ProcesoService procesoService;
+    @Autowired private ProcessService procesoService;
     @Autowired private UserService userService;
     @Autowired private ProfileService profileService;
-    @Autowired private MenuProcesoService menuProcesoService;
+    @Autowired private MenuProcessService menuProcesoService;
     
     @GetMapping("/menus")
     public String index(Model model,Authentication auth) {

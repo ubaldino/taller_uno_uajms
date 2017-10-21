@@ -6,7 +6,7 @@ import org.javalite.activejdbc.Base;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import org.ubaldino.taller.app.model.Menu;
-import org.ubaldino.taller.app.model.Proceso;
+import org.ubaldino.taller.app.model.Process;
 import org.ubaldino.taller.app.model.Role;
 
 /**
@@ -32,7 +32,7 @@ public class MenuService implements ServiceInterface<Menu>{
     public List<Map<String, Object>> getAll() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Menu.findAll().include(Proceso.class,Role.class).toMaps();
+            return Menu.findAll().include(Process.class,Role.class).toMaps();
         }catch( Exception e){
             return null;
         }

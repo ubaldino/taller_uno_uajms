@@ -12,16 +12,16 @@ import org.javalite.activejdbc.annotations.Table;
  * @author ubaldino
  */
 @Table("mepro")
-@BelongsToPolymorphic(parents = {Proceso.class, Menu.class})
+@BelongsToPolymorphic(parents = {Process.class, Menu.class})
 @CompositePK({"codm","codp"})
-public class MenuProceso extends Model {
+public class MenuProcess extends Model {
     
     static {
         validatePresenceOf("codm","codp")
                 .message("one or more composite PK's missing!!!");
     }
     
-    public MenuProceso(){}
+    public MenuProcess(){}
     
     
     public void setCodM(Serializable codm){

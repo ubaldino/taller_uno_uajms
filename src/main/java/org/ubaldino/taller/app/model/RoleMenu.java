@@ -11,6 +11,6 @@ import org.javalite.activejdbc.annotations.Table;
  */
 @Table("rolme")
 @BelongsToPolymorphic(parents = {Role.class, Menu.class})
-public class RolMenu extends Model {
+public class RoleMenu extends Model {
     
 }

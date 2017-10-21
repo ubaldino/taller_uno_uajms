@@ -12,37 +12,38 @@ import org.javalite.activejdbc.annotations.Table;
 @Table("procesos")
 @IdName("codp")
 @Many2Many(other=Menu.class,join="mepro",sourceFKName="codp",targetFKName="codm")
-public class Proceso extends Model {
+public class Process extends Model {
  
     static {
         validatePresenceOf("nombre").message("Nombre must be provided");
         validatePresenceOf("enlace").message("Nombre must be provided");
         validatePresenceOf("estado").message("Nombre must be provided");
     }
-    public Proceso() {}
+    public Process() {}
 
-    public Proceso(String nombre){
+    public Process(String nombre){
         set("nombre",nombre);
     }
     
-    public String getNombre(){
-        return getString("nombre");
-    }
     public void setNombre(String nombre){
         setString("nombre",nombre);
     }
-    
-    public String getEnlace(){
-        return getString("enlace");
+    public String getNombre(){
+        return getString("nombre");
     }
+    
     public void setEnlace(String nombre){
         setString("enlace",nombre);
     }
-    
-    public int getEstado(){
-        return getInteger("estado");
+    public String getEnlace(){
+        return getString("enlace");
     }
+    
     public void setEstado(int estado){
         setInteger("estado",estado);
     }
+    public int getEstado(){
+        return getInteger("estado");
+    }
+    
 }

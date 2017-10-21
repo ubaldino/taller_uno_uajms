@@ -6,7 +6,7 @@ import org.javalite.activejdbc.Base;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
 import org.ubaldino.taller.app.model.Menu;
-import org.ubaldino.taller.app.model.Proceso;
+import org.ubaldino.taller.app.model.Process;
 
 /**
  *
@@ -14,14 +14,14 @@ import org.ubaldino.taller.app.model.Proceso;
 */
 
 @Service
-public class ProcesoService implements ServiceInterface<Proceso>{
+public class ProcessService implements ServiceInterface<Process>{
 
     @Override
-    public Proceso get(Long id) {
+    public Process get(Long id) {
         if(!Base.hasConnection()) Base.open();
-        Proceso proceso;
+        Process proceso;
         try {
-            proceso = Proceso.findById(id);
+            proceso = Process.findById(id);
         } catch (Exception e) {
             proceso=null;
         }
@@ -32,7 +32,7 @@ public class ProcesoService implements ServiceInterface<Proceso>{
     public List<Map<String, Object>> getAll() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Proceso.findAll().include(Menu.class).toMaps();
+            return Process.findAll().include(Menu.class).toMaps();
         }catch( Exception e){
             return null;
         }
@@ -41,7 +41,7 @@ public class ProcesoService implements ServiceInterface<Proceso>{
     public List<Map<String, Object>> getAllSingle() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Proceso.findAll().toMaps();
+            return Process.findAll().toMaps();
         }catch( Exception e){
             return null;
         }
@@ -57,7 +57,7 @@ public class ProcesoService implements ServiceInterface<Proceso>{
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            Proceso proceso=new Proceso();
+            Process proceso=new Process();
             proceso.setNombre(request.getParameter("nombre"));
             proceso.setEnlace(request.getParameter("enlace"));
             proceso.setEstado(1);
@@ -82,7 +82,7 @@ public class ProcesoService implements ServiceInterface<Proceso>{
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            Proceso proceso=Proceso.findById(id);
+            Process proceso=Process.findById(id);
             proceso.setEstado(0);
             proceso.saveIt();
             Base.commitTransaction();
@@ -97,7 +97,7 @@ public class ProcesoService implements ServiceInterface<Proceso>{
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            Proceso proceso=Proceso.findById(id);
+            Process proceso=Process.findById(id);
             proceso.setEstado(1);
             proceso.saveIt();
             Base.commitTransaction();

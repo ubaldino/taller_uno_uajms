@@ -8,21 +8,21 @@ package org.ubaldino.taller.app.service;
 import java.io.Serializable;
 import org.javalite.activejdbc.Base;
 import org.springframework.stereotype.Service;
-import org.ubaldino.taller.app.model.MenuProceso;
+import org.ubaldino.taller.app.model.MenuProcess;
 
 /**
  *
  * @author ubaldino
  */
 @Service
-public class MenuProcesoService {
+public class MenuProcessService {
     
     
     public Long create(Serializable codm,Serializable codp){
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            MenuProceso menuProceso=new MenuProceso();
+            MenuProcess menuProceso=new MenuProcess();
             menuProceso.setCodM(codm);
             menuProceso.setCodP(codp);
             menuProceso.insert();
@@ -42,7 +42,7 @@ public class MenuProcesoService {
         boolean state=false;
         try{    
             Base.openTransaction();
-            MenuProceso menuProceso=new MenuProceso();
+            MenuProcess menuProceso=new MenuProcess();
             menuProceso.setCodM(codm);
             menuProceso.setCodP(codp);
             menuProceso.delete();
