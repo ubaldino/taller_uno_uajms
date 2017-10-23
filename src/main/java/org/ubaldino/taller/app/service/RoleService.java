@@ -36,7 +36,17 @@ public class RoleService implements ServiceInterface<Role>{
     public List<Map<String, Object>> getAll() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Role.findAll().include(User.class,Menu.class).toMaps();
+            return Role.findAll().orderBy("codr desc").include(User.class,Menu.class).toMaps();
+        }catch( Exception e){
+            return null;
+        }
+    }
+    
+    
+    public List<Map<String, Object>> getAllSingle() {
+        if(!Base.hasConnection()) Base.open();
+        try{
+            return Role.findAll().orderBy("codr desc").toMaps();
         }catch( Exception e){
             return null;
         }
@@ -57,7 +67,7 @@ public class RoleService implements ServiceInterface<Role>{
         }catch( Exception e){
             Base.rollbackTransaction();
             System.out.println(e.getMessage());
-            System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿");
+            System.out.println("¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿");
             return Long.parseLong("0");
         }
     }
@@ -112,7 +122,7 @@ public class RoleService implements ServiceInterface<Role>{
 
     @Override
     public Long save(WebRequest request, Long Id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
 
