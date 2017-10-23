@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Procesos Registrados</h4>
+    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+  </div>
+  <div class="card-body collapse in">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width:35%">Nombre del Proceso</th>
+            <th style="width:10%">Estado</th>
+            <th style="width:10%">M</th>
+            <th style="width:10%">B</th>
+            <th style="width:10%">H</th>
+          </tr>
+        </thead>
+        <tbody>
+        	{{#each processes}}
+	          <tr>
+	            <td>{{nombre}}</td>
+	            <td>
+	            	{{#if estado}}
+									<img src="/public/icons/activo.png" alt=""/>
+								{{else}}
+									<img src="/public/icons/inactivo.png" alt=""/>
+								{{/if}}
+	            <td>
+	              <button type="button" data-toggle="modal" data-target="#process_modify_{{codp}}">
+	              	<img src="/public/icons/modificar.png" alt=""/>
+	              </button>
+	              {{> modal_process_modify}}
+	            </td>
+	            <td>
+	              <button type="button" data-profile="{{codp}}" data-toggle="modal" data-target="#process_disable_{{codp}}">
+	              	<img src="/public/icons/eliminar.png" alt=""/>
+	              </button>
+	              {{> modal_process_disable}}
+	            </td>
+	            <td>
+	              <button type="button" data-profile="{{codp}}" data-toggle="modal" data-target="#process_enable_{{codp}}">
+	              	<img src="/public/icons/habilitar.png" alt=""/>
+	              </button>
+	              {{> modal_process_enable}}
+	            </td>
+	          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="text-xs-center">
+	      <nav aria-label="Page navigation" id="pagination">
+	      	{{> pagination}}
+	      </nav>
+    	</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+extends ../base
+block scripts
+  script(src="/public/js/controllers/processes.js",type="text/javascript")
+block content
+  include ./components/modal_process_create.jade
+  section
+    .col-md-12
+      .row
+        .col-md-4.text-md-center
+          input.form-control(type="text", name="filter", placeholder="Filtro", oninput="filterSearch(this);")
+        .col-md-3.text-md-center
+        .col-md-4.text-md-center
+          label(for="") Activos
+            input(type="radio",name="filter_processes_state",value="1",style="margin-left: 5%",onclick="filterProcessesState(this);")
+          label(for="") Bajas
+            input(type="radio",name="filter_processes_state",value="0",style="margin-left: 5%",onclick="filterProcessesState(this);")
+          label(for="") Todos
+            input(type="radio",name="filter_processes_state",value="-1",checked="", style="margin-left: 5%",onclick="filterProcessesState(this);")
+        .col-md-1.text-md-center
+          button(type="button", data-toggle="modal", data-target="#process_add")
+            img(src="/public/icons/agregar.png", alt="")
+    .col-md-12#index_handlebars
+  script(type='text/javascript').
+    main()
