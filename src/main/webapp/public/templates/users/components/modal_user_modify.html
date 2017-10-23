@@ -1,0 +1,128 @@
+<div class="modal fade text-xs-left" id="user_modify_{{codp}}" tabindex="-1" role="dialog" aria-labelledby="userModify" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <label class="modal-title text-text-bold-600" id="userModify"> </label>
+      </div>
+      <!-- <form class="form" action="#" method="post" enctype="multipart/form-data"> -->
+        <div class="form-body">
+          <div class="row" align="center">
+            <div class="col-md-12">
+              <div class="form-group">
+                <table>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="cedula">Cedula</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="number" name="cedula" placeholder="Cedula" min="5"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="nombre">Nombre</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="nombre" value="{{nombre}}" placeholder="Nombre" required/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="ap">AP. Paterno</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="ap" value="{{ap}}" placeholder="AP. Paterno"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="am">AP. Materno</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="am" value="{{am}}" placeholder="AP. Materno"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="genero">Género</label>
+                    </td>
+                    <td>
+                      {{#if_eq genero 'M'}}
+                        <input type="radio" name="genero::{{codp}}" value="1" checked/> Masculino
+                        <input type="radio" name="genero::{{codp}}" value="0"/> Femenino
+                      {{else}}
+                        <input type="radio" name="genero::{{codp}}" value="1" /> Masculino
+                        <input type="radio" name="genero::{{codp}}" value="0" checked/> Femenino
+                      {{/if_eq}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="fnac">F. Nacimiento</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="date" name="fnac" value="{{formatDate fnac}}" placeholder="Fecha de Nacimiento" required/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="ecivil::{{codp}}">E. Civil</label>
+                    </td>
+                    <td>
+                      {{#if_eq ecivil 'S'}}
+                        <input type="radio" name="ecivil::{{codp}}" value="S" checked /> Soltero
+                        <input type="radio" name="ecivil::{{codp}}" value="C" /> Casado
+                        <input type="radio" name="ecivil::{{codp}}" value="D"/> Divorciado
+                      {{/if_eq}}
+                      {{#if_eq ecivil 'C'}}
+                        <input type="radio" name="ecivil::{{codp}}" value="S" /> Soltero
+                        <input type="radio" name="ecivil::{{codp}}" value="C" checked /> Casado
+                        <input type="radio" name="ecivil::{{codp}}" value="D"/> Divorciado
+                      {{/if_eq}}
+                      {{#if_eq ecivil 'D'}}
+                        <input type="radio" name="ecivil::{{codp}}" value="S" /> Soltero
+                        <input type="radio" name="ecivil::{{codp}}" value="C" /> Casado
+                        <input type="radio" name="ecivil::{{codp}}" value="D" checked /> Divorciado
+                      {{/if_eq}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="codp">Tipo Personal</label>
+                    </td>
+                    <td>
+                      <select name="tipo_personal" required>
+                        <option value="P" checked> Público</option>
+                        <option value="A"> Administrativo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="foto">Foto</label>
+                    </td>
+                    <td>
+                      <input id="foto" type="file" name="foto" accept="image/*"/>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row" align="center">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input data-url="/users/{{codp}}/assign" data-id="{{codp}}" class="btn btn-primary btn-md" type="submit" value="Guardar" onclick="submitAssignLogin(this);"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input class="btn btn-outline-secondary btn-md" type="reset" data-dismiss="modal" value="Cancelar"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>

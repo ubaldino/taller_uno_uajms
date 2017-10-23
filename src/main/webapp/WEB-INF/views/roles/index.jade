@@ -1,83 +1,54 @@
 extends ../base
 block content
-  br
-  br
-  br
-  br
-  .content-header.row
-    .content-header-left.col-md-6.col-xs-12.mb-1
-      h2.content-header-title Gestión de Roles
-    .content-header-right.breadcrumbs-right.breadcrumbs-top.col-md-6.col-xs-12
-      .breadcrumb-wrapper.col-xs-12
-        ol.breadcrumb
-          li.breadcrumb-item
-            a(href="/") Inicio
-          li.breadcrumb-item
-            a(href="/users") Usuarios
-          li.breadcrumb-item
-            a(href="/roles") Roles
-  .content-body
-    //- Basic form layout section start
-    section#basic-form-layouts
-      include ./components/modal_role_create.jade
-      //- Bordered striped start
-      .col-md-12
-        .row
-          .col-md-4(align="center")
-            input.form-control(type="text", name="filter", placeholder="Filtro")
-          .col-md-3(align="center")
-          .col-md-4(align="center")
-            input(type="radio", name="gender", value="male", style="margin-left: 5%")
-            |  activos
-            input(type="radio", name="gender", value="female", style="margin-left: 5%")
-            |  Bajas
-            input(type="radio", name="gender", value="other", checked="", style="margin-left: 5%")
-            |   Todos
-          .col-md-1(align="center")
-            button(type="button", data-toggle="modal", data-target="#role_add")
-              img(src="/public/icons/agregar.png", alt="")
-      .col-md-12
-        .card
-          .card-header
-            h4.card-title Roles Registrados
-            a.heading-elements-toggle
-              i.icon-ellipsis.font-medium-3
-          .card-body.collapse.in
-            .table-responsive
-              table.table.table-bordered.table-striped
-                thead
+  section#basic-form-layouts
+    include ./components/modal_role_create.jade
+    //- Bordered striped start
+    .col-md-12
+      .row
+        .col-md-4(align="center")
+          input.form-control(type="text", name="filter", placeholder="Filtro")
+        .col-md-3(align="center")
+        .col-md-4(align="center")
+          input(type="radio", name="1", value="male", style="margin-left: 5%") activos
+          input(type="radio", name="0", value="female", style="margin-left: 5%") Bajas
+          input(type="radio", name="-1", value="other", checked="", style="margin-left: 5%") Todos
+        .col-md-1(align="center")
+          button(type="button", data-toggle="modal", data-target="#role_add")
+            img(src="/public/icons/agregar.png", alt="")
+    .col-md-12
+      .card
+        .card-header
+          h4.card-title Roles Registrados
+          a.heading-elements-toggle
+            i.icon-ellipsis.font-medium-3
+        .card-body.collapse.in
+          .table-responsive
+            table.table.table-bordered.table-striped
+              thead
+                tr
+                  th(style="width:35%") Nombre del Rol
+                  th(style="width:10%") Estado
+                  th(style="width:10%") M
+                  th(style="width:10%") B
+                  th(style="width:10%") H
+              tbody
+                each role in roles
                   tr
-                    th(style="width:35%") Nombre del Rol
-                    th(style="width:10%") Estado
-                    th(style="width:10%") M
-                    th(style="width:10%") B
-                    th(style="width:10%") H
-                tbody
-                  each role in roles
-                    tr
-                      td #{role.nombre}
-                      td
-                        if role.estado==0
-                          img(src="/public/icons/inactivo.png", alt="")
-                        else
-                          img(src="/public/icons/activo.png", alt="")
-                      td
-                        button(type="button", data-toggle="modal", data-target="\#role_modify_#{role.codr}")
-                          img(src="/public/icons/modificar.png", alt="")
-                        include ./components/modal_role_modify.jade
-                      td
-                        button(type="button", data-profile="#{role.codr}", data-toggle="modal", data-target="\#role_disable_#{role.codr}")
-                          img(src="/public/icons/eliminar.png", alt="")
-                        include ./components/modal_role_disable.jade
-                      td
-                        button(type="button", data-profile="#{role.codr}",data-toggle="modal",data-target="\#role_enable_#{role.codr}")
-                          img(src="/public/icons/habilitar.png", alt="")
-                        include ./components/modal_role_enable.jade
-        br
-        br
-        br
-
-
-
-
-
+                    td #{role.nombre}
+                    td
+                      if role.estado==0
+                        img(src="/public/icons/inactivo.png", alt="")
+                      else
+                        img(src="/public/icons/activo.png", alt="")
+                    td
+                      button(type="button", data-toggle="modal", data-target="\#role_modify_#{role.codr}")
+                        img(src="/public/icons/modificar.png", alt="")
+                      include ./components/modal_role_modify.jade
+                    td
+                      button(type="button", data-profile="#{role.codr}", data-toggle="modal", data-target="\#role_disable_#{role.codr}")
+                        img(src="/public/icons/eliminar.png", alt="")
+                      include ./components/modal_role_disable.jade
+                    td
+                      button(type="button", data-profile="#{role.codr}",data-toggle="modal",data-target="\#role_enable_#{role.codr}")
+                        img(src="/public/icons/habilitar.png", alt="")
+                      include ./components/modal_role_enable.jade

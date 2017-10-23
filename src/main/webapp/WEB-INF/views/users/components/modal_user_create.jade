@@ -35,9 +35,9 @@
                     td
                       label.form-label(for="genero") Género
                     td
-                      input(type="radio", name="genero", value="1", checked="")
+                      input(type="radio", name="genero", value="M", checked)
                       |  Masculino
-                      input(type="radio", name="genero", value="0")
+                      input(type="radio", name="genero", value="F")
                       |  Femenino
                   tr
                     td
@@ -59,13 +59,13 @@
                       label.form-label(for="codp") Tipo Personal
                     td
                       select(name="tipo_personal", required)
-                        option(value="P", checked="")  Público
-                        option(value="A")  Administrativo
+                        option(value="E", checked) Estudiante
+                        option(value="P") Profesor
                   tr
                     td
                       label.form-label(for="foto") Foto
                     td
-                      input#foto(type="file", name="foto", accept="image/*")
+                      input#foto(type="file",name="foto",accept="image/*")
           .row(align="center")
             .col-md-6
               .form-group

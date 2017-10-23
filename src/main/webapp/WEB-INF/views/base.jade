@@ -1,14 +1,23 @@
 doctype html
-html.loading(lang="es", data-textdirection="ltr")
+html.loading(lang="es",data-textdirection="ltr")
   head
-    title taller 1
     include ./head.jade
     block scripts
-  body.vertical-layout.vertical-menu.1-column.blank-page.blank-page(data-open="click", data-menu="vertical-menu", data-col="1-column")
-    block navbar
-      include ./navbar.jade
+  body.vertical-layout.vertical-menu.1-column.fixed-navbar(data-open="click",data-menu="vertical-menu",data-col="1-column")
+    //- block navbar
+    include ./navbar.jade
     .app-content.content.container-fluid
       .content-wrapper
-        block content
-    block footer
-      include ./footer.jade
+        //- .content-header.row
+        //-   .content-header-left.col-md-6.col-xs-12.mb-1
+        //-     h2.content-header-title Usuarios
+        //-   .content-header-right.breadcrumbs-right.breadcrumbs-top.col-md-6.col-xs-12
+        //-     .breadcrumb-wrapper.col-xs-12
+        //-       ol.breadcrumb
+        //-         li.breadcrumb-item
+        //-           a(href="/") Home
+        //-         li.breadcrumb-item.active s
+        .content-body
+          block content
+    //- block footer
+    include ./footer.jade

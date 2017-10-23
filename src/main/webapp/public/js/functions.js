@@ -9,6 +9,17 @@ let getJSON=(url,callback)=>{
     xhr.send();
 }
 
+let getTextPlain=(url,callback)=>{
+    let xhr=new XMLHttpRequest();
+    xhr.open('GET',url,true);
+    xhr.responseType='text';
+    xhr.onload=()=>{
+        let status=xhr.status;
+        (status==200)?callback(null,xhr.response):callback(status);
+    };
+    xhr.send();
+}
+
 let sendPost=(data,url,callback)=>{
 	xhr = new XMLHttpRequest();
 	xhr.open('POST',url,true);
@@ -19,36 +30,40 @@ let sendPost=(data,url,callback)=>{
 	xhr.send(data);
 }
 
+// Override functions
+//https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+String.prototype.format=function(){
+	let args=arguments;
+	if(args.length===1&&args[0]!==null&&typeof args[0]==='object')
+		args=args[0];
+	return this.replace(/{([^}]*)}/g,function(match,key) {
+	  return (typeof args[key]!=="undefined"?args[key]:match);
+	});
+}
 
+//http://tech.chandrahasa.com/2017/03/08/convert-javascript-date-object-to-yyyy-mm-dd-format/
+let formatDate=(date)=>{
+    date=new Date(date);
+    let mm=date.getMonth()+1
+      , dd=date.getDate()
+    if(mm<10) mm="0"+mm
+    if(dd<10) dd="0"+dd
+    return [date.getFullYear(),mm,dd].join('-');
+}
 
-//sendPost({"email":"tomb@raider.com","name":"LaraCroft"})
-/*
-window.fetch('/menus/api/proceso/assign', {
-	method: 'POST',
-	body: JSON.stringify({p:'hola'}),
-})
-.then((data)=>{
-	console.log(data)
+Handlebars.registerHelper('formatDate',(dateTime)=>formatDate(dateTime));
+Handlebars.registerHelper('if_eq',(a,b,opts)=>{
+    return (a==b)?opts.fn(this):opts.inverse(this);
 });
-*/
-// $(".btn_assign").bind("click",()=>{
-// 	if(confirm('Esta seguro de asignar usuario?')){
-//         document.getElementById("form_assign_"+this.id).submit();
-//     }else{
-//         return false;
-//     }
-// });
-
-
-// $("table#menus input[name='menu']").bind("click",()=>{
-// 	$.getJSON("/api/menus/procesos",(res)=>{
-// 		window.menus=res;
-// 		menus.reduce((p,n)=>p.concat((n.procesos)?n.procesos:[]),[])
-// 		console.log(res);
-// 	})
-// });
-
-
+Handlebars.registerHelper('for_i', function(n, block) {
+    let accum='';
+    for(let i=1;i<=n;++i) accum+=block.fn(i);
+    return accum;
+});
+Handlebars.registerHelper('index_of', function(context,ndx) {
+  return context[ndx];
+  //{{#index_of this 1}}{{/index_of}}   
+});
 
 /*
 list maclist 'E0:AC:CB:6A:06:E2'

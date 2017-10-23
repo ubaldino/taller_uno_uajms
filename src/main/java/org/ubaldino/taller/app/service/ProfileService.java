@@ -28,6 +28,7 @@ public class ProfileService{
     @Autowired private ServletContext context;
     
     public Profile getOne(Serializable codp){
+        if(!Base.hasConnection()) Base.open();
         Profile profile;
         try {
             profile=Profile.findById(codp);
@@ -38,6 +39,7 @@ public class ProfileService{
     }
     
     public List<Map<String,Object>> getAll() {
+        if(!Base.hasConnection()) Base.open();
         List<Map<String,Object>> profiles;
         try{
             profiles=Profile.findAll()
@@ -46,6 +48,17 @@ public class ProfileService{
                     .toMaps();
         }catch( Exception e){
             System.out.println( e.getMessage() );
+            profiles = null;
+        }
+        return profiles;
+    }
+    public List<Map<String,Object>> getAllSingle() {
+        if(!Base.hasConnection()) Base.open();
+        List<Map<String,Object>> profiles;
+        try{
+            profiles=Profile.findAll().orderBy("codp desc").toMaps();
+        }catch( Exception e){
+            System.out.println(e.getMessage());
             profiles = null;
         }
         return profiles;
@@ -67,6 +80,7 @@ public class ProfileService{
     }
     
     public void enable(Serializable id){
+        if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
             Profile profile=Profile.findById(id);

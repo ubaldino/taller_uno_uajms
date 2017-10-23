@@ -1,0 +1,84 @@
+
+<div class="card">
+  <div class="card-body collapse in">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped" id="users">
+        <thead class="thead-inverse">
+          <tr>
+            <th class="text-md-center">Foto</th>
+            <th class="text-md-center">Apellidos y Nombres</th>
+            <th class="text-md-center">Estado</th>
+            <th class="text-md-center">M</th>
+            <th class="text-md-center">B</th>
+            <th class="text-md-center">H</th>
+            <th class="text-md-center">V</th>
+            <th class="text-md-center">K</th>
+          </tr>
+        </thead>
+        <tbody>
+        	{{#each profiles}}
+						<tr>
+							<td class="text-md-center valign-center">
+								{{#if foto}}
+									<img src="/public/uploads/{{foto}}" alt="avatar"/>
+								{{else}}
+									<img src="/public/uploads/user_default.png" alt="avatar"/>
+								{{/if}}
+							</td>
+							<td>{{nombre}} {{ap}} {{am}}</td>
+							<td class="text-md-center valign-center">
+								{{#if estado}}
+									<img src="/public/icons/activo.png" alt=""/>
+								{{else}}
+									<img src="/public/icons/inactivo.png" alt=""/>
+								{{/if}}
+							</td>
+							<td class="text-md-center valign-center">
+							  <button type="button" data-toggle="modal" data-target="#user_modify_{{codp}}">
+							  	<img src="/public/icons/modificar.png" alt=""/>
+							  </button>
+							  {{> modal_user_modify}}
+							</td>
+							<td class="text-md-center valign-center">
+							  <button type="button" data-profile="" data-toggle="modal" data-target="#user_disable_{{codp}}">
+							  	<img src="/public/icons/eliminar.png" alt=""/>
+							  </button>
+							  {{> modal_user_disable}}
+							</td>
+							<td class="text-md-center valign-center">
+							  <button type="button" data-profile="" data-toggle="modal" data-target="#user_enable_{{codp}}">
+							  	<img src="/public/icons/habilitar.png" alt=""/>
+							  </button>
+							  {{> modal_user_enable}}
+							</td>
+							<td class="text-md-center valign-center">
+							  <button type="button" data-profile="">
+							  	<img src="/public/icons/imprimir.png" alt="#user_print_{{codp}}"/>
+							  </button>
+							</td>
+							<td class="text-md-center valign-center">
+								{{#if user}}
+								  <button type="button" data-profile="" data-toggle="modal" data-target="#login_modify_{{codp}}">
+								    <img src="/public/icons/with_login.png" alt=""/>
+								  </button>
+								  {{> modal_user_modify_login}}
+								{{else}}
+								  <button type="button" data-profile="" data-toggle="modal" data-target="#login_assign_{{codp}}">
+								    <img src="/public/icons/no_login.png" alt=""/>
+								  </button>
+								  {{> modal_user_assign_login}}
+								{{/if}}
+							</td>
+						</tr>
+					{{/each}}
+        </tbody>
+      </table>
+      <div class="text-xs-center">
+	      <nav aria-label="Page navigation" id="pagination">
+	      	{{> pagination}}
+	      </nav>
+    	</div>
+    </div>
+  </div>
+</div>
+

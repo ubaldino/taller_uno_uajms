@@ -1,0 +1,112 @@
+<div class="modal fade text-xs-left" id="user_add" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <label class="modal-title text-text-bold-600" id="userModal"> </label>
+      </div>
+      <form class="form" action="/users" method="post" enctype="multipart/form-data">
+        <div class="form-body">
+          <div class="row" align="center">
+            <div class="col-md-12">
+              <div class="form-group">
+                <table>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="cedula">Cedula</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="number" name="cedula" placeholder="Cedula" step="1" min="99999"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="nombre">Nombre</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="nombre" placeholder="Nombre" required="required"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="ap">AP. Paterno</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="ap" placeholder="AP. Paterno"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="am">AP. Materno</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="am" placeholder="AP. Materno"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="genero">Género</label>
+                    </td>
+                    <td>
+                      <input type="radio" name="genero" value="1" checked=""/> Masculino
+                      <input type="radio" name="genero" value="0"/> Femenino
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="fnac">F. Nacimiento</label>
+                    </td>
+                    <td>
+                      <input class="form-control border-primary" type="date" name="fnac" placeholder="Fecha de Nacimiento" required="required"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="ecivil">E. Civil</label>
+                    </td>
+                    <td>
+                      <input type="radio" name="ecivil" value="S" checked="checked"/> Soltero
+                      <input type="radio" name="ecivil" value="C"/> Casado
+                      <input type="radio" name="ecivil" value="D"/> Divorciado
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="codp">Tipo Personal</label>
+                    </td>
+                    <td>
+                      <select name="tipo_personal" required>
+                        <option value="E" checked>Estudiante</option>
+                        <option value="P">Profesor</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label class="form-label" for="foto">Foto</label>
+                    </td>
+                    <td>
+                      <input id="foto" type="file" name="foto" accept="image/*"/>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row" align="center">
+            <div class="col-md-6">
+              <div class="form-group">
+                <button class="btn btn-primary btn-md" type="submit">Guardar</button>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <button class="btn btn-outline-secondary btn-md" type="reset" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

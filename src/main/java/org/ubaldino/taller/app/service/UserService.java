@@ -55,6 +55,15 @@ public class UserService {
         }
     }
     
+    public List<Map<String,Object>> getAllSingle() {
+        if(!Base.hasConnection()) Base.open();
+        try{
+            return User.findAll().toMaps();
+        }catch( Exception e){
+            return null;
+        }
+    }
+    
     public Long save(WebRequest request, Long profileId) {
         if(!Base.hasConnection()) Base.open();
         try{

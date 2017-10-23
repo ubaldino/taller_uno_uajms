@@ -1,108 +1,28 @@
 extends ../base
+block scripts
+  script(src="/public/js/users.js",type="text/javascript")
 block content
-  br
-  br
-  br
-  br
-  .content-header.row
-    .content-header-left.col-md-6.col-xs-12.mb-1
-      h2.content-header-title Usuarios
-    .content-header-right.breadcrumbs-right.breadcrumbs-top.col-md-6.col-xs-12
-      .breadcrumb-wrapper.col-xs-12
-        ol.breadcrumb
-          li.breadcrumb-item
-            a(href="/") Inicio
-          |                 
-          li.breadcrumb-item
-            a(href="/users") Usuarios
-  .content-body
-    // Basic form layout section start
-    section#basic-form-layouts
-      include ./components/modal_user_create.jade
-      // Bordered striped start
-      .col-md-12
-        .row
-          .col-md-4(align="center")
-            input.form-control(type="text", name="filter", placeholder="Filtro")
-          .col-md-3(align="center")
-            select.form-control(name="tipo_personal")
-              option(value="") Elegir Tipo personal
-              option(value="P", checked)  Público
-              option(value="A")  Administrativo
-          .col-md-4(align="center")
-            input(type="radio", name="gender", value="male", style="margin-left: 5%")
-            |  activos
-            input(type="radio", name="gender", value="female", style="margin-left: 5%")
-            |  Bajas
-            input(type="radio", name="gender", value="other", checked="", style="margin-left: 5%")
-            |   Todos
-          .col-md-1(align="center")
-            button(type="button", data-toggle="modal", data-target="#user_add")
-              img(src="/public/icons/agregar.png", alt="")
-      |     
-      .col-md-12
-        .card
-          .card-header
-            h4.card-title Usuarios Registrados
-            a.heading-elements-toggle
-              i.icon-ellipsis.font-medium-3
-          .card-body.collapse.in
-            .table-responsive
-              table.table.table-bordered.table-striped
-                thead
-                  tr
-                    th(style="width:5%") Foto
-                    |                                 
-                    th(style="width:35%") Apellidos y Nombres
-                    |                                 
-                    th(style="width:10%") Estado
-                    |                                 
-                    th(style="width:10%") M
-                    |                                 
-                    th(style="width:10%") B
-                    |                                 
-                    th(style="width:10%") H
-                    |                                 
-                    th(style="width:10%") V
-                    |                                 
-                    th(style="width:10%") K
-                |                         
-                tbody
-                  each profile in profiles
-                    tr
-                      // <th scope="row">1</th>
-                      td
-                        img(src="/public/uploads/#{profile.foto}", alt="", style="max-width: 100%;")
-                      td #{profile.ap} #{profile.am} #{profile.nombre}
-                      td
-                        if profile.estado==0
-                          img(src="/public/icons/inactivo.png", alt="")
-                        else
-                          img(src="/public/icons/activo.png", alt="")
-                      td
-                        button(type="button", data-toggle="modal", data-target="\#user_modify_#{profile.codp}")
-                          img(src="/public/icons/modificar.png", alt="")
-                        include ./components/modal_user_modify.jade
-                      td
-                        button(type="button", data-profile="#{profile.codp}", data-toggle="modal", data-target="\#del_#{profile.codp}")
-                          img(src="/public/icons/eliminar.png", alt="")
-                        include ./components/modal_user_disable.jade
-                      td
-                        button(type="button", data-profile="#{profile.codp}",data-toggle="modal",data-target="\#enable_#{profile.codp}")
-                          img(src="/public/icons/habilitar.png", alt="")
-                        include ./components/modal_user_enable.jade
-                      td
-                        button(type="button", data-profile="#{profile.codp}")
-                          img(src="/public/icons/imprimir.png", alt="")
-                      td
-                        if profile.user
-                          button(type="button", data-profile="#{profile.codp}",data-toggle="modal",data-target="\#login_modify_#{profile.codp}")
-                            img(src="/public/icons/with_login.png", alt="")
-                          include ./components/modal_user_modify_login.jade
-                        else
-                          button(type="button", data-profile="#{profile.codp}",data-toggle="modal",data-target="\#assign_#{profile.codp}")
-                            img(src="/public/icons/no_login.png", alt="")
-                          include ./components/modal_user_asignar_login.jade
-        br
-        br
-        br
+  include ./components/modal_user_create.jade
+  section
+    .col-md-12
+      .row
+        .col-md-4.text-md-center
+          input.form-control(type="text", name="filterSearch", placeholder="Filtro", oninput="filterSearch(this);")
+        .col-md-3.text-md-center
+          select.form-control(name="filter_tipo_personal", onchange="filterProfileType(this);")
+            option(value="-1", checked="checked") Elegir Tipo personal
+            option(value="E") Estudiante
+            option(value="P") Profesor
+        .col-md-4.text-md-center
+          label(for="") Activos
+            input(type="radio", name="filter_state", value="1", style="margin-left: 5%", onclick="filterState(this);")
+          label(for="") Bajas
+            input(type="radio", name="filter_state", value="0", style="margin-left: 5%", onclick="filterState(this);")
+          label(for="") Todos
+            input(type="radio", name="filter_state", value="-1", checked="checked", style="margin-left: 5%", onclick="filterState(this);")
+        .col-md-1.text-md-center
+          button(type="button", data-toggle="modal", data-target="#user_add")
+            img(src="/public/icons/agregar.png", alt="")
+    .col-md-12#index_handlebars
+  script(type='text/javascript').
+    main()

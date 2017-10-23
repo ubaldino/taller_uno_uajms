@@ -1,7 +1,9 @@
 package org.ubaldino.taller.app.controller;
 
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import org.javalite.activejdbc.Base;
 import org.slf4j.Logger;
@@ -15,7 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.ubaldino.taller.app.service.DateService;
@@ -121,11 +126,16 @@ public class UserController {
     @GetMapping("/users/{id}")
     public String show(@PathVariable("id") Long userId,Locale locale, Model model,Authentication auth) {
         LOGGER.debug("__________________________");
-        LOGGER.debug( ">> "+userId.longValue() );
+        LOGGER.debug( ">> "+userId );
         LOGGER.debug("__________________________");
         model.addAttribute("auth", auth);
         model.addAttribute("user", userService.get(userId));
         return "userForm";
+    }
+    
+    @RequestMapping(value="/api/users",method=RequestMethod.GET)
+    public @ResponseBody List<Map<String,Object>> apiUsuarios() {
+        return profileService.getAll();
     }
     
     
