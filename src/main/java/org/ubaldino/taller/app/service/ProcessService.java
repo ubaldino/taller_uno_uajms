@@ -41,12 +41,12 @@ public class ProcessService implements ServiceInterface<Process>{
     public List<Map<String, Object>> getAllSingle() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Process.findAll().toMaps();
+            return Process.findAll().orderBy("codp desc").toMaps();
         }catch( Exception e){
             return null;
         }
     }
-
+    
     @Override
     public Long save(WebRequest request, Long id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

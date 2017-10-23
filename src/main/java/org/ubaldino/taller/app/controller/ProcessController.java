@@ -25,47 +25,46 @@ import org.ubaldino.taller.app.service.ProcessService;
 public class ProcessController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
-    @Autowired private ProcessService procesoService;
+    @Autowired private ProcessService processService;
     
     @GetMapping("/procesos")
     public String index(Model model,Authentication auth) {
         model.addAttribute("auth",auth);
-        model.addAttribute("procesos",procesoService.getAll());
-        return "procesos/index";
+        return "processes/index";
     }
     
-    @PostMapping("/procesos/store")
+    @PostMapping("/processes/store")
     public String store(WebRequest request,Model model) {
-        procesoService.create(request);
+        processService.create(request);
         return "redirect:/procesos";
     }
     
-    @PostMapping("/procesos/{id}/update")
+    @PostMapping("/processes/{id}/update")
     public String update(@PathVariable("id") Long roleId,WebRequest request) {
-        procesoService.save(request,roleId);
+        processService.save(request,roleId);
         return "redirect:/procesos";
     }
     
-    @PostMapping("/procesos/{id}/enable")
+    @PostMapping("/processes/{id}/enable")
     public String enable(Model model,@PathVariable("id") Long procesoId) {
-        procesoService.enable(procesoId);
+        processService.enable(procesoId);
         return "redirect:/procesos";
     }
     
-    @PostMapping("/procesos/{id}/disable")
+    @PostMapping("/processes/{id}/disable")
     public String disable(Model model,@PathVariable("id") Long procesoId) {
-        procesoService.disable(procesoId);
+        processService.disable(procesoId);
         return "redirect:/procesos";
     }
     
-    @RequestMapping(value="/procesos/api",method=RequestMethod.GET)
+    @RequestMapping(value="/api/processes",method=RequestMethod.GET)
     public @ResponseBody List<Map<String,Object>> apiProcesos() {
-        return procesoService.getAll();
+        return processService.getAll();
     }
     
-    @RequestMapping(value="/procesos/api/single",method=RequestMethod.GET)
-    public @ResponseBody List<Map<String,Object>> apiProcesosSingle() {
-        return procesoService.getAllSingle();
+    @RequestMapping(value="/api/processes/single",method=RequestMethod.GET)
+    public @ResponseBody List<Map<String,Object>> apiProcessesSingle() {
+        return processService.getAllSingle();
     }
     
     
