@@ -1,11 +1,11 @@
-#procesos_add.modal.fade.text-xs-left(tabindex="-1", role="dialog", aria-labelledby="myModalLabel33", aria-hidden="true")
+#matter_add.modal.fade.text-xs-left(tabindex="-1", role="dialog", aria-labelledby="myModalLabel33", aria-hidden="true")
   .modal-dialog(role="document")
     .modal-content
       .modal-header
         button.close(type="button", data-dismiss="modal", aria-label="Close")
           span(aria-hidden="true") ×
-        label#myModalLabel33.modal-title.text-text-bold-600  Adicional Nuevo Proceso
-      form.form(action="/procesos/store", method="post")
+        label#myModalLabel33.modal-title.text-text-bold-600  Adicionar Nueva Materia
+      form.form(action="/matters/store", method="post")
         .form-body
           .row(align="center")
             .col-md-12
@@ -13,14 +13,14 @@
                 table
                   tr
                     td
+                      label.form-label(for="codigo") Codigo
+                    td
+                      input.form-control.border-primary(type="text", name="codigo", placeholder="Codigo", required)
+                  tr
+                    td
                       label.form-label(for="nombre") Nombre
                     td
                       input.form-control.border-primary(type="text", name="nombre", placeholder="Nombre", required,autofocus)
-                  tr
-                    td
-                      label.form-label(for="enlace") Enlace
-                    td
-                      input.form-control.border-primary(type="text", name="enlace", placeholder="Enlace", required)
           .row(align="center")
             .col-md-6
               .form-group

@@ -20,7 +20,7 @@ public class Parallel extends Model{
 
     public Parallel(String nombre){
         set("nombre",nombre);
-    }
+    }   
     
     public void setNombre(String nombre){
         setString("nombre", nombre);

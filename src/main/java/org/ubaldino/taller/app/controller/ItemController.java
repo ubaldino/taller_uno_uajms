@@ -15,51 +15,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
-import org.ubaldino.taller.app.service.MatterService;
+import org.ubaldino.taller.app.service.ItemService;
 /**
  *
  * @author ubaldino
  */
 @Controller
-public class MatterController {
+public class ItemController {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
-    @Autowired private MatterService matterService;
+    @Autowired private ItemService itemService;
     
-    @GetMapping("/materias")
+    @GetMapping("/items")
     public String index(Model model,Authentication auth) {
         model.addAttribute("auth",auth);
-        return "matters/index";
+        return "items/index";
     }
     
-    @PostMapping("/matters/store")
+    @PostMapping("/items/store")
     public String store(WebRequest request) {
-        matterService.create(request);
-        return "redirect:/materias";
+        itemService.create(request);
+        return "redirect:/items";
     }
     
-    
-    @PostMapping("/matters/{id}/update")
-    public String update(@PathVariable("id") Long matterId,WebRequest request) {
-        matterService.modify(request,matterId);
-        return "redirect:/materias";
+    @PostMapping("/items/{id}/update")
+    public String update(@PathVariable("id") Long itemId,WebRequest request) {
+        itemService.modify(request,itemId);
+        return "redirect:/items";
     }
     
-    @PostMapping("/matters/{id}/enable")
-    public String enable(@PathVariable("id") Long matterId) {
-        matterService.enable(matterId);
-        return "redirect:/materias";
+    @PostMapping("/items/{id}/enable")
+    public String enable(@PathVariable("id") Long itemId) {
+        itemService.enable(itemId);
+        return "redirect:/items";
     }
     
-    @PostMapping("/matters/{id}/disable")
-    public String disable(@PathVariable("id") Long matterId) {
-        matterService.disable(matterId);
-        return "redirect:/materias ";
+    @PostMapping("/items/{id}/disable")
+    public String disable(@PathVariable("id") Long itemId) {
+        itemService.disable(itemId);
+        return "redirect:/items ";
     }
     
-    @RequestMapping(value="/api/matters/single",method=RequestMethod.GET)
-    public @ResponseBody List<Map<String,Object>> apiMattersSingle() {
-        return matterService.getAllSingle();
+    @RequestMapping(value="/api/items/single",method=RequestMethod.GET)
+    public @ResponseBody List<Map<String,Object>> apiItemsSingle() {
+        return itemService.getAllSingle();
     }
-    
 }

@@ -7,36 +7,35 @@ import org.javalite.activejdbc.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.WebRequest;
-import org.ubaldino.taller.app.model.Item;
 import org.ubaldino.taller.app.model.Matter;
-import org.ubaldino.taller.app.model.Parallel;
+import org.ubaldino.taller.app.model.Item;
 
 /**
  *
  * @author ubaldino
  */
 @Service
-public class MatterService implements ServiceInterface<Matter>{
+public class ItemService implements ServiceInterface<Item>{
     
     @Autowired private DataSource dataSource;
     
     @Override
-    public Matter get(Long id) {
+    public Item get(Long id) {
         if(!Base.hasConnection()) Base.open();
-        Matter matter;
+        Item item;
         try {
-            matter = Matter.findById(id);
+            item=Item.findById(id);
         } catch (Exception e) {
-            matter=null;
+            item=null;
         }
-        return matter;
+        return item;
     }
 
     @Override
-    public List<Map<String, Object>> getAll() {
+    public List<Map<String,Object>> getAll() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Matter.findAll().include(Parallel.class,Item.class).toMaps();
+            return Item.findAll().include(Matter.class).toMaps();
         }catch( Exception e){
             return null;
         }
@@ -45,7 +44,7 @@ public class MatterService implements ServiceInterface<Matter>{
     public List<Map<String,Object>> getAllSingle() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Matter.findAll().orderBy("codm desc").toMaps();
+            return Item.findAll().orderBy("codi desc").toMaps();
         }catch( Exception e){
             return null;
         }
@@ -57,13 +56,12 @@ public class MatterService implements ServiceInterface<Matter>{
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            Matter matter=new Matter();
-            matter.setCodigo(request.getParameter("codigo"));
-            matter.setNombre(request.getParameter("nombre"));
-            matter.setEstado(1);
-            matter.insert();
+            Item item=new Item();
+            item.setNombre(request.getParameter("nombre"));
+            item.setEstado(1);
+            item.insert();
             Base.commitTransaction();
-            return (Long) matter.getId();
+            return (Long) item.getId();
         }catch( Exception e){
             Base.rollbackTransaction();
             System.out.println(e.getMessage());
@@ -78,10 +76,9 @@ public class MatterService implements ServiceInterface<Matter>{
         boolean state=false;
         try{
             Base.openTransaction();
-            Matter matter=Matter.findById(id);
-            matter.setCodigo(request.getParameter("codigo"));
-            matter.setNombre(request.getParameter("nombre"));
-            state=matter.saveIt();
+            Item item=Item.findById(id);
+            item.setNombre(request.getParameter("nombre"));
+            state=item.saveIt();
             Base.commitTransaction();
         }
         catch(Exception e){
@@ -96,9 +93,9 @@ public class MatterService implements ServiceInterface<Matter>{
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            Matter matter=Matter.findById(id);
-            matter.setEstado(0);
-            matter.saveIt();
+            Item item=Item.findById(id);
+            item.setEstado(0);
+            item.saveIt();
             Base.commitTransaction();
         }catch( Exception e){
             Base.rollbackTransaction();
@@ -111,9 +108,9 @@ public class MatterService implements ServiceInterface<Matter>{
         if(!Base.hasConnection()) Base.open();
         try{
             Base.openTransaction();
-            Matter matter=Matter.findById(id);
-            matter.setEstado(1);
-            matter.saveIt();
+            Item item=Item.findById(id);
+            item.setEstado(1);
+            item.saveIt();
             Base.commitTransaction();
         }catch( Exception e){
             Base.rollbackTransaction();
@@ -123,10 +120,6 @@ public class MatterService implements ServiceInterface<Matter>{
 
     @Override
     public Long save(WebRequest request, Long Id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
-
-
-    
- 
 }

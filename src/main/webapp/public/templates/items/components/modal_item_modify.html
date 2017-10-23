@@ -1,0 +1,37 @@
+<div class="modal fade text-xs-left" id="item_modify_{{codi}}" tabindex="-1" role="dialog" aria-labelledby="itemModify" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <label class="modal-title text-text-bold-600" id="itemModify"> </label>
+      </div>
+        <div class="form-body">
+          <div class="row" align="center">
+            <div class="col-md-12">
+              <div class="form-group">
+                <table>
+                  <tr>
+                    <td><label class="form-label" for="nombre">Nombre</label></td>
+                    <td>
+                      <input class="form-control border-primary" type="text" name="nombre" value="{{nombre}}" placeholder="Nombre" required/>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="row" align="center">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input data-url="/items/{{codi}}/update" data-id="{{codi}}" class="btn btn-primary btn-md" type="submit" value="Guardar" onclick="submitUpdateItem(this);"/>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input class="btn btn-outline-secondary btn-md" type="reset" data-dismiss="modal" value="Cancelar"/>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

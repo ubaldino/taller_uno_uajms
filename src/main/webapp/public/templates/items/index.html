@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Items Registrados</h4>
+    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+  </div>
+  <div class="card-body collapse in">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width:35%">Nombre del Item</th>
+            <th style="width:10%">Estado</th>
+            <th style="width:10%">M</th>
+            <th style="width:10%">B</th>
+            <th style="width:10%">H</th>
+          </tr>
+        </thead>
+        <tbody>
+        	{{#each items}}
+	          <tr>
+	            <td>{{nombre}}</td>
+	            <td>
+	            	{{#if estado}}
+						<img src="/public/icons/activo.png" alt=""/>
+					{{else}}
+						<img src="/public/icons/inactivo.png" alt=""/>
+					{{/if}}
+	            <td>
+	              <button type="button" data-toggle="modal" data-target="#item_modify_{{codi}}">
+	              	<img src="/public/icons/modificar.png" alt=""/>
+	              </button>
+	              {{> modal_item_modify}}
+	            </td>
+	            <td>
+	              <button type="button" data-profile="{{codi}}" data-toggle="modal" data-target="#item_disable_{{codi}}">
+	              	<img src="/public/icons/eliminar.png" alt=""/>
+	              </button>
+	              {{> modal_item_disable}}
+	            </td>
+	            <td>
+	              <button type="button" data-profile="{{codi}}" data-toggle="modal" data-target="#item_enable_{{codi}}">
+	              	<img src="/public/icons/habilitar.png" alt=""/>
+	              </button>
+	              {{> modal_item_enable}}
+	            </td>
+	          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="text-xs-center">
+	      <nav aria-label="Page navigation" id="pagination">
+	      	{{> pagination}}
+	      </nav>
+    	</div>
+    </div>
+  </div>
+</div>
