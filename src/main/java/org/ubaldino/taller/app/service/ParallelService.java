@@ -44,7 +44,7 @@ public class ParallelService implements ServiceInterface<Parallel>{
     public List<Map<String,Object>> getAllSingle() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Parallel.findAll().toMaps();
+            return Parallel.findAll().orderBy("codp desc").toMaps();
         }catch( Exception e){
             return null;
         }
