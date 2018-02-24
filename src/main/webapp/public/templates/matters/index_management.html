@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">Materias Registradas</h4>
+    <a class="heading-elements-toggle"><i class="icon-ellipsis font-medium-3"></i></a>
+  </div>
+  <div class="card-body collapse in">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th style="width:35%">Nombre</th>
+            <th style="width:10%">Paralelo</th>
+            <th style="width:10%">Items</th>
+            <th style="width:10%">Estado</th>
+            <th style="width:10%">M</th>
+            <th style="width:10%">B</th>
+            <th style="width:10%">H</th>
+          </tr>
+        </thead>
+        <tbody>
+        	{{#each matters}}
+	          <tr>
+	            <td>{{nombre}}</td>
+	            <td><input type="radio" name="view_management" value="parallel::{{codm}}" onclick="selectViewManagement(this);"></td>
+	            <td><input type="radio" name="view_management" value="items::{{codm}}" onclick="selectViewManagement(this);"></td>
+	            <td>
+	            	{{#if estado}}
+						<img src="/public/icons/activo.png" alt=""/>
+					{{else}}
+						<img src="/public/icons/inactivo.png" alt=""/>
+					{{/if}}
+	            <td>
+	              <button type="button" data-toggle="modal" data-target="#matter_modify_{{codm}}">
+	              	<img src="/public/icons/modificar.png" alt=""/>
+	              </button>
+	              {{> modal_matter_modify}}
+	            </td>
+	            <td>
+	              <button type="button" data-profile="{{codm}}" data-toggle="modal" data-target="#matter_disable_{{codm}}">
+	              	<img src="/public/icons/eliminar.png" alt=""/>
+	              </button>
+	              {{> modal_matter_disable}}
+	            </td>
+	            <td>
+	              <button type="button" data-profile="{{codm}}" data-toggle="modal" data-target="#matter_enable_{{codm}}">
+	              	<img src="/public/icons/habilitar.png" alt=""/>
+	              </button>
+	              {{> modal_matter_enable}}
+	            </td>
+	          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <div class="text-xs-center">
+	      <nav aria-label="Page navigation" id="pagination_matters">
+	      	{{> pagination}}
+	      </nav>
+    	</div>
+    </div>
+  </div>
+</div>

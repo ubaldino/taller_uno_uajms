@@ -36,7 +36,8 @@ public class MatterService implements ServiceInterface<Matter>{
     public List<Map<String, Object>> getAll() {
         if(!Base.hasConnection()) Base.open();
         try{
-            return Matter.findAll().include(Parallel.class,Item.class).toMaps();
+            return Matter.findAll().orderBy("codm desc")
+                    .include(Item.class).toMaps();
         }catch( Exception e){
             return null;
         }

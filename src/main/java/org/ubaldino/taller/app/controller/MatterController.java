@@ -32,6 +32,12 @@ public class MatterController {
         return "matters/index";
     }
     
+    @GetMapping("/matters/management")
+    public String mattersManagement(Model model,Authentication auth) {
+        model.addAttribute("auth",auth);
+        return "matters/management";
+    }
+       
     @PostMapping("/matters/store")
     public String store(WebRequest request) {
         matterService.create(request);
@@ -61,5 +67,13 @@ public class MatterController {
     public @ResponseBody List<Map<String,Object>> apiMattersSingle() {
         return matterService.getAllSingle();
     }
+    
+    @RequestMapping(value="/api/matters",method=RequestMethod.GET)
+    public @ResponseBody List<Map<String,Object>> apiMatters() {
+        return matterService.getAll();
+    }
+    
+ 
+
     
 }

@@ -8,7 +8,6 @@
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th style="width:10%">Codigoo</th>
             <th style="width:35%">Nombre</th>
             <th style="width:10%">Estado</th>
             <th style="width:10%">M</th>
@@ -19,7 +18,6 @@
         <tbody>
         	{{#each matters}}
 	          <tr>
-	            <td>{{codigo}}</td>
 	            <td>{{nombre}}</td>
 	            <td>
 	            	{{#if estado}}
@@ -50,7 +48,7 @@
         </tbody>
       </table>
       <div class="text-xs-center">
-	      <nav aria-label="Page navigation" id="pagination">
+	      <nav aria-label="Page navigation" id="pagination_matters">
 	      	{{> pagination}}
 	      </nav>
     	</div>

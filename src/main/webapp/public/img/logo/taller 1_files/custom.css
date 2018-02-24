@@ -1,0 +1,26 @@
+body.vertical-layout.vertical-menu .content, body.vertical-layout.vertical-menu .footer{
+	margin-left: 0;
+}
+
+.table th, .table td{
+	    padding: 0.5rem 2rem;
+}
+ 
+.table thead th{
+	/*text-align: center;*/
+}
+
+.table tbody td button,#basic-form-layouts button{
+	/*text-align: center;*/
+	padding: 0;
+	margin: 0;
+	border: none;
+}
+.table tbody td img{
+	/*text-align: center;*/
+	max-width: 1.5rem;
+}
+
+.header-navbar.navbar-semi-dark .navbar-header {
+     background: none; 
+}
